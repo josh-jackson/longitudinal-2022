@@ -7,11 +7,16 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - lectures.qmd
+      - readings.qmd
+      - homeworks.qmd
+      - syllabus.qmd
+  foreground: “secondary”
+      
 
 format:
   html:
-    theme: cosmo
+    theme: lux
     css: styles.css
     toc: true
 

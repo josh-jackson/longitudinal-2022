@@ -1,0 +1,947 @@
+
+---
+
+
+---
+.pull-left[
+Perfect rank order, mean level increase
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+ ro.ml <- ggplot(simp, aes(x=time, y=Y)) +
+    geom_point() + 
+  stat_summary(fun = mean, geom="line", size = 4)+ geom_smooth(aes(group = ID), method=lm, se=FALSE)
+```
+]
+
+.pull-right[
+No rank order, mean level increase
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+simp2<- tribble(
+  ~ID,  ~Y, ~time,
+1,1,1,
+1,5,2,
+2,1.5,1,
+2,4.5,2,
+3,2,1,
+3,4,2,
+4,2.5,1,
+4,3.5,2,
+5,3,1,
+5,3,2)
+
+noro.ml<- ggplot(simp2, aes(x=time, y=Y)) +
+    geom_point() +   stat_summary(fun = mean, geom="line", size = 4) + geom_smooth(aes(group = ID), method=lm,  
+                se=FALSE) 
+library(patchwork)
+ro.ml + noro.ml
+
+```
+]
+
+---
+## How do we defining "change"?
+
+- Because there are many types of change, we will view change in terms of the model. 
+
+- (Usually) it is clearer to refer to the type of change in terms of an equation or pictorially. Putting a word onto it usually causes confusion, which is why there are a lot of redundant terms in the literature. 
+
+- Models may be able to tell us about two different types of change (within person vs between person change)
+
+
+---
+## Prerequisites
+
+- Ordinal or greater scale of measurement us easiest. Dichotomous is hard. 
+
+- Construct has the same meaning across measurement occasions. Usually the same items. Called measurement invariance. Complicates developmental work.
+
+- 2 or more measurement occasions. More is better! Though often 3 - 10 is practically fine for some models. With 30+ occasions you have "intensive" longitudinal data which presents new models and opportunities. 
+
+
+---
+# Defining time metric
+
+Time is the most important part of a longitudinal analyses. The key to interpreting your output is to know how you handled your time variable. 
+
+What is the process that is changing someone? Age? Time in study? Year? Wave? 
+
+Is it a naturally occurring developmental process? Then maybe age is the best metric. What about tracking child's cognitive ability, something that might be influenced by level of schooling? Here grade may be more important than age. If you are running an intervention you may want to put everyone on the same starting metric and then control for nuisance variables like age or schooling level.   
+
+---
+## Example
+.pull-left[
+Using some resting state imaging data, lets think about how we can model and think about this data using our current skills (ie standard regression and plotting)
+
+```{r, echo = FALSE, message=FALSE, warning = FALSE}
+
+example <- read_csv("~/Box/5165 Applied Longitudinal Data Analysis/Longitudinal/example.csv")
+example$year <- example$week
+```
+
+
+```{r,eval = FALSE, message=FALSE, warning = FALSE}
+gg1 <- ggplot(example,
+   aes(x = year, y = SMN7, group = ID)) + geom_point()  
+print(gg1)
+
+```
+]
+
+.pull-right[
+We defined time as year in study. How would this look if we used age? 
+```{r, echo = FALSE, message=FALSE, warning = FALSE}
+gg1 <- ggplot(example,
+   aes(x = year, y = SMN7, group = ID)) + geom_point()  
+print(gg1)
+
+```
+]
+
+---
+.pull-left[
+Do we have repeated assessments per person? Lets find out. 
+
+```{r, eval = FALSE, message=FALSE, warning = FALSE}
+library(viridis)
+ ggplot(example,
+   aes(x = year, y = SMN7, group = ID, colour = ID)) + geom_line(alpha = .4) +scale_color_viridis(   )
+```
+]
+
+.pull-right[
+
+```{r, echo = FALSE, message=FALSE, warning = FALSE}
+library(viridis)
+ ggplot(example,
+   aes(x = year, y = SMN7, group = ID, colour = ID)) + geom_line(alpha = .4) +scale_color_viridis(   )
+```
+
+Note that some people start at different levels. Some people have more data in terms of assessment points and years. Also, the shape of change isn't necessarily a straight line. 
+
+]
+
+---
+We often want to look at this at a per person level to get more info. 
+```{r, warning = FALSE, message=FALSE}
+ggplot(example, aes(x = year, y = SMN7, group = ID)) + geom_line() +  geom_point() + facet_wrap( ~ ID)
+```
+
+---
+.pull-left[
+As part of our dataset we have different groups. A question we may have is if they change differently across time. Lets take a look at this. 
+```{r, eval = FALSE, warning = FALSE, message=FALSE}
+ggplot(example,
+   aes(x = year, y = SMN7, group = ID)) + geom_line() + facet_grid(. ~ group)
+```
+]
+
+.pull-right[
+
+```{r, echo = FALSE, warning = FALSE, message=FALSE}
+ggplot(example,
+   aes(x = year, y = SMN7, group = ID)) + geom_line() + facet_grid(. ~ group)
+```
+
+
+
+]
+
+
+---
+.pull-left[
+Beside the occular technique, we're going to need to do something more to address our theoretical questions. Lets look at some random people in the sample and run some regressions. 
+```{r, eval = FALSE,message= FALSE, warning=FALSE}
+set.seed(11)
+ex.random <- example %>% 
+  dplyr::select(ID) %>% 
+  distinct %>% 
+  sample_n(10) 
+
+example2 <-
+  left_join(ex.random, example)  
+  
+ggplot(example2,
+   aes(x = week, y = SMN7, group = ID)) +  geom_point() + stat_smooth(method="lm") + facet_wrap( ~ID)
+```
+]
+
+.pull-right[
+
+```{r, echo = FALSE, message= FALSE, warning=FALSE}
+set.seed(11)
+ex.random <- example %>% 
+  dplyr::select(ID) %>% 
+  distinct %>% 
+  sample_n(10) 
+
+example2 <-
+  left_join(ex.random, example)  
+  
+ggplot(example2,
+   aes(x = week, y = SMN7, group = ID)) +  geom_point() + stat_smooth(method="lm") + facet_wrap( ~ID)
+```
+]
+
+
+---
+Lets look at individual level regressions
+
+```{r}
+library(tidyverse)
+library(broom)
+
+regressions <- example2 %>% 
+  group_by(ID) %>% 
+  do(tidy(lm(SMN7 ~ week, data=.)))
+
+regressions
+
+```
+
+---
+What can we see? Estimates give us an intercept and regression coefficient for each person. Some people increase across time, some decrease. Some we cannot do statistical tests on -- why? 
+
+Well that is per person. Lets get the average starting value and change per week
+```{r}
+regressions %>% 
+  group_by(term) %>% 
+  summarise(avg.reg = mean(estimate))
+```
+
+---
+Lets plot the average trend across everyone. Start with a best fit line not taking into account that people have repeated measures. 
+
+```{r, warning = FALSE, message = FALSE}
+ggplot(example, aes(x = year, y = SMN7)) + geom_point() + stat_smooth() 
+```
+
+
+--- 
+
+
+```{r,warning = FALSE, message = FALSE}
+ggplot(example, aes(x = year, y = SMN7)) + geom_point() + stat_smooth(method = "lm") 
+```
+
+---
+```{r,warning = FALSE, message = FALSE}
+ggplot(example, aes(x = year, y = SMN7)) + geom_point() + stat_smooth(method = "lm") + facet_grid(. ~ group)
+```
+
+---
+.pull-left[
+```{r,eval=FALSE,warning = FALSE, message = FALSE}
+gg9 <- ggplot(example, aes(x = year, y = SMN7, group = ID)) + geom_point(alpha = 0.05) + stat_smooth(method = "lm", se = FALSE)   
+gg10 <- gg9 +  stat_smooth(data = example, aes(x = year, y = SMN7, group=1, color = "black"), method = "lm", size = 2) + guides(fill=FALSE)
+
+gg11 <- gg10 + facet_grid(.~ group) + theme(legend.position="none")
+
+gg11
+
+```
+]
+
+.pull-right[
+
+```{r,echo=FALSE,warning = FALSE, message = FALSE}
+gg9 <- ggplot(example, aes(x = year, y = SMN7, group = ID)) + geom_point(alpha = 0.05) + stat_smooth(method = "lm", se = FALSE)   
+gg10 <- gg9 +  stat_smooth(data = example, aes(x = year, y = SMN7, group=1, color = "black"), method = "lm", size = 2) + guides(fill=FALSE)
+
+gg11 <- gg10 + facet_grid(.~ group) + theme(legend.position="none")
+
+gg11
+
+```
+
+]
+
+
+---
+## The basic longitudinal model
+aka MLM, HLM, mixed effects, random effects.  
+
+Why? BC standard regression would 1. violate standard regression assumptions. 2. because of the flexibility to model different levels 
+
+
+---
+## what about SEM? 
+MLM and SEM can be equivalent -- they are both under the umbrella of GLM. 
+
+We will start with MLM/HLM is a simple extension of standard regression models. Best suited to run models when the time of measurement differs from person to person (compared to equal intervals). MLM is also better suited for complex error structures and complex nesting above and beyond assessments within person
+
+SEMs two primary advantages are the ability to account for measurement error via latent variables and incorporating multiple DVs. 
+
+
+
+## Why not RM ANOVA? 
+
+It is a less flexible, antiquated method. 
+1. Cannot handle missing data
+2. Assumes rate of change is the same for all individuals.
+3. Time is categorical. 
+4. Accounting for correlation across time uses up many parameters (df penalty).
+5. cannot handles various types of predictors 
+6. Special case of MLM, might as well learn/use flexible model
+
+---
+## Modeling dependency
+We have multiple DVs per person with longitudinal data. If we ignored the person aspect, the residuals would likely be related, violating standard regression assumption. MLM accounts for residuals for outcomes from the same person through modeling different "levels"
+
+With longitudinal data we have people nested in observations. 
+
+Level 1: observation level (observation specific variance)  
+Level 2: person level (person specific variance)  
+
+
+---
+### Person specific variance
+.pull-left[
+Some people start at different levels and some people change at different rates
+]
+
+.pull-right[
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+ggplot(example, aes(x = year, y = SMN7, group = ID, colour = ID)) + stat_smooth(method = "lm", se = FALSE, alpha = .5) +scale_color_viridis()
+```
+]
+
+---
+### Observation level variance
+.pull-left[
+After account for a person starting level and their slope, there is still residual variance left over. 
+]
+
+.pull-right[
+```{r, echo = FALSE, message= FALSE, warning=FALSE}
+ob.var <- example %>% 
+  filter(ID %in% c("67","82", "110")) 
+
+example3 <-
+  left_join(ob.var, example)  
+  
+ggplot(example3,
+   aes(x = week, y = SMN7, group = ID)) +  geom_point() + stat_smooth(method="lm") + facet_wrap( ~ID)
+```
+]
+
+
+---
+## Thinking about variation 
+A goal of longitudinal data analysis (and all other data analysis) is to explain this variation. We will fit models that are more constrained (makes assumptions about the shape of change across people) to see if that increases or reduces variation at the two levels. 
+
+To the extent that we can put variance into different "piles" (eg people change at different rates, a random slope) we will have more explained variance and less unexplained variance. 
+
+---
+## Speaking of variation 
+
+Between-Person (BP) Variation:  
+Level-2 – “INTER-individual Differences” - Time-Invariant   
+BP = More/less than other people  
+
+
+Within-Person (WP) Variation:  
+Level-1 – “INTRA-individual Differences” – Time-Varying  
+WP = more/less than one’s average  
+
+Any variable measured over time usually has both BP and WP variation. Depending on our goal it might be important to separate the two
+
+
+---
+### Within person focus
+
+Within-Person Change: Systematic (lasting) change
+Magnitude or direction of change can be different across individuals. Can refer to between person (inter individual differences) in within person change (intra individual)
+
+Within-Person Fluctuation: No systematic change
+Outcome just varies/fluctuates over time (e.g., emotion, stress). Time is just a way to get lots of data per individual
+
+
+---
+## Terms to know
+
+Within person vs between person 
+time varying vs time invariant
+intra-individual vs inter-individual
+observation level vs person level variance
+
+(notice that there are often two levels to these)
+
+
+
+#  day 2
+
+
+# What Are Data?  
+Data are the core of everything that we do in statistical analysis. Data come in many forms, and I don't just mean `.csv`, `.xls`, `.sav`, etc. Data can be wide, long, documented, fragmented, messy, and about anything else that you can imagine. 
+
+Although data could arguably be more means than end in psychology, the importance of understanding the structure and format of your data cannot overstated. Failure to understand your data could end in improper techniques and flagrantly wrong inferences at worst. This is especially important for longitudinal data. We will discuss many aspects of data handling. One thing to note is that this is just *ONE WAY* to do it. There are many equivalent. 
+
+Why are we thinking about data? Because 80%, maybe more, of your time spent with "analysis" is spent getting data in order and setting up your model of interest. 
+
+# Wide vs long
+
+Aka multivariate vs stacked; 
+person vs person period
+untidy vs tidy* 
+
+Long is what MLM, ggplot2 and tidyverse packages expect whereas SEM and a lot of descriptive are calculated using wide dataframes. 
+
+
+![](tidyr.gif)
+
+In this figure X, Y, and Z could represent different waves of collection. For each wave we have some value for each of the two people in the dataset. In the long format each person has each wave as a separate row. In the wide each person has their data on a single row. 
+
+We will be working with long data and wide data, often switching in between. 
+
+# tidyr
+
+The best package to go back and forth between long and wide is the tidyr package, which is part of the tidyverse. Here we will walk through some examples of the primary functions, pivot_wider and pivot_longer
+
+```{r}
+library(plyr)
+library(tidyverse)
+library(rmarkdown)
+```
+
+
+For longitudinal/repeated measures data, each row is an observation. Each person will have multiple rows. You can grab some example data from the class's github
+
+```{r}
+data <- read.csv("https://raw.githubusercontent.com/josh-jackson/longitudinal-2021/master/example.csv")
+example <- data %>% 
+  select(ID, wave, group, DAN)
+head(example)
+```
+
+
+## pivot_wider
+
+The pivot_wider() function takes two arguments:
+names_from which is the variable whose values will be converted to column names and values_from whose values will be cell values. 
+
+```{r}
+wide.ex <- example %>% 
+  pivot_wider(names_from = wave, values_from = DAN) 
+wide.ex
+```
+
+## pivot_longer
+
+Going back to long: 
+
+The pivot_longer function takes three arguments:
+cols is a list of columns that are to be collapsed. The columns can be referenced by column number or column name.
+names_to is the name of the new column which will combine all column names. This is up to you to decide what the name is. values_to is the name of the new column which will combine all column values associated with each variable combination.
+
+```{r}
+long.ex <- wide.ex %>% 
+  pivot_longer(cols = '1':'4', 
+               names_to = "wave", 
+               values_to = "DAN")
+long.ex
+```
+
+
+## Seperate and Unite
+Many times datasets are, for a lack of a better term, messy. We will talk more about the upfront work later to make sure you dont have messy data. However, if you do have messy data there are a number of helpful functions to tidy-up your data. 
+
+One common way to represent longitudinal data is to name the variable with a wave signifier. 
+
+```{r}
+wide<- tribble(
+  ~ID, ~ext_1, ~ext_2, ~ext_3,
+  1, 4, 4,4,
+  2, 6, 5,4,
+  3, 4,5,6
+)
+wide
+```
+  
+If we went and tried to pivot_longer we'd end up with 
+
+```{r}
+wide %>% 
+  pivot_longer(cols = ext_1:ext_3, names_to = "time", values_to = "EXT")
+```
+
+The time column is now specific to ext, which is a problem if I have more than one variable that I am pivoting. But, we will end up using wave as our time variable in our model, and time will have to be numeric. So how can we go ahead and separate out the ext part? 
+
+One way is to use the separate function
+
+```{r}
+long<- wide %>% 
+  pivot_longer(cols = ext_1:ext_3, 
+               names_to = "time", 
+               values_to = "EXT") %>% 
+  separate(time, into = c("variable", "time"))
+long
+```
+
+In terms of setting up your data, it is often helpful to include markers that separate parts of the variable eg "_" or "." A variable that is ext_1 is easier to separate than ext1. 
+
+Note, also that the time column is a character rather than numeric. We need to change this so as to use time continuously in our models. There are a few ways to do it, but this is perhaps the most straightforward. 
+
+
+```{r}
+long$time <- as.numeric(long$time)
+long
+```
+
+
+However, something that is a little more elegant is to do both the separating AND the making into numeric in the original pivot_longer function  
+
+names_prefix omits what is in there from the new cell names. Previously we had ext_1, ext_2, etc, which we had to separate with a different function, but this does it within  pivot_longer  
+
+```{r}
+wide %>% 
+  pivot_longer(cols = ext_1:ext_3, 
+               names_to = "time", 
+               values_to = "EXT", 
+               names_prefix = "ext_") 
+```
+
+names_transform does any transformations within the variables. Here instead of a separate call, we can make our variables numeric. 
+
+```{r}
+wide %>% 
+  pivot_longer(cols = ext_1:ext_3, 
+               names_to = "time", 
+               values_to = "EXT", 
+               names_prefix = "ext_", 
+               names_transform = list(time = as.numeric)) 
+```
+
+
+Another common problem that we often face is the need to unite two variables into one. Enter, the creatively titled unite function. Sometimes this happens when our time metric is entered in seperate columns. 
+
+
+```{r}
+df <- tibble(
+      ID = c(1,   2,  3),
+      year  = c(2020,  2020, 2020),
+      month  = c(1,  1, 1),
+      day  = c(1,  1, 1),
+      hour   = c(4,  2, 5),
+      min   = c(55, 17, 23))
+df
+```
+
+
+To combine them into one time metric
+
+```{r}
+df %>% 
+  unite(col = time, 5:6, sep=":", remove =TRUE)
+```
+
+## date time metrics
+```{r}
+library(lubridate)
+```
+
+A date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). These are called POSIXct in R. 
+
+```{r}
+today()
+```
+```{r}
+now()
+```
+
+
+Bringing these into R from some outside place (excel, spss) can lead to confusion, as they can be formatted differently
+
+```{r}
+ymd("2017-01-31")
+
+mdy("January 31st, 2017")
+
+dmy("31-Jan-2017")
+
+```
+
+You can create these relatively straight forwardly...by hand
+
+```{r}
+ymd_hms("2017-01-31 20:11:59")
+
+mdy_hm("01/31/2017 08:01")
+
+```
+
+Or you can use existing columns variables. This is where the lubridate package comes in handy
+
+
+```{r}
+df %>% 
+  mutate(t_1 = make_datetime(year, month, day, hour, min))
+```
+Note the t_1 variable is a POSIXct variable type. Once in this format it is much easier to manipulate and work with dates and times. 
+
+
+# Projects and Rmarkdown
+
+As with any project, but especially for longitudinal data, one of the most important aspects of data analysis is A. not losing track of what you did and B. being organized. This is much much much harder than said. I find using a combination of 1. rstudio projects 2. git and 3. codebooks are helpful in accomplishing these two goals. We will talk about #1 and #2 but I also encourage you to read about git. These are not the only way to do these sorts of analyses but I feel that exposure to them is helpful, as often in the social sciences these sort of decisions are not discussed.  
+
+What these help to do is create a chain of processing where you start with RAW data and end up with the cleaned data. Importantly you can always start over from the raw data. This is important for people wanting to reproduce your findings and or your future self figuring out where a certain variable came from. 
+
+We start creating the chain of processing by documenting all of your code, all of it inside. To do so we will be using rmarkdown documents, as the language is easier than LaTeX and more helpful than plaintext. 
+
+When I create an rmarkdown document for my own research projects, I always start by setting up 3 components:  
+
+1. Packages  
+2. Codebook(s)  
+3. Data  
+
+Below, we will step through each of these separately, setting ourselves up to (hopefully) flawlessly communicate with `R` and our data. Note that you do not need to use rmarkdown but I think rmarkdown is much more useful than standard .R syntax. 
+
+## Packages  
+Packages seems like the most basic step, but it is actually very important. Depending on what gets loaded you might overwrite functions from other packages.(Note: I will often reload or not follow this advice within lectures for didactic reasons, choosing to put library calls above the code)
+
+```{r packages}
+# load packages
+library(psych)
+library(plyr)
+library(tidyverse)
+```
+
+## Codebook  
+The second step is a codebook. Arguably, this is the first step because you should *create* the codebook long before you open `R` and load your data. 
+
+Why a codebook? Well, because you typically have a lot of variables and you will not be able to remember all the details that go into each one of them (rating scale, what the actual item was, was it coded someway, etc). This is especially true now that data are being collected online, which often provides placeholder variable names that then need to be processed somehow. This codebook will serve as a means to document RAW code. It will also allow us to automate some tasks that are somewhat cumbersome,  facilitate open data practices, and efficiently see what variables are available. Ultimately, we want to be able to show how we got from the start, with the messy raw data, to our analyses and results at the end? A codebook makes this easier. 
+
+To illistrate, we are going to using some data from the [German Socioeconomic Panel Study (GSOEP)](https://www.diw.de/en/soep/), which is an ongoing Panel Study in Germany. Note that these data are for teaching purposes only, shared under the license for the Comprehensive SOEP teaching dataset, which I, as a contracted SOEP user, can use for teaching purposes. These data represent select cases from  the full data set and should not be used for the purpose of publication. The full data are available for free at https://www.diw.de/en/diw_02.c.222829.en/access_and_ordering.html.   
+
+For this tutorial, I created the codebook for you, and included what I believe are the core columns you may need. Some of these columns will not be particularly helpful for this dataset. For example, many of you likely work with datasets that have only a single file while others work with datasetsspread across many files (e.g., different waves, different sources). As a result, the "dataset" column of the codebook may only have a single value whereas for others it may have multiple.  
+
+Here are my core columns that are based on the original data:  
+
+1. **dataset**: this column indexes the **name** of the dataset that you will be pulling the data from. This is important because we will use this info later on (see `purrr` tutorial) to load and clean specific data files. Even if you don't have multiple data sets, I believe consistency is more important and suggest using this.  
+
+2. **old_name**: this column is the name of the variable in the data you are pulling it from. This should be exact. The goal of this column is that it will allow us to `select()` variables from the original data file and rename them something that is more useful to us. If you have worked with qualtrics (really any data) you know why this is important.   
+
+3. **item_text**: this column is the original text that participants saw or a description of the item.  
+
+4. **scale**: this column tells you what the scale of the variable is. Is it a numeric variable, a text variable, etc. This is helpful for knowing the plausible range. 
+
+5. **reverse**: this column tells you whether items in a scale need to be reverse coded. I recommend coding this as 1 (leave alone) and -1 (reverse) for reasons that will become clear later.  
+
+6. **mini**: this column represents the minimum value of scales that are numeric. Leave blank otherwise.  
+
+7. **maxi**: this column represents the maximumv alue of scales that are numeric. Leave blank otherwise.  
+
+8. **recode**: sometimes, we want to recode variables for analyses (e.g. for categorical variables with many levels where sample sizes for some levels are too small to actually do anything with it). I use this column to note the kind of recoding I'll do to a variable for transparency.
+
+Here are additional columns that will make our lives easier or are applicable to some but not all data sets:  
+
+9. **category**: broad categories that different variables can be put into. I'm a fan of naming them things like "outcome", "predictor", "moderator", "demographic", "procedural", etc. but sometimes use more descriptive labels like "Big 5" to indicate the model from which the measures are derived.  
+
+10. **label**: label is basically one level lower than category. So if the category is Big 5, the label would be, or example, "A" for Agreeableness, "SWB" for subjective well-being, etc. This column is most important and useful when you have multiple items in a scales, so I'll typically leave this blank when something is a standalone variable (e.g. sex, single-item scales, etc.).  
+
+11. **item_name**: This is the lowest level and most descriptive variable. It indicates which item in scale something is. So it may be "kind" for Agreebleness or "sex" for the demographic biological sex variable.  
+
+12. **year**: for longitudinal data, we have several waves of data and the name of the same item across waves is often different, so it's important to note to which wave an item belongs. You can do this by noting the wave (e.g. 1, 2, 3), but I prefer the actual year the data were collected (e.g. 2005, 2009, etc.) if that is appropriate. See Lecture #1 on discussion of meaningful time metrics. Note that this differs from that discussion in your codebook you want to describe how you collected the data, not necessarily how you want to analyze the data.   
+
+13. **new_name**: This is a column that brings together much of the information we've already collected. It's purpose is to be the new name that we will give to the variable that is more useful and descriptive to us. This is a constructed variable that brings together others. I like to make it a combination of "category", "label", "item_name", and year using varying combos of "_" and "." that we can use later with tidyverse functions. I typically construct this variable in Excel using the `CONCATENATE()` function, but it could also be done in `R`. The reason I do it in Excel is that it makes it easier for someone who may be reviewing my codebook. 
+
+There is a separate discussion to be had on naming conventions for your variables, but the important idea to remember is that names convey important information and we want to use this information later on to make our life easier. By coding these variables using this information AND systematically using different separators we can accomplish this goal.  
+
+14. **meta**: Some datasets have a meta name, which essentially means a name that variable has across all waves to make it clear which variables are the same. They are not always useful as some data sets have meta names but no great way of extracting variables using them. But they're still typically useful to include in your codebook regardless.  
+
+These are just suggestions, but after working with many longitudinal datasets I will say all of them are horrible in some way. Doing this makes them less horrible. Is it some upfront work? Yes. Will it ultimately save you time? Yes. Also, if you know this prior to runnign a study you are making some sort of code book anyways, right, right? Might as well kill two birds with one stone. 
+
+You can make the codebook anyway you want, but the two best options are miscrosoft excel and google pages. Not because they are necessarily the best functioning but because they are relatively ubiquitous and are easy to share. 
+
+We will create a codebook but then bring the codebook into R via turning it into a csv. You can rethink the codebook as a way of coding prior to putting anything into R. 
+
+Below, I'll load in the codebook we will use for this study, which will include all of the above columns. 
+
+```{r codebook}
+
+codebook <- read.csv("https://raw.githubusercontent.com/josh-jackson/longitudinal-2021/master/codebook.csv")
+
+codebook <- codebook %>% 
+    mutate(old_name = str_to_lower(old_name))
+
+head(codebook)
+```
+
+
+## Data
+
+First, we need to load in the data. We're going to use three waves of data from the German Socioeconomic Panel Study, which is a longitudinal study of German households that has been conducted since 1984. We're going to use more recent data from three waves of personality data collected between 2005 and 2013.  
+
+*Note*: we will be using the teaching set of the GSOEP data set. I will not be pulling from the raw files as a result of this. I will also not be mirroring the format that you would usually load the GSOEP from because that is slightly more complicated and somethng we will return to in a later tutorial after we have more skills. I've left that code for now, but it won't make a lot of sense right now.  
+
+
+This code below shows how I would read in and rename a wide-format data set using the codebook I created.  
+
+```{r load data}
+old.names <- codebook$old_name # get old column names
+new.names <- codebook$new_name # get new column names
+
+soep <- read.csv("https://raw.githubusercontent.com/josh-jackson/longitudinal-2021/master/soepdata.csv")
+
+ soep <-  soep %>% # read in data
+  dplyr::select(old.names) %>% # select the columns from our codebook
+  setNames(new.names) # rename columns with our new names
+paged_table(soep)
+
+```
+
+# Clean Data  
+
+## Recode Variables  
+Many of the data we work with have observations that are missing for a variety of reasons. In `R`, we treat missing values as `NA`, but many other programs from which you may be importing your data may use other codes (e.g. 999, -999, etc.). Large panel studies tend to use small negative values to indicate different types of missingness.  This is why it is important to note down the scale in your codebook. That way you can check which values may need to be recoded to explicit `NA` values. 
+
+In the GSOEP, `-1` to `-7` indicate various types of missing values, so we will recode these to `NA`. To do this, we will use `mapvalues()`, from the `plyr` package. In later tutorials where we read in and manipulate more complex data sets, we will use `mapvalues()` a lot. 
+
+Below we are taking the dataset soep and saying we are going to mutate all of our variables, making sure they are all numeric (as the code expects numeric), then we get to the mapvalues function: 
+
+`mapvalues` takes 3 key arguments: 
+(1) the variable you are recoding. Below that is indicated by "." which is shorthand for the data that was piped in. 
+
+(2) a vector of initial values `from` which you want to change. Here we indicae a sequence of values from -1 to -7, which correspond to the missing values used by GSOEP. Other datasets may use -999, for example. 
+
+(3) recode your values in (2) `to` new values in the same order as the old values. Here we have NA (the way R treats missing data) repeated 7 times (to correspond to -1, -2,...) 
+
+It is also helpful to turn off warnings if some levels are not in your data (`warn_missing = F`).  
+
+```{r recode}
+soep <- soep %>%
+  mutate_all(~as.numeric(mapvalues(., from = seq(-1,-7, -1), 
+                to = rep(NA, 7), warn_missing = F)))
+soep
+```
+
+
+mapvalues technically is depreciated and not currently worked on. This is fine, but a newer replacement for it is using dplyr's recode. However, it is does not work well vectorized names so it isn't as useful for our purposes.  
+
+
+## Reverse-Scoring  
+Many scales we use have items that are positively or negatively keyed. High ratings on positively keyed items are indicative of being high on a construct. In contrast, high ratings on negatively keyed items are indicative of being low on a construct. Thus, to create the composite scores of constructs we often use, we must first "reverse" the negatively keyed items so that high scores indicate being higher on the construct. 
+
+There are a few ways to do this in `R`. Below, I'll demonstrate how to do so using the `reverse.code()` function in the `psych` package in `R`. This function was built to make reverse coding more efficient (i.e. please don't run every item that needs to be recoded with separate lines of code!!).
+
+Before we can do that, though, we need to restructure the data a bit in order to bring in the reverse coding information from our codebook.   
+
+
+```{r reverse code 1 }
+head(soep) 
+```
+
+Bring the wide dataset to long
+
+```{r reverse code 2 }
+
+soep_long <- soep %>%
+  pivot_longer(cols = c(-contains("Procedural"), -contains("Demographic")),
+               names_to = "item", 
+               values_to = "value", 
+               values_drop_na = TRUE)
+head(soep_long) 
+```
+
+
+Bring in the codebook relevant items for reverse coding
+
+```{r reverse code 3 }
+soep_long <- soep %>%
+  pivot_longer(cols = c(-contains("Procedural"), -contains("Demographic")),
+               names_to = "item", 
+               values_to = "value", 
+               values_drop_na = TRUE) %>%
+  left_join(codebook %>% select(item = new_name, reverse, mini, maxi)) 
+soep_long
+```
+
+
+Here we want to break our item column up into different components to assist with different calculations. Often you will have some sort of heirachy of variables where items are nested within scales which are nested within questionnaires. This is where you can code that information. 
+
+```{r reverse code 4}
+soep_long <- soep %>%
+  pivot_longer(cols = c(-contains("Procedural"), -contains("Demographic")),
+               names_to = "item", 
+               values_to = "value", 
+               values_drop_na = TRUE) %>%
+  left_join(codebook %>% select(item = new_name, reverse, mini, maxi)) %>% 
+  separate(item, c("type", "item"), sep = "__") %>% 
+  separate(item, c("item", "year"), sep = "[.]") %>% 
+  separate(item, c("trait", "item"), sep = "_") 
+paged_table(soep_long)
+```
+
+now it is ready to reverse code! 
+
+```{r reverse code 5}
+
+soep_long <- soep %>%
+  pivot_longer(cols = c(-contains("Procedural"), -contains("Demographic")),
+               names_to = "item", 
+               values_to = "value", 
+               values_drop_na = TRUE) %>%
+  left_join(codebook %>% select(item = new_name, reverse, mini, maxi)) %>% 
+  separate(item, c("type", "item"), sep = "__") %>% 
+  separate(item, c("item", "year"), sep = "[.]") %>% 
+  separate(item, c("trait", "item"), sep = "_") %>% 
+  mutate(value = as.numeric(value), # change to numeric
+         value = ifelse(reverse == -1, 
+            reverse.code(-1, value, mini = mini, maxi = maxi), value))
+paged_table(soep_long)
+```
+
+## Create Composites   
+
+
+Now that we have reverse coded our items, we can create composites. 
+
+### BFI-S 
+We'll start with our scale -- in this case, the Big 5 from the German translation of the BFI-S. 
+
+The "simplest" way, which is also the longest way because you'd have to do it for each scale, in each year is to use a function like rowMeans which I don't recommend as that will be MANY MANY lines of code. 
+
+```{r}
+
+soep$C.2005 <- with(soep, rowMeans(cbind(`Big 5__C_thorough.2005`, 
+`Big 5__C_lazy.2005`, 
+`Big 5__C_efficient.2005`), 
+na.rm = T)) 
+
+soep <- soep %>% select(-C.2005) 
+```
+
+
+We can use our codebook and `dplyr` to make our lives a whole lot easier.  In general, trying to run everything simultanously saves from copy-paste errors, makes your code more readable, and reduces the total amount of code. So while the below code may not make intuiative sense immediately, it is nonetheless what we are working towards. Also, going through line by line will help you see that.    
+
+First, make sure we are only working with Big Five rows. Notice how once we filter the row size decreases. 
+
+```{r b5 composites 1}
+
+b5_soep_long <- soep_long %>%
+  filter(type == "Big 5")
+paged_table(b5_soep_long)
+```
+
+
+```{r b5 composites 2}
+b5_soep_long<- soep_long %>%
+  filter(type == "Big 5") %>% 
+  group_by(Procedural__SID, trait, year) %>% 
+  dplyr::summarize(value = mean(value, na.rm = T)) 
+paged_table(b5_soep_long)
+```
+
+Now that we have our means we can bring the demographic info back into the dataframe...or whatever else you would want to bring in. 
+
+```{r b5 composites 3}
+
+b5_soep_long <- soep_long %>%
+  filter(type == "Big 5") %>% 
+  group_by(Procedural__SID, trait, year) %>% 
+  dplyr::summarize(value = mean(value, na.rm = T)) %>% 
+  ungroup() %>% 
+  left_join(soep_long %>% 
+    select(Procedural__SID, DOB = Demographic__DOB, Sex = Demographic__Sex) %>%
+    distinct())
+
+paged_table(b5_soep_long) 
+```
+
+
+# Descriptives  
+Descriptives of your data are incredibly important. They are your first line of defense against things that could go wrong later on when you run inferential stats. They help you check the distribution of your variables (e.g. non-normally distributed), look for implausible values made through coding or participant error, and allow you to anticipate what your findings will look like. 
+
+There are lots of ways to create great tables of descriptives. My favorite way is using `dplyr`, but we will save that for a later lesson on creating great APA style tables in `R`. For now, we'll use a wonderfully helpful function from the `psych` package called `describe()` in conjunction with a small amount of `tidyr` to reshape the data. 
+
+## metric variables
+```{r b5 descriptives 1}
+paged_table(b5_soep_long)
+```
+
+```{r b5 descriptives 2}
+b5_soep_long_des <- b5_soep_long %>%
+  unite(tmp, trait, year, sep = "_") 
+paged_table(b5_soep_long_des)
+```
+
+
+```{r b5 descriptives 3}
+b5_soep_long_des <- b5_soep_long %>%
+  unite(tmp, trait, year, sep = "_") %>%  
+  pivot_wider(names_from = tmp, values_from = value) 
+paged_table(b5_soep_long_des)
+```
+
+```{r b5 descriptives 4}
+b5_soep_long_des <- b5_soep_long  %>%
+  unite(tmp, trait, year, sep = "_") %>% 
+  pivot_wider(names_from =tmp, values_from = value) %>% 
+  describe(.) 
+paged_table(b5_soep_long_des)
+```
+
+## count variables
+
+We have life event variable in the dataset that is a count variable. It asks did someone experience a life event during the previous year. also want to create a variable that indexes whether our participants experienced any of the life events during the years of interest (2005-2015).  
+
+```{r events 1}
+events_long  <-soep_long %>%
+  filter(type == "Life Event") 
+paged_table(events_long )
+```
+
+```{r events 2}
+events_long <- soep_long %>%
+  filter(type == "Life Event") %>% 
+  group_by(Procedural__SID, trait) %>% 
+  dplyr::summarize(value = sum(value, na.rm = T),value = ifelse(value > 1, 1, 0))
+paged_table(events_long )
+```
+
+
+For count variables, like life events, we need to use something slightly different. We're typically more interested in counts -- in this case, how many people experienced each life event in the 10 years we're considering?  
+
+
+To do this, we'll use a little bit of `dplyr` rather than the base `R` function `table()` that is often used for count data. Instead, we'll use a combination of `group_by()` and `n()` to get the counts by group. In the end, we're left with a nice little table of counts.    
+
+```{r life event descriptives 1}
+events_long %>%
+  group_by(trait, value) %>% 
+  dplyr::summarize(N = n()) 
+```
+
+```{r life event descriptives 2}
+events_long %>%
+  group_by(trait, value) %>% 
+  dplyr::summarize(N = n()) %>%
+  ungroup() %>%
+  pivot_wider(names_from = value, values_from = N)
+```
+
+
+
+
+## Zero-Order Correlations
+Finally, we often want to look at the zero-order correlation among study variables to make sure they are performing as we think they should. 
+
+To run the correlations, we will need to have our data in wide format, so we're going to do a little bit of reshaping before we do. 
+
+```{r}
+b5_soep_long %>%
+  unite(tmp, trait, year, sep = "_") %>%
+  pivot_wider(names_from = tmp, values_from = value) %>% 
+  select(-Procedural__SID) %>%
+  cor(., use = "pairwise") %>%
+  round(., 2)
+```
+
+
+
+
+
+
+
+
+
+
+

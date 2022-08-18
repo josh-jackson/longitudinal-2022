@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Applied Longitudinal Data Analyses",
     "section": "",
-    "text": "Welcome!"
+    "text": "Please check the homepage regularly for class updates and announcements."
   },
   {
     "objectID": "about.html",
@@ -12,5 +12,68 @@
     "title": "About",
     "section": "",
     "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "intro-1.html#how-to-think-longitudinal-y",
+    "href": "intro-1.html#how-to-think-longitudinal-y",
+    "title": "Thinking longitudinally",
+    "section": "how to think longitudinal-y",
+    "text": "how to think longitudinal-y\n\n\n\nlines/ trajectories\nvariance decomposition"
+  },
+  {
+    "objectID": "intro-1.html#goals-for-today",
+    "href": "intro-1.html#goals-for-today",
+    "title": "Thinking longitudinally",
+    "section": "Goals for today:",
+    "text": "Goals for today:\n\n\n\n\nGet a feeling for how to think/talk about longitudinal/repeated measures data\nIntroduce some important terms\nBegin to develop a framework for analysis"
+  },
+  {
+    "objectID": "intro-1.html#how-do-we-define-change",
+    "href": "intro-1.html#how-do-we-define-change",
+    "title": "Thinking longitudinally",
+    "section": "How do we define “change”?",
+    "text": "How do we define “change”?\n\nTypes of change (most common):\n\nDifferential / rank order consistency/rank order stability (correlations)\nMean level/ absolute change (mean differences)"
+  },
+  {
+    "objectID": "intro-1.html#how-do-we-defining-change",
+    "href": "intro-1.html#how-do-we-defining-change",
+    "title": "Thinking longitudinally",
+    "section": "How do we defining “change”?",
+    "text": "How do we defining “change”?\n\nBecause there are many types of change, we will view change in terms of the model.\n(Usually) it is clearer to refer to the type of change in terms of an equation or pictorially. Putting a word onto it usually causes confusion, which is why there are a lot of redundant terms in the literature.\nModels may be able to tell us about two different types of change (within person vs between person change)"
+  },
+  {
+    "objectID": "intro-1.html#prerequisites",
+    "href": "intro-1.html#prerequisites",
+    "title": "Thinking longitudinally",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nOrdinal or greater scale of measurement us easiest. Dichotomous is hard.\nConstruct has the same meaning across measurement occasions. Usually the same items. Called measurement invariance. Complicates developmental work.\n2 or more measurement occasions. More is better! Though often 3 - 10 is practically fine for some models. With 30+ occasions you have “intensive” longitudinal data which presents new models and opportunities."
+  },
+  {
+    "objectID": "intro-1.html#defining-time-metric",
+    "href": "intro-1.html#defining-time-metric",
+    "title": "Thinking longitudinally",
+    "section": "Defining time metric",
+    "text": "Defining time metric\n\nTime is the most important part of a longitudinal analyses. The key to interpreting your output is to know how you handled your time variable.\nWhat is the process that is changing someone? Age? Time in study? Year? Wave?\nIs it a naturally occurring developmental process? Then maybe age is the best metric. What about tracking child’s cognitive ability, something that might be influenced by level of schooling? Here grade may be more important than age. If you are running an intervention you may want to put everyone on the same starting metric and then control for nuisance variables like age or schooling level.\n\n\n\nhttps://alda22.netlify.app"
+  },
+  {
+    "objectID": "intro-1.html#defining-a-time-metric",
+    "href": "intro-1.html#defining-a-time-metric",
+    "title": "Thinking longitudinally",
+    "section": "Defining a time metric",
+    "text": "Defining a time metric\n\nTime is the most important part of a longitudinal analyses. The key to interpreting your output is to know how you handled your time variable.\nWhat is the process that is changing someone? Age? Time in study? Year? Wave?\nIs it a naturally occurring developmental process? Then maybe age is the best metric. What about tracking child’s cognitive ability, something that might be influenced by level of schooling? Here grade may be more important than age. If you are running an intervention you may want to put everyone on the same starting metric and then control for nuisance variables like age or schooling level."
+  },
+  {
+    "objectID": "intro-1.html#example",
+    "href": "intro-1.html#example",
+    "title": "Thinking longitudinally",
+    "section": "Example",
+    "text": "Example\n\nPlotData\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://alda22.netlify.app"
+  },
+  {
+    "objectID": "lectures.html",
+    "href": "lectures.html",
+    "title": "Lectures",
+    "section": "",
+    "text": "Motivation and handling data\nLongitudinal MLM"
   }
 ]
