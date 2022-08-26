@@ -32,7 +32,7 @@
     "href": "intro-1.html#how-do-we-define-change",
     "title": "Thinking longitudinally",
     "section": "How do we define “change”?",
-    "text": "How do we define “change”?\n\nTypes of change (most common):\n\nDifferential / rank order consistency/rank order stability (correlations)\nMean level/ absolute change (mean differences)"
+    "text": "How do we define “change”?\n\nTypes of change (most common):\nDifferential / rank order consistency/rank order stability (correlations)\nMean level/ absolute change (mean differences)"
   },
   {
     "objectID": "intro-1.html#how-do-we-defining-change",
@@ -67,7 +67,7 @@
     "href": "intro-1.html#example",
     "title": "Thinking longitudinally",
     "section": "Example",
-    "text": "Example\n\nPlotData\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://alda22.netlify.app"
+    "text": "Example\n\nDataPlot\n\n\n\n\n# A tibble: 225 × 51\n      ID group  time    CON CON_SAL CON_SMN7   DAN DAN_CON DAN_SAL DAN_SMN7\n   <dbl> <chr> <dbl>  <dbl>   <dbl>    <dbl> <dbl>   <dbl>   <dbl>    <dbl>\n 1     6 PD        4 0.193   0.0708   0.0088 0.162  0.116   0.0739   0.0041\n 2     6 PD        5 0.195   0.0862   0.004  0.168  0.117   0.0812   0.0204\n 3     6 PD        6 0.181   0.0916  -0.0037 0.215  0.164   0.113    0.0155\n 4    29 PD        4 0.159   0.0438  -0.0253 0.175  0.0161  0.0621   0.0121\n 5    29 PD        5 0.0881  0.0446  -0.0288 0.136  0.0377  0.0277   0.0444\n 6    34 CTRL      4 0.137   0.0113  -0.0792 0.166  0.0045 -0.0075   0.0432\n 7    34 CTRL      6 0.0746  0.0009  -0.0089 0.140  0.0635 -0.024    0.0483\n 8    36 CTRL      1 0.139   0.0438  -0.0466 0.152  0.0279  0.0137   0.0513\n 9    36 CTRL      4 0.180   0.0772  -0.0648 0.205 -0.0116 -0.0477   0.0415\n10    37 PD        3 0.226   0.0412  -0.0565 0.219  0.0971  0.0195   0.0644\n# … with 215 more rows, and 41 more variables: DMN6 <dbl>, DMN6_CON <dbl>,\n#   DMN6_DAN <dbl>, DMN6_SAL <dbl>, DMN6_SMN7 <dbl>, SAL <dbl>, SAL_SMN7 <dbl>,\n#   SMN7 <dbl>, wave <dbl>, date <date>, Exclude <chr>, RSNdata <dbl>,\n#   RSNexclude <chr>, RSNexcludeDevDem <chr>, CogDate_0 <date>,\n#   CCIRtrio_MR_date_0 <date>, Dur_PDsx_0 <dbl>, PIBpos18 <chr>,\n#   Neuro_Dx <chr>, NeuroCDR_0 <chr>, NeuroCDR_1 <chr>, NeuroCDR_2 <chr>,\n#   NeuroCDR_3 <chr>, NeuroCDR_4 <chr>, NeuroCDR_5 <chr>, NeuroCDR_6 <chr>, …\n\n\n\n\n\nggplot(example,\n   aes(x = year, y = SMN7, group = ID)) + geom_point()"
   },
   {
     "objectID": "lectures.html",
@@ -75,5 +75,299 @@
     "title": "Lectures",
     "section": "",
     "text": "Motivation and handling data\nLongitudinal MLM"
+  },
+  {
+    "objectID": "intro-1.html#individual-level",
+    "href": "intro-1.html#individual-level",
+    "title": "Thinking longitudinally",
+    "section": "Individual level",
+    "text": "Individual level\n\nggplot(example, aes(x = year, y = SMN7, group = ID)) + geom_line() +  geom_point() + facet_wrap( ~ ID)"
+  },
+  {
+    "objectID": "intro-1.html#theoretical-model-of-change",
+    "href": "intro-1.html#theoretical-model-of-change",
+    "title": "Thinking longitudinally",
+    "section": "Theoretical model of change",
+    "text": "Theoretical model of change\n\nThe shape we want to model - linear, quadradic, cyclical, etc.\nIs shape related to calendar time, age, or maybe artificial time such as grade"
+  },
+  {
+    "objectID": "intro-1.html#section",
+    "href": "intro-1.html#section",
+    "title": "Thinking longitudinally",
+    "section": "",
+    "text": "# A tibble: 20 × 6\n# Groups:   ID [10]\n      ID term        estimate std.error statistic  p.value\n   <dbl> <chr>          <dbl>     <dbl>     <dbl>    <dbl>\n 1    67 (Intercept)  0.0921    0.0161      5.72    0.0292\n 2    67 week         0.00662   0.00657     1.01    0.420 \n 3    75 (Intercept)  0.126   NaN         NaN     NaN     \n 4    75 week         0.00771 NaN         NaN     NaN     \n 5    87 (Intercept)  0.0787  NaN         NaN     NaN     \n 6    87 week        -0.0227  NaN         NaN     NaN     \n 7    99 (Intercept)  0.111     0.0236      4.69    0.0426\n 8    99 week         0.00545   0.0122      0.446   0.699 \n 9   101 (Intercept)  0.111     0.0424      2.62    0.232 \n10   101 week         0.0421    0.0217      1.94    0.303 \n11   103 (Intercept)  0.0887  NaN         NaN     NaN     \n12   103 week        -0.0168  NaN         NaN     NaN     \n13   105 (Intercept)  0.0465    0.00658     7.06    0.0896\n14   105 week         0.00122   0.00467     0.261   0.838 \n15   142 (Intercept)  0.197   NaN         NaN     NaN     \n16   142 week         0.0130  NaN         NaN     NaN     \n17   149 (Intercept)  0.0801  NaN         NaN     NaN     \n18   149 week         0.00497 NaN         NaN     NaN     \n19   152 (Intercept)  0.0921  NaN         NaN     NaN     \n20   152 week        -0.0172  NaN         NaN     NaN     \n\n\n\n\nhttps://alda22.netlify.app"
+  },
+  {
+    "objectID": "intro-1.html#how-do-we-define-change-1",
+    "href": "intro-1.html#how-do-we-define-change-1",
+    "title": "Thinking longitudinally",
+    "section": "How do we define “change”?",
+    "text": "How do we define “change”?\n\nBecause there are many types of change, we will view change in terms of the model.\n(Usually) it is clearer to refer to the type of change in terms of an equation or pictorially. Putting a word onto it usually causes confusion, which is why there are a lot of redundant terms in the literature.\nModels may be able to tell us about two different types of change (within person vs between person change)"
+  },
+  {
+    "objectID": "intro-1.html#questions-we-need-to-answer",
+    "href": "intro-1.html#questions-we-need-to-answer",
+    "title": "Thinking longitudinally",
+    "section": "Questions we need to answer",
+    "text": "Questions we need to answer\n\nWhat is the theoretical shape we want to model - linear, quadradic, cyclical, etc?\nIs shape related to calendar time, age, or maybe artificial time such as grade?"
+  },
+  {
+    "objectID": "intro-1.html#temporal-design",
+    "href": "intro-1.html#temporal-design",
+    "title": "Thinking longitudinally",
+    "section": "Temporal design",
+    "text": "Temporal design\n\nI.e., timing, frequency, and spacing of assessments.\nHow longitudinal data are collected will impact our ability to model the theoretical shape.\nBecause of the difficulty of collecting longitudinal data, a lot of longitudinal data are under specified."
+  },
+  {
+    "objectID": "intro-1.html#statistical-model",
+    "href": "intro-1.html#statistical-model",
+    "title": "Thinking longitudinally",
+    "section": "Statistical model",
+    "text": "Statistical model\n\nWith a theoretical model of change in mind, and a good temporal design, we can then choose our statistical model.\nThis matching of theory with design with a model is similar to all of stats. We will be using three general purpose models that are related, but have pros and cons in different areas: MLM, SEM, and GAMs"
+  },
+  {
+    "objectID": "intro-1.html#simple-to-begin-with",
+    "href": "intro-1.html#simple-to-begin-with",
+    "title": "Thinking longitudinally",
+    "section": "Simple to begin with",
+    "text": "Simple to begin with\nBefore we get too fancy, lets just run some regressions."
+  },
+  {
+    "objectID": "intro-1.html#individual-regression-output",
+    "href": "intro-1.html#individual-regression-output",
+    "title": "Thinking longitudinally",
+    "section": "Individual regression output",
+    "text": "Individual regression output\n\n\nCode\nlibrary(broom)\nregressions <- example2 %>% \n  group_by(ID) %>% \n  do(tidy(lm(SMN7 ~ week, data=.)))\n\nregressions\n\n\n# A tibble: 20 × 6\n# Groups:   ID [10]\n      ID term        estimate std.error statistic  p.value\n   <dbl> <chr>          <dbl>     <dbl>     <dbl>    <dbl>\n 1    67 (Intercept)  0.0921    0.0161      5.72    0.0292\n 2    67 week         0.00662   0.00657     1.01    0.420 \n 3    75 (Intercept)  0.126   NaN         NaN     NaN     \n 4    75 week         0.00771 NaN         NaN     NaN     \n 5    87 (Intercept)  0.0787  NaN         NaN     NaN     \n 6    87 week        -0.0227  NaN         NaN     NaN     \n 7    99 (Intercept)  0.111     0.0236      4.69    0.0426\n 8    99 week         0.00545   0.0122      0.446   0.699 \n 9   101 (Intercept)  0.111     0.0424      2.62    0.232 \n10   101 week         0.0421    0.0217      1.94    0.303 \n11   103 (Intercept)  0.0887  NaN         NaN     NaN     \n12   103 week        -0.0168  NaN         NaN     NaN     \n13   105 (Intercept)  0.0465    0.00658     7.06    0.0896\n14   105 week         0.00122   0.00467     0.261   0.838 \n15   142 (Intercept)  0.197   NaN         NaN     NaN     \n16   142 week         0.0130  NaN         NaN     NaN     \n17   149 (Intercept)  0.0801  NaN         NaN     NaN     \n18   149 week         0.00497 NaN         NaN     NaN     \n19   152 (Intercept)  0.0921  NaN         NaN     NaN     \n20   152 week        -0.0172  NaN         NaN     NaN"
+  },
+  {
+    "objectID": "intro-1.html#if-we-simply-average-these-we-get",
+    "href": "intro-1.html#if-we-simply-average-these-we-get",
+    "title": "Thinking longitudinally",
+    "section": "If we simply average these we get",
+    "text": "If we simply average these we get\nPopulation level estimates ::: {.cell}\nregressions %>% \n  group_by(term) %>% \n  summarise(avg.reg = mean(estimate))\n\n# A tibble: 2 × 2\n  term        avg.reg\n  <chr>         <dbl>\n1 (Intercept) 0.102  \n2 week        0.00244\n\n:::\n\n\nhttps://alda22.netlify.app"
+  },
+  {
+    "objectID": "intro-1.html#average-each-regression",
+    "href": "intro-1.html#average-each-regression",
+    "title": "Thinking longitudinally",
+    "section": "Average each regression",
+    "text": "Average each regression\n\nregressions %>% \n  group_by(term) %>% \n  summarise(avg.reg = mean(estimate))\n\n# A tibble: 2 × 2\n  term        avg.reg\n  <chr>         <dbl>\n1 (Intercept) 0.102  \n2 week        0.00244\n\n\nThis is not that far off from what MLM gives us."
+  },
+  {
+    "objectID": "intro-1.html#spaghetti-plot",
+    "href": "intro-1.html#spaghetti-plot",
+    "title": "Thinking longitudinally",
+    "section": "Spaghetti Plot",
+    "text": "Spaghetti Plot\n\n\nCode\nggplot(example, aes(x = year, y = SMN7, group = ID)) + geom_point(alpha = 0.05) + stat_smooth(method = \"lm\", se = FALSE) +  stat_smooth(data = example, aes(x = year, y = SMN7, group=1, color = \"black\"), method = \"lm\", size = 2) + guides(fill=\"none\")+ theme(legend.position=\"none\")"
+  },
+  {
+    "objectID": "intro-1.html#thinking-longitudinally",
+    "href": "intro-1.html#thinking-longitudinally",
+    "title": "Thinking longitudinally",
+    "section": "Thinking longitudinally",
+    "text": "Thinking longitudinally\nAlmost all of the questions we have can be simplified down to: lines/trajectories.\n\nPerson level trajectories index change for a person\nAverage person trajectory is the average trajectory\nPredictors of change are just a correlation with the trajectory and the predictor"
+  },
+  {
+    "objectID": "intro-1.html#lines-regardless-of-the-stat-model",
+    "href": "intro-1.html#lines-regardless-of-the-stat-model",
+    "title": "Thinking longitudinally",
+    "section": "Lines, regardless of the stat model",
+    "text": "Lines, regardless of the stat model\n\nMLM and SEM (and even GAMs) can be equivalent\nWe will start with MLM/HLM as it is simple extension of standard regression models. Best suited to run models when the time of measurement differs from person to person (compared to equal intervals). MLM is also better suited for complex error structures and complex nesting above and beyond assessments within person"
+  },
+  {
+    "objectID": "intro-1.html#why-not-rm-anova",
+    "href": "intro-1.html#why-not-rm-anova",
+    "title": "Thinking longitudinally",
+    "section": "Why not RM ANOVA?",
+    "text": "Why not RM ANOVA?\n\nCannot handle missing data\nAssumes rate of change is the same for all individuals.\nTime is categorical.\nAccounting for correlation across time uses up many parameters (df penalty).\nCannot handle some types of predictors\nSpecial case of MLM, might as well learn/use flexible model"
+  },
+  {
+    "objectID": "intro-1.html#how-to-think-longitudinal-y-1",
+    "href": "intro-1.html#how-to-think-longitudinal-y-1",
+    "title": "Thinking longitudinally",
+    "section": "how to think longitudinal-y",
+    "text": "how to think longitudinal-y\n\nlines/ trajectories\nvariance decomposition"
+  },
+  {
+    "objectID": "intro-1.html#modeling-dependency",
+    "href": "intro-1.html#modeling-dependency",
+    "title": "Thinking longitudinally",
+    "section": "Modeling dependency",
+    "text": "Modeling dependency\nWe have multiple DVs per person with longitudinal data. If we ignored the person aspect, the residuals would likely be related, violating standard regression assumption. MLM accounts for residuals for outcomes from the same person through modeling different “levels”\nWith longitudinal data we have people nested within observations.\nLevel 1: observation level (observation specific variance)\nLevel 2: person level (person specific variance)"
+  },
+  {
+    "objectID": "intro-1.html#person-specific-variance",
+    "href": "intro-1.html#person-specific-variance",
+    "title": "Thinking longitudinally",
+    "section": "Person specific variance",
+    "text": "Person specific variance\nSome people start at different levels and some people change at different rates\n\n\nCode\nggplot(example, aes(x = year, y = SMN7, group = ID, colour = ID)) + stat_smooth(method = \"lm\", se = FALSE, alpha = .5) + theme(legend.position=\"none\")"
+  },
+  {
+    "objectID": "intro-1.html#observation-level-variance",
+    "href": "intro-1.html#observation-level-variance",
+    "title": "Thinking longitudinally",
+    "section": "Observation level variance",
+    "text": "Observation level variance\nAfter account for a person starting level and their slope, there is still residual variance left over.\n\nob.var <- example %>% \n  filter(ID %in% c(\"67\",\"82\", \"110\")) \n\nexample3 <-\n  left_join(ob.var, example)  \n  \nggplot(example3,\n   aes(x = week, y = SMN7, group = ID)) +  geom_point() + stat_smooth(method=\"lm\", se = FALSE) + facet_wrap( ~ID)"
+  },
+  {
+    "objectID": "intro-1.html#thinking-about-variation",
+    "href": "intro-1.html#thinking-about-variation",
+    "title": "Thinking longitudinally",
+    "section": "Thinking about variation",
+    "text": "Thinking about variation\nA goal of longitudinal data analysis (and all other data analysis) is to explain this variation. We will fit models that includes predictors and model constraints (e.g. are people similar or different) to see how it impacts variation.\nTo the extent that we can put variance into different “piles” (eg people change at different rates, a random slope) we will have more explained variance and less unexplained variance."
+  },
+  {
+    "objectID": "intro-1.html#speaking-of-variation",
+    "href": "intro-1.html#speaking-of-variation",
+    "title": "Thinking longitudinally",
+    "section": "Speaking of variation",
+    "text": "Speaking of variation\n\nBetween-Person (BP) Variation/Level-2/INTER-individual differences/Time-Invariant\nBP = More/less than other people\nWithin-Person (WP) Variation/Level-1/INTRA-individual Differences/Time-Varying\nWP = more/less than one’s average\nAny variable measured over time usually has both BP and WP variation"
+  },
+  {
+    "objectID": "intro-1.html#within-person-focus",
+    "href": "intro-1.html#within-person-focus",
+    "title": "Thinking longitudinally",
+    "section": "Within person focus",
+    "text": "Within person focus\nWithin-Person Change: Systematic (lasting) change Magnitude or direction of change can be different across individuals. Can refer to between person (inter individual differences) in within person change (intra individual)\nWithin-Person Fluctuation: No systematic change Outcome just varies/fluctuates over time (e.g., emotion, stress). Time is just a way to get lots of data per individual\n\n\nhttps://alda22.netlify.app"
+  },
+  {
+    "objectID": "intro-1.html#change-vs-fluctuations",
+    "href": "intro-1.html#change-vs-fluctuations",
+    "title": "Thinking longitudinally",
+    "section": "Change vs fluctuations",
+    "text": "Change vs fluctuations\n\nFuzzy boundary, but:\nWithin-Person Change: Systematic (lasting) change. Can refer to between-person (inter-individual) differences in within-person change (intra-individual)\nWithin-Person Fluctuation: No systematic change Outcome just varies/fluctuates over time (e.g., emotion, stress). Time is just a way to get lots of data per individual"
+  },
+  {
+    "objectID": "intro-1.html#what-are-data",
+    "href": "intro-1.html#what-are-data",
+    "title": "Thinking longitudinally",
+    "section": "What Are Data?",
+    "text": "What Are Data?\nData are the core of everything that we do in statistical analysis. Data come in many forms, and I don’t just mean .csv, .xls, .sav, etc. Data can be wide, long, documented, fragmented, messy, and about anything else that you can imagine.\nWhy are we thinking about data? Because 80%, maybe more, of your time spent with “analysis” is spent getting data in order and setting up your model of interest."
+  },
+  {
+    "objectID": "intro-1.html#wide-vs-long",
+    "href": "intro-1.html#wide-vs-long",
+    "title": "Thinking longitudinally",
+    "section": "Wide vs long",
+    "text": "Wide vs long\n\nmultivariate vs stacked\nperson vs person period\nuntidy vs tidy*\nLong is what MLM, ggplot2 and tidyverse packages expect whereas SEM and a lot of descriptives are calculated using wide dataframes."
+  },
+  {
+    "objectID": "intro-1.html#tidyr",
+    "href": "intro-1.html#tidyr",
+    "title": "Thinking longitudinally",
+    "section": "tidyr",
+    "text": "tidyr\nFor longitudinal/repeated measures data, each row is an observation. Each person will have multiple rows.\n\n\n# A tibble: 225 × 4\n      ID  wave group   DAN\n   <dbl> <dbl> <chr> <dbl>\n 1     6     1 PD    0.162\n 2     6     2 PD    0.168\n 3     6     3 PD    0.215\n 4    29     1 PD    0.175\n 5    29     2 PD    0.136\n 6    34     1 CTRL  0.166\n 7    34     2 CTRL  0.140\n 8    36     1 CTRL  0.152\n 9    36     2 CTRL  0.205\n10    37     1 PD    0.219\n# … with 215 more rows"
+  },
+  {
+    "objectID": "intro-1.html#pivot_wider",
+    "href": "intro-1.html#pivot_wider",
+    "title": "Thinking longitudinally",
+    "section": "pivot_wider",
+    "text": "pivot_wider\nThe pivot_wider() function takes two arguments: names_from which is the variable whose values will be converted to column names and values_from whose values will be cell values.\n\nwide.ex <- long %>% \n  pivot_wider(names_from = wave, values_from = DAN) \nwide.ex\n\n# A tibble: 91 × 6\n      ID group    `1`    `2`    `3`   `4`\n   <dbl> <chr>  <dbl>  <dbl>  <dbl> <dbl>\n 1     6 PD    0.162  0.168   0.215    NA\n 2    29 PD    0.175  0.136  NA        NA\n 3    34 CTRL  0.166  0.140  NA        NA\n 4    36 CTRL  0.152  0.205  NA        NA\n 5    37 PD    0.219  0.158   0.259    NA\n 6    48 PD    0.130  0.270   0.248    NA\n 7    53 CTRL  0.211  0.152  NA        NA\n 8    54 PD    0.220  0.152   0.192    NA\n 9    58 PD    0.380  0.215   0.204    NA\n10    61 PD    0.0818 0.0628 NA        NA\n# … with 81 more rows"
+  },
+  {
+    "objectID": "intro-1.html#pivot_longer",
+    "href": "intro-1.html#pivot_longer",
+    "title": "Thinking longitudinally",
+    "section": "pivot_longer",
+    "text": "pivot_longer\nThe pivot_longer function takes three arguments: - cols is a list of columns that are to be collapsed. The columns can be referenced by column number or column name. - names_to is the name of the new column which will combine all column names. This is up to you to decide what the name is. - values_to is the name of the new column which will combine all column values associated with each variable combination."
+  },
+  {
+    "objectID": "intro-1.html#seperate-and-unite",
+    "href": "intro-1.html#seperate-and-unite",
+    "title": "Thinking longitudinally",
+    "section": "Seperate and Unite",
+    "text": "Seperate and Unite\n\nMany times datasets are, for a lack of a better term, messy.\nOne common way to represent longitudinal data is to name the variable with a wave signifier.\n\n\n\n# A tibble: 3 × 4\n     ID ext_1 ext_2 ext_3\n  <dbl> <dbl> <dbl> <dbl>\n1     1     4     4     4\n2     2     6     5     4\n3     3     4     5     6"
+  },
+  {
+    "objectID": "intro-1.html#date-time-metrics",
+    "href": "intro-1.html#date-time-metrics",
+    "title": "Thinking longitudinally",
+    "section": "Date time metrics",
+    "text": "Date time metrics\n\nlibrary(lubridate)\n\nA date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). These are called POSIXct in R.\n\ntoday()\n\n[1] \"2022-08-26\"\n\n\n\nnow()\n\n[1] \"2022-08-26 18:02:05 CDT\""
+  },
+  {
+    "objectID": "intro-1.html#projects-and-rmarkdown",
+    "href": "intro-1.html#projects-and-rmarkdown",
+    "title": "Thinking longitudinally",
+    "section": "Projects and Rmarkdown",
+    "text": "Projects and Rmarkdown\nAs with any project, but especially for longitudinal data, one of the most important aspects of data analysis is A. not losing track of what you did and B. being organized.\n\nrstudio projects 2. git and 3. codebooks are helpful in accomplishing these two goals. We will talk about #1 and #3 but I also encourage you to read about git. These are not the only way to do these sorts of analyses but I feel that exposure to them is helpful, as often in the social sciences these sort of decisions are not discussed."
+  },
+  {
+    "objectID": "intro-1.html#packages",
+    "href": "intro-1.html#packages",
+    "title": "Thinking longitudinally",
+    "section": "Packages",
+    "text": "Packages\nPackages seems like the most basic step, but it is actually very important. Depending on what gets loaded you might overwrite functions from other packages. (Note: I will often reload or not follow this advice within lectures for didactic reasons, choosing to put library calls above the code)\n\n# load packages\nlibrary(psych)\nlibrary(plyr)\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "intro-1.html#codebook",
+    "href": "intro-1.html#codebook",
+    "title": "Thinking longitudinally",
+    "section": "Codebook",
+    "text": "Codebook\nThe second step is a codebook. Arguably, this is the first step because you should create the codebook long before you open R and load your data.\nWhy a codebook? Well, because you typically have a lot of variables and you will not be able to remember all the details that go into each one of them (rating scale, what the actual item was, was it coded someway, etc). This is especially true now that data are being collected online, which often provides placeholder variable names that then need to be processed somehow.\nThis codebook will serve as a means to document RAW code. It will also allow us to automate some tasks that are somewhat cumbersome, facilitate open data practices, and efficiently see what variables are available. Ultimately, we want to be able to show how we got from the start, with the messy raw data, to our analyses and results at the end? A codebook makes this easier."
+  },
+  {
+    "objectID": "intro-1.html#data-1",
+    "href": "intro-1.html#data-1",
+    "title": "Thinking longitudinally",
+    "section": "Data",
+    "text": "Data\nFirst, we need to load in the data. We’re going to use three waves of data from the German Socioeconomic Panel We’re going to use more recent data from three waves of personality data collected between 2005 and 2013.\nThis code below shows how I would read in and rename a wide-format data set using the codebook I created.\n\nold.names <- codebook$old_name # get old column names\nnew.names <- codebook$new_name # get new column names\n\nsoep <- read.csv(\"https://raw.githubusercontent.com/josh-jackson/longitudinal-2021/master/soepdata.csv\")\n\n soep <-  soep %>% # read in data\n  dplyr::select(old.names) %>% # select the columns from our codebook\n  setNames(new.names) # rename columns with our new names\nsoep"
+  },
+  {
+    "objectID": "intro-1.html#recode-variables",
+    "href": "intro-1.html#recode-variables",
+    "title": "Thinking longitudinally",
+    "section": "Recode Variables",
+    "text": "Recode Variables\nMany of the data we work with have observations that are missing for a variety of reasons. In R, we treat missing values as NA, but many other programs from which you may be importing your data may use other codes (e.g. 999, -999, etc.). Large panel studies tend to use small negative values to indicate different types of missingness. This is why it is important to note down the scale in your codebook. That way you can check which values may need to be recoded to explicit NA values."
+  },
+  {
+    "objectID": "intro-1.html#reverse-scoring",
+    "href": "intro-1.html#reverse-scoring",
+    "title": "Thinking longitudinally",
+    "section": "Reverse-Scoring",
+    "text": "Reverse-Scoring\nMany scales we use have items that are positively or negatively keyed. High ratings on positively keyed items are indicative of being high on a construct. In contrast, high ratings on negatively keyed items are indicative of being low on a construct. Thus, to create the composite scores of constructs we often use, we must first “reverse” the negatively keyed items so that high scores indicate being higher on the construct.\nThere are a few ways to do this in R. Below, I’ll demonstrate how to do so using the reverse.code() function in the psych package in R. This function was built to make reverse coding more efficient (i.e. please don’t run every item that needs to be recoded with separate lines of code!!).\nBefore we can do that, though, we need to restructure the data a bit in order to bring in the reverse coding information from our codebook."
+  },
+  {
+    "objectID": "intro-1.html#create-composites",
+    "href": "intro-1.html#create-composites",
+    "title": "Thinking longitudinally",
+    "section": "Create Composites",
+    "text": "Create Composites\nNow that we have reverse coded our items, we can create composites.\nWe’ll start with our scale – in this case, the Big 5 from the German translation of the BFI-S.\nThe “simplest” way, which is also the longest way because you’d have to do it for each scale, in each year is to use a function like rowMeans which I don’t recommend as that will be MANY MANY lines of code."
+  },
+  {
+    "objectID": "intro-1.html#metric-variables",
+    "href": "intro-1.html#metric-variables",
+    "title": "Thinking longitudinally",
+    "section": "metric variables",
+    "text": "metric variables\n\n\nCode\nb5_soep_long_des <- b5_soep_long %>%\n  unite(tmp, trait, year, sep = \"_\") \nhead(b5_soep_long_des)\n\n\n# A tibble: 6 × 5\n  Procedural__SID tmp    value   DOB   Sex\n            <dbl> <chr>  <dbl> <dbl> <dbl>\n1             901 A_2005  4.67  1951     2\n2             901 A_2009  4.33  1951     2\n3             901 A_2013  4.67  1951     2\n4             901 C_2005  5     1951     2\n5             901 C_2009  5     1951     2\n6             901 C_2013  5     1951     2"
+  },
+  {
+    "objectID": "intro-1.html#count-variables",
+    "href": "intro-1.html#count-variables",
+    "title": "Thinking longitudinally",
+    "section": "count variables",
+    "text": "count variables\nWe have life event variable in the dataset that is a count variable. It asks did someone experience a life event during the previous year. also want to create a variable that indexes whether our participants experienced any of the life events during the years of interest (2005-2015).\n\n\nCode\nevents_long  <-soep_long %>%\n  filter(type == \"Life Event\") \nhead(events_long )\n\n\n# A tibble: 6 × 12\n  Procedural__SID Procedural__hou… Demographic__DOB Demographic__Sex type  trait\n            <dbl>            <dbl>            <dbl>            <dbl> <chr> <chr>\n1             901               94             1951                2 Life… MomD…\n2             901               94             1951                2 Life… MomD…\n3            2301              230             1946                1 Life… Move…\n4            2301              230             1946                1 Life… Part…\n5            2301              230             1946                1 Life… Part…\n6            2305              230             1946                2 Life… Move…\n# … with 6 more variables: item <chr>, year <chr>, value <dbl>, reverse <int>,\n#   mini <int>, maxi <int>"
+  },
+  {
+    "objectID": "intro-1.html#zero-order-correlations",
+    "href": "intro-1.html#zero-order-correlations",
+    "title": "Thinking longitudinally",
+    "section": "Zero-Order Correlations",
+    "text": "Zero-Order Correlations\nTo run the correlations, we will need to have our data in wide format\n\n\nCode\nb5_soep_long %>%\n  unite(tmp, trait, year, sep = \"_\") %>%\n  pivot_wider(names_from = tmp, values_from = value) %>% \n  select(-Procedural__SID) %>%\n  cor(., use = \"pairwise\") %>%\n  round(., 2)\n\n\n         DOB   Sex A_2005 A_2009 A_2013 C_2005 C_2009 C_2013 E_2005 E_2009\nDOB     1.00  0.00   0.02   0.05   0.05   0.13   0.17   0.17  -0.03  -0.01\nSex     0.00  1.00  -0.01  -0.02   0.01  -0.06  -0.05  -0.05   0.10   0.09\nA_2005  0.02 -0.01   1.00   0.30   0.26   0.21   0.07   0.05   0.28   0.12\nA_2009  0.05 -0.02   0.30   1.00   0.32   0.08   0.21   0.06   0.15   0.28\nA_2013  0.05  0.01   0.26   0.32   1.00   0.05   0.07   0.19   0.13   0.15\nC_2005  0.13 -0.06   0.21   0.08   0.05   1.00   0.30   0.26   0.24   0.09\nC_2009  0.17 -0.05   0.07   0.21   0.07   0.30   1.00   0.37   0.09   0.25\nC_2013  0.17 -0.05   0.05   0.06   0.19   0.26   0.37   1.00   0.06   0.07\nE_2005 -0.03  0.10   0.28   0.15   0.13   0.24   0.09   0.06   1.00   0.39\nE_2009 -0.01  0.09   0.12   0.28   0.15   0.09   0.25   0.07   0.39   1.00\nE_2013 -0.08  0.12   0.11   0.15   0.28   0.08   0.11   0.22   0.38   0.42\nN_2005 -0.08  0.13   0.23   0.07   0.08   0.09  -0.02  -0.04   0.18   0.07\nN_2009 -0.04  0.14   0.10   0.23   0.10   0.01   0.10  -0.01   0.09   0.16\nN_2013 -0.05  0.13   0.09   0.07   0.21   0.02  -0.01   0.08   0.09   0.10\nO_2005  0.11  0.06   0.23   0.14   0.13   0.24   0.14   0.13   0.36   0.23\nO_2009  0.10  0.05   0.10   0.24   0.13   0.14   0.23   0.12   0.19   0.34\nO_2013  0.05  0.07   0.10   0.12   0.23   0.11   0.11   0.20   0.19   0.21\n       E_2013 N_2005 N_2009 N_2013 O_2005 O_2009 O_2013\nDOB     -0.08  -0.08  -0.04  -0.05   0.11   0.10   0.05\nSex      0.12   0.13   0.14   0.13   0.06   0.05   0.07\nA_2005   0.11   0.23   0.10   0.09   0.23   0.10   0.10\nA_2009   0.15   0.07   0.23   0.07   0.14   0.24   0.12\nA_2013   0.28   0.08   0.10   0.21   0.13   0.13   0.23\nC_2005   0.08   0.09   0.01   0.02   0.24   0.14   0.11\nC_2009   0.11  -0.02   0.10  -0.01   0.14   0.23   0.11\nC_2013   0.22  -0.04  -0.01   0.08   0.13   0.12   0.20\nE_2005   0.38   0.18   0.09   0.09   0.36   0.19   0.19\nE_2009   0.42   0.07   0.16   0.10   0.23   0.34   0.21\nE_2013   1.00   0.08   0.07   0.17   0.20   0.21   0.35\nN_2005   0.08   1.00   0.34   0.32   0.14   0.03   0.05\nN_2009   0.07   0.34   1.00   0.39   0.05   0.13   0.03\nN_2013   0.17   0.32   0.39   1.00   0.04   0.06   0.15\nO_2005   0.20   0.14   0.05   0.04   1.00   0.58   0.55\nO_2009   0.21   0.03   0.13   0.06   0.58   1.00   0.61\nO_2013   0.35   0.05   0.03   0.15   0.55   0.61   1.00"
+  },
+  {
+    "objectID": "intro-1.html#tidyr-pivot-functions",
+    "href": "intro-1.html#tidyr-pivot-functions",
+    "title": "Thinking longitudinally",
+    "section": "tidyr pivot functions",
+    "text": "tidyr pivot functions\nFor longitudinal/repeated measures data, each row is an observation. Each person will have multiple rows.\n\n\n# A tibble: 225 × 4\n      ID  wave group   DAN\n   <dbl> <dbl> <chr> <dbl>\n 1     6     1 PD    0.162\n 2     6     2 PD    0.168\n 3     6     3 PD    0.215\n 4    29     1 PD    0.175\n 5    29     2 PD    0.136\n 6    34     1 CTRL  0.166\n 7    34     2 CTRL  0.140\n 8    36     1 CTRL  0.152\n 9    36     2 CTRL  0.205\n10    37     1 PD    0.219\n# … with 215 more rows"
+  },
+  {
+    "objectID": "intro-1.html#descriptives",
+    "href": "intro-1.html#descriptives",
+    "title": "Thinking longitudinally",
+    "section": "Descriptives",
+    "text": "Descriptives\nDescriptives of your data are incredibly important. They help you check the distribution of your variables (e.g. non-normally distributed), look for implausible values made through coding or participant error, and allow you to anticipate what your findings will look like.\nThere are lots of ways to create great tables of descriptives.For now, we’ll use a wonderfully helpful function from the psych package called describe() in conjunction with a small amount of tidyr to reshape the data."
   }
 ]
