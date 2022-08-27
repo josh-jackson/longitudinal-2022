@@ -415,9 +415,12 @@ wide %>%
   pivot_longer(cols = ext_1:ext_3, names_to = "time", values_to = "EXT")
 ```
 
----
+. . . 
 
 The time column is now specific to ext, which is a problem if I have more than one variable that I am pivoting. So how can we go ahead and separate out the ext part? 
+
+---
+
 
 ```{r, echo = TRUE}
 #| code-fold: true
@@ -540,7 +543,7 @@ df %>%
 ```
 Note the t_1 variable is a POSIXct (date time) variable type. Once in this format it is much easier to manipulate and work with dates and times. 
 
-# Projects and Rmarkdown
+## Projects and Rmarkdown
 
 As with any project, but especially for longitudinal data, one of the most important aspects of data analysis is A. not losing track of what you did and B. being organized. 
 
@@ -550,7 +553,7 @@ As with any project, but especially for longitudinal data, one of the most impor
 
 The main reason I am going over this is because too much of the code I see looks like this: 
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, echo = TRUE}
 
 mutate(score_mean1 = rowMeans(data[ ,c("Score1a", "Score2a", "Score3a", "Score4a")]))
 data <- import %>%

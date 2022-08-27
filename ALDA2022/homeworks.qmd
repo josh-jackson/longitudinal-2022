@@ -1,0 +1,6 @@
+---
+title: "homeworks"
+editor: visual
+---
+
+Homework assignments will go here

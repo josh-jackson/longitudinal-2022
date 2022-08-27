@@ -284,7 +284,7 @@
     "href": "intro-1.html#date-time-metrics",
     "title": "Thinking longitudinally",
     "section": "Date time metrics",
-    "text": "Date time metrics\n\nlibrary(lubridate)\n\nA date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). These are called POSIXct in R.\n\ntoday()\n\n[1] \"2022-08-26\"\n\n\n\nnow()\n\n[1] \"2022-08-26 18:02:05 CDT\""
+    "text": "Date time metrics\n\nlibrary(lubridate)\n\nA date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). These are called POSIXct in R.\n\ntoday()\n\n[1] \"2022-08-26\"\n\n\n\nnow()\n\n[1] \"2022-08-26 19:24:04 CDT\""
   },
   {
     "objectID": "intro-1.html#projects-and-rmarkdown",
@@ -369,5 +369,26 @@
     "title": "Thinking longitudinally",
     "section": "Descriptives",
     "text": "Descriptives\nDescriptives of your data are incredibly important. They help you check the distribution of your variables (e.g. non-normally distributed), look for implausible values made through coding or participant error, and allow you to anticipate what your findings will look like.\nThere are lots of ways to create great tables of descriptives.For now, we’ll use a wonderfully helpful function from the psych package called describe() in conjunction with a small amount of tidyr to reshape the data."
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Instructor:\nJoshua Jackson\n\n\nOffice:\n315b\n\n\nOffice hours:\nThur after class and by appt\nThis course covers modern methods of handling longitudinal, repeated measures. The class will introduce the rationale of measuring change and stability over time to study phenomena, as well as how within-person designs can increase statistical power and precision compared to more traditional designs. Most the course will use multi-level models and latent (growth) curve models to specify patterns of change across time. Additional topics include: visualization, measurement invariance, time-to- event models and power. PREREQ: Use of R will be required, Familiarity with MLM and/or Structural Equation Models.\n\n\nClass textbooks\nHoffman, Lesa. (2015). Longitudinal Analysis: Modeling Within-Person Fluctuation and Change. (reffered to as LA)\nLittle, T. D. (2013). Longitudinal structural equation modeling. Guilford press. (referred to as LSEM)\nI have PDFs available if you do not want to purchase the textbook.\nI find both of these textbooks quite readable, but if you are struggling I have additional recommendations for intro MLM and SEM that may fill in the gaps. Additionally, if there are topics that you are interested in and want to know more about please let me know as there are a number of textbooks devoted to a single topic.\n\n\nGrading\nGrading consists of 3 aspects:\n\nSemi-weekly “pop” quiz. Quizzes consist of 1-3 questions based on the previous lecture and readings.\nHomework take homes. Homework will be (typically) due 1 week later.\nFinal project. Everyone needs to do a longitudinal data analysis from start to finish. Preferably you have your own data, but if you do not then let me know and I can give you some. More details on this later.\n\nGrading breakdown is 1/3 for each of these components.\n\n\nSchedule\nThis will likely change based on our pace and what we want to cover more/less in depth\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nReadings\n\n\n\n\n1\n8/30\nMotivation and data\nLA Ch 1 (2 optional)\n\n\n2\n9/6\nLongitudinal MLM\nLA Ch 3, 5\n\n\n3\n9/13\nLongitudinal MLM\n\n\n\n4\n9/20\nLongitudinal SEM\nLSEM 1,3\n\n\n5\n9/27\nLongitudinal SEM\nLSEM 8\n\n\n6\n10/4\nMeasurement invariance and treating time\nLSEM 7\n\n\n7\n10/11\nCurves that bend\nLA 6\n\n\n8\n10/18\nCurves that bend\n\n\n\n9\n10/25\nPredictors of change\nLA 7\n\n\n10\n11/1\nPredictors of change\n\n\n\n11\n11/8\nIntensive longitudinal designs\nLA 8\n\n\n12\n11/15\nMultivariate change\nLA 9\n\n\n13\n11/22\nMultivariate change\n\n\n\n14\n11/29\n2 measurement points\n\n\n\n15\n12/6\nMixture Models\n\n\n\n\nOther topics: Longitudinal mediation (and multilevel mediation), time to event analyses, power, …?"
+  },
+  {
+    "objectID": "readings.html",
+    "href": "readings.html",
+    "title": "readings",
+    "section": "",
+    "text": "Extra readings will go here"
+  },
+  {
+    "objectID": "homeworks.html",
+    "href": "homeworks.html",
+    "title": "homeworks",
+    "section": "",
+    "text": "Homework assignments will go here"
   }
 ]
