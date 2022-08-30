@@ -668,6 +668,8 @@ Level 2: person level (person specific variance)</p>
 <h2>Observation level variance</h2>
 <p>After account for a person starting level and their slope, there is still residual variance left over.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>ob.var <span class="ot">&lt;-</span> example <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">filter</span>(ID <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"67"</span>,<span class="st">"82"</span>, <span class="st">"110"</span>)) </span>
 <span id="cb11-3"><a href="#cb11-3"></a></span>
@@ -676,6 +678,7 @@ Level 2: person level (person specific variance)</p>
 <span id="cb11-6"><a href="#cb11-6"></a>  </span>
 <span id="cb11-7"><a href="#cb11-7"></a><span class="fu">ggplot</span>(example3,</span>
 <span id="cb11-8"><a href="#cb11-8"></a>   <span class="fu">aes</span>(<span class="at">x =</span> week, <span class="at">y =</span> SMN7, <span class="at">group =</span> ID)) <span class="sc">+</span>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>( <span class="sc">~</span>ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 
 </div>
 <img data-src="intro-1_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
@@ -952,13 +955,13 @@ WP = more/less than one’s average</p></li>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">today</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2022-08-26"</code></pre>
+<pre><code>[1] "2022-08-30"</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">now</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2022-08-26 19:24:04 CDT"</code></pre>
+<pre><code>[1] "2022-08-30 14:20:53 CDT"</code></pre>
 </div>
 </div>
 </section>

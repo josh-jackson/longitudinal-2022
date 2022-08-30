@@ -207,7 +207,7 @@
     "href": "intro-1.html#observation-level-variance",
     "title": "Thinking longitudinally",
     "section": "Observation level variance",
-    "text": "Observation level variance\nAfter account for a person starting level and their slope, there is still residual variance left over.\n\nob.var <- example %>% \n  filter(ID %in% c(\"67\",\"82\", \"110\")) \n\nexample3 <-\n  left_join(ob.var, example)  \n  \nggplot(example3,\n   aes(x = week, y = SMN7, group = ID)) +  geom_point() + stat_smooth(method=\"lm\", se = FALSE) + facet_wrap( ~ID)"
+    "text": "Observation level variance\nAfter account for a person starting level and their slope, there is still residual variance left over.\n\n\nCode\nob.var <- example %>% \n  filter(ID %in% c(\"67\",\"82\", \"110\")) \n\nexample3 <-\n  left_join(ob.var, example)  \n  \nggplot(example3,\n   aes(x = week, y = SMN7, group = ID)) +  geom_point() + stat_smooth(method=\"lm\", se = FALSE) + facet_wrap( ~ID)"
   },
   {
     "objectID": "intro-1.html#thinking-about-variation",
@@ -284,7 +284,7 @@
     "href": "intro-1.html#date-time-metrics",
     "title": "Thinking longitudinally",
     "section": "Date time metrics",
-    "text": "Date time metrics\n\nlibrary(lubridate)\n\nA date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). These are called POSIXct in R.\n\ntoday()\n\n[1] \"2022-08-26\"\n\n\n\nnow()\n\n[1] \"2022-08-26 19:24:04 CDT\""
+    "text": "Date time metrics\n\nlibrary(lubridate)\n\nA date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). These are called POSIXct in R.\n\ntoday()\n\n[1] \"2022-08-30\"\n\n\n\nnow()\n\n[1] \"2022-08-30 14:20:53 CDT\""
   },
   {
     "objectID": "intro-1.html#projects-and-rmarkdown",
