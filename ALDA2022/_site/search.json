@@ -284,7 +284,7 @@
     "href": "intro-1.html#date-time-metrics",
     "title": "Thinking longitudinally",
     "section": "Date time metrics",
-    "text": "Date time metrics\n\nlibrary(lubridate)\n\nA date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). These are called POSIXct in R.\n\ntoday()\n\n[1] \"2022-08-30\"\n\n\n\nnow()\n\n[1] \"2022-08-30 14:20:53 CDT\""
+    "text": "Date time metrics\n\nlibrary(lubridate)\n\nA date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). These are called POSIXct in R.\n\ntoday()\n\n[1] \"2022-08-31\"\n\n\n\nnow()\n\n[1] \"2022-08-31 10:07:58 CDT\""
   },
   {
     "objectID": "intro-1.html#projects-and-rmarkdown",
