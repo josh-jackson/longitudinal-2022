@@ -5,4 +5,4 @@ editor: visual
 
 1.  [Motivation and handling data](intro-1.qmd)
 
-2.  Longitudinal MLM
+2.  [Longitudinal MLM](mlm-2.qmd)

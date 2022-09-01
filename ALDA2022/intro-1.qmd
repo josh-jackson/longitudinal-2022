@@ -319,7 +319,8 @@ To the extent that we can put variance into different "piles" (eg people change 
 
 -   Within-Person Fluctuation: No systematic change Outcome just varies/fluctuates over time (e.g., emotion, stress). Time is just a way to get lots of data per individual
 
-------------------------------------------------------------------------
+
+
 
 ## What Are Data?
 
@@ -337,7 +338,8 @@ Why are we thinking about data? Because 80%, maybe more, of your time spent with
 
 -   Long is what MLM, ggplot2 and tidyverse packages expect whereas SEM and a lot of descriptives are calculated using wide dataframes.
 
-------------------------------------------------------------------------
+
+---
 
 ![](tidyr.gif)
 
@@ -365,7 +367,7 @@ wide.ex
 
 The pivot_longer function takes three arguments: - cols is a list of columns that are to be collapsed. The columns can be referenced by column number or column name. - names_to is the name of the new column which will combine all column names. This is up to you to decide what the name is. - values_to is the name of the new column which will combine all column values associated with each variable combination.
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 wide.ex %>% 
@@ -390,7 +392,7 @@ wide<- tribble(
 wide
 ```
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 wide %>% 
@@ -401,7 +403,7 @@ wide %>%
 
 The time column is now specific to ext, which is a problem if I have more than one variable that I am pivoting. So how can we go ahead and separate out the ext part?
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 #| code-fold: true
@@ -413,7 +415,7 @@ wide %>%
 
 ```
 
-------------------------------------------------------------------------
+---
 
 In terms of setting up your data, it is often helpful to include markers that separate parts of the variable eg "\_" or "." A variable that is ext_1 is easier to separate than ext1.
 
@@ -423,7 +425,7 @@ Also that the time column is a character rather than numeric. We need to change 
 long$time <- as.numeric(long$time)
 ```
 
-------------------------------------------------------------------------
+---
 
 Something that is a little more elegant is to do both the separating AND the making into numeric in the original pivot_longer function
 
@@ -437,7 +439,7 @@ wide %>%
                names_prefix = "ext_") 
 ```
 
-------------------------------------------------------------------------
+---
 
 names_transform does any transformations within the variables. Here instead of a separate call, we can make our variables numeric.
 
@@ -450,7 +452,7 @@ wide %>%
                names_transform = list(time = as.numeric)) 
 ```
 
-------------------------------------------------------------------------
+---
 
 Another common problem that we often face is the need to unite two variables into one. Enter, the creatively titled unite function. Sometimes this happens when our time metric is entered in seperate columns.
 
@@ -465,7 +467,7 @@ df<-tibble(
 df
 ```
 
-------------------------------------------------------------------------
+---
 
 To combine them into one time metric
 
@@ -491,7 +493,7 @@ today()
 now()
 ```
 
-------------------------------------------------------------------------
+---
 
 Bringing these into R from some outside place (excel, spss) can lead to confusion, as they can be formatted differently
 
@@ -504,7 +506,7 @@ dmy("31-Jan-2017")
 
 ```
 
-------------------------------------------------------------------------
+---
 
 You can create these relatively straight forwardly...by hand
 
@@ -517,7 +519,7 @@ mdy_hm("01/31/2017 08:01")
 
 Or you can use existing columns variables. This is where the {lubridate} package comes in handy
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 df %>% 
@@ -532,7 +534,7 @@ As with any project, but especially for longitudinal data, one of the most impor
 
 1.  rstudio projects 2. git and 3. codebooks are helpful in accomplishing these two goals. We will talk about #1 and #3 but I also encourage you to read about git. These are not the only way to do these sorts of analyses but I feel that exposure to them is helpful, as often in the social sciences these sort of decisions are not discussed.
 
-------------------------------------------------------------------------
+---
 
 The main reason I am going over this is because too much of the code I see looks like this:
 
@@ -557,13 +559,13 @@ data <- import %>%
   mutate(score_mean9 = rowMeans(data[ ,c("Score1i", "Score2i", "Score3i", "Score4i")]))
 ```
 
-------------------------------------------------------------------------
+---
 
 What these help to do is create a chain of processing where you start with RAW data and end up with the cleaned data. Importantly you can always start over from the raw data. This is important for people wanting to reproduce your findings and or your future self figuring out where a certain variable came from.
 
 We start creating the chain of processing by documenting all of your code. To do so we will be using rmarkdown or quarto documents, as the language is easier than LaTeX and more helpful than plaintext.
 
-------------------------------------------------------------------------
+---
 
 When I create an rmarkdown document for my own research projects, I always start by setting up 3 components:
 
@@ -592,17 +594,17 @@ Why a codebook? Well, because you typically have a lot of variables and you will
 
 This codebook will serve as a means to document RAW code. It will also allow us to automate some tasks that are somewhat cumbersome, facilitate open data practices, and efficiently see what variables are available. Ultimately, we want to be able to show how we got from the start, with the messy raw data, to our analyses and results at the end? A codebook makes this easier.
 
-------------------------------------------------------------------------
+---
 
 To illustrate, we are going to using some data from the German Socioeconomic Panel Study (GSOEP), which is an ongoing Panel Study in Germany. Note that these data are for teaching purposes only, shared under the license for the Comprehensive SOEP teaching dataset. The full data are available for free at: https://www.diw.de/en/diw_02.c.222829.en/access_and_ordering.html.
 
-------------------------------------------------------------------------
+---
 
 For this tutorial, I created the codebook for you, and included what I believe are the core columns you may need. Some of these columns will not be particularly helpful for this dataset. For example, many of you likely work with datasets that have only a single file while others work with datasets spread across many files (e.g., different waves, different sources). As a result, the "dataset" column of the codebook may only have a single value whereas for others it may have multiple.
 
 Here are my core columns that are based on the original data
 
-------------------------------------------------------------------------
+---
 
 1.  **dataset** this column indexes the **name** of the dataset that you will be pulling the data from. This is important because we will use this info later on to load and clean specific data files.
 
@@ -620,7 +622,7 @@ Here are my core columns that are based on the original data
 
 8.  **recode** sometimes, we want to recode variables for analyses (e.g. for categorical variables with many levels where sample sizes for some levels are too small to actually do anything with it). I use this column to note the kind of recoding I'll do to a variable for transparency.
 
-------------------------------------------------------------------------
+---
 
 Here are additional columns that will make our lives easier or are applicable to some but not all data sets:
 
@@ -638,13 +640,13 @@ There is a separate discussion to be had on naming conventions for your variable
 
 14. **meta** Some datasets have a meta name, which essentially means a name that variable has across all waves to make it clear which variables are the same. They are not always useful as some data sets have meta names but no great way of extracting variables using them. But they're still typically useful to include in your codebook regardless.
 
-------------------------------------------------------------------------
+---
 
 These are just suggestions, but after working with many longitudinal datasets I will say all of them are horrible in some way. Doing this makes them less horrible. Is it some upfront work? Yes. Will it ultimately save you time? Yes. Also, if you know this prior to runnign a study you are making some sort of code book anyways, right, right? Might as well kill two birds with one stone.
 
 You can make the codebook anyway you want, but the two best options are miscrosoft excel and google pages. Not because they are necessarily the best functioning but because they are relatively ubiquitous and are easy to share.
 
-------------------------------------------------------------------------
+---
 
 We will create a codebook but then bring the codebook into R via turning it into a csv. You can rethink the codebook as a way of coding prior to putting anything into R.
 
@@ -680,7 +682,7 @@ soep
 
 ```
 
-------------------------------------------------------------------------
+---
 
 ```{r}
 old.names <- codebook$old_name # get old column names
@@ -697,19 +699,19 @@ head(soep)
 
 actual dataset is almost 30k rows
 
-------------------------------------------------------------------------
+---
 
 ## Recode Variables
 
 Many of the data we work with have observations that are missing for a variety of reasons. In `R`, we treat missing values as `NA`, but many other programs from which you may be importing your data may use other codes (e.g. 999, -999, etc.). Large panel studies tend to use small negative values to indicate different types of missingness. This is why it is important to note down the scale in your codebook. That way you can check which values may need to be recoded to explicit `NA` values.
 
-------------------------------------------------------------------------
+---
 
 In the GSOEP, `-1` to `-7` indicate various types of missing values, so we will recode these to `NA`. To do this, we will use `mapvalues()`, from the `plyr` package.
 
 Below we are taking the dataset soep and saying we are going to mutate all of our variables, making sure they are all numeric (as the code expects numeric), then we get to the mapvalues function
 
-------------------------------------------------------------------------
+---
 
 `mapvalues` takes 3 key arguments (1) the variable you are recoding. Below that is indicated by "." which is shorthand for the data that was piped in.
 
@@ -719,7 +721,7 @@ Below we are taking the dataset soep and saying we are going to mutate all of ou
 
 It is also helpful to turn off warnings if some levels are not in your data (`warn_missing = F`).
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 soep <- soep %>%
@@ -727,7 +729,7 @@ soep <- soep %>%
 head(soep)
 ```
 
-------------------------------------------------------------------------
+---
 
 mapvalues technically is depreciated and not currently worked on. This is fine, but a newer replacement for it is using dplyr's recode. However, it does not work well with vectorized names (which we pull in from our codebook) so it isn't as useful for our purposes.
 
@@ -741,7 +743,7 @@ There are a few ways to do this in `R`. Below, I'll demonstrate how to do so usi
 
 Before we can do that, though, we need to restructure the data a bit in order to bring in the reverse coding information from our codebook.
 
-------------------------------------------------------------------------
+---
 
 Bring the wide dataset to long
 
@@ -759,7 +761,7 @@ str(soep_long)
 head(soep_long) 
 ```
 
-------------------------------------------------------------------------
+---
 
 Bring in the codebook relevant items for reverse coding
 
@@ -774,7 +776,8 @@ soep_long <- soep %>%
 head(soep_long)
 ```
 
-------------------------------------------------------------------------
+
+---
 
 Here we want to break our item column up into different components to assist with different calculations. Often you will have some sort of hierarchy of variables where items are nested within scales which are nested within questionnaires. This is where you can code that information.
 
@@ -793,7 +796,7 @@ head(soep_long)
 ## almost half a million rows
 ```
 
-------------------------------------------------------------------------
+---
 
 now it is ready to reverse code!
 
@@ -822,7 +825,7 @@ We'll start with our scale -- in this case, the Big 5 from the German translatio
 
 The "simplest" way, which is also the longest way because you'd have to do it for each scale, in each year is to use a function like rowMeans which I don't recommend as that will be MANY MANY lines of code.
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE, eval = FALSE}
 
@@ -835,7 +838,7 @@ na.rm = T))
 
 DO NOT COPY AND PASTE IN YOUR CODE
 
-------------------------------------------------------------------------
+---
 
 We can use our codebook and `dplyr` to make our lives a whole lot easier. In general, trying to run everything simultaneously saves from copy-paste errors, makes your code more readable, and reduces the total amount of code. So while the below code may not make intuitive sense immediately, it is nonetheless what we are working towards. Also, going through line by line will help you see that.
 
@@ -848,7 +851,7 @@ b5_soep_long <- soep_long %>%
 str(b5_soep_long)
 ```
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo=TRUE}
 #| code-fold: true
@@ -861,7 +864,7 @@ head(b5_soep_long)
 
 Now that we have our means we can bring the demographic info back into the dataframe...or whatever else you would want to bring in.
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 #| code-fold: true
@@ -892,7 +895,7 @@ b5_soep_long_des <- b5_soep_long %>%
 head(b5_soep_long_des)
 ```
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 #| code-fold: true
@@ -902,7 +905,7 @@ b5_soep_long_des <- b5_soep_long %>%
 head(b5_soep_long_des)
 ```
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 #| code-fold: true
@@ -924,7 +927,7 @@ events_long  <-soep_long %>%
 head(events_long )
 ```
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 events_long <- soep_long %>%
@@ -934,13 +937,13 @@ events_long <- soep_long %>%
 head(events_long )
 ```
 
-------------------------------------------------------------------------
+---
 
 For count variables, like life events, we need to use something slightly different. We're typically more interested in counts -- in this case, how many people experienced each life event in the 10 years we're considering?
 
 To do this, we'll use a little bit of `dplyr` rather than the base `R` function `table()` that is often used for count data. Instead, we'll use a combination of `group_by()` and `n()` to get the counts by group. In the end, we're left with a nice little table of counts.
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 #| code-fold: true
@@ -949,7 +952,7 @@ events_long %>%
   dplyr::summarize(N = n()) 
 ```
 
-------------------------------------------------------------------------
+---
 
 ```{r, echo = TRUE}
 #| code-fold: true
