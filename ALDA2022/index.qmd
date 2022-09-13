@@ -2,6 +2,8 @@
 title: "Applied Longitudinal Data Analyses"
 ---
 
+9/13: Homework #1 is posted! Due by 9/26
+
 8/30: Welcome to the first day of class! If you want to follow along with examples, head over to github for all of the code and data. https://github.com/josh-jackson/longitudinal-2022
 
 Please check the homepage regularly for class updates and announcements.
