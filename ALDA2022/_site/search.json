@@ -389,7 +389,7 @@
     "href": "homeworks.html",
     "title": "homeworks",
     "section": "",
-    "text": "Homework assignments will go here"
+    "text": "Longitudinal MLM homework"
   },
   {
     "objectID": "mlm-2.html#standard-regression",
@@ -725,7 +725,7 @@
     "href": "mlm-2.html#adding-a-random-slope",
     "title": "MLM",
     "section": "Adding a random slope",
-    "text": "Adding a random slope\n\nb5_long<- b5_long %>%  \n  mutate(year.c = (year - 2005))\n  \n  \nmod.6 <- lmer(C ~ 1 + year.c + (1 + year.c  | ID), data=b5_long)\n\nsummary(mod.6)\n\nLinear mixed model fit by REML ['lmerMod']\nFormula: C ~ 1 + year.c + (1 + year.c | ID)\n   Data: b5_long\n\nREML criterion at convergence: 42714\n\nScaled residuals: \n    Min      1Q  Median      3Q     Max \n-6.0083 -0.4685  0.0461  0.4376  4.8649 \n\nRandom effects:\n Groups   Name        Variance  Std.Dev. Corr\n ID       (Intercept) 0.1050567 0.32412      \n          year.c      0.0002853 0.01689  0.75\n Residual             0.2966451 0.54465      \nNumber of obs: 22081, groups:  ID, 8565\n\nFixed effects:\n            Estimate Std. Error t value\n(Intercept) 4.753235   0.006765  702.59\nyear.c      0.001783   0.001230    1.45\n\nCorrelation of Fixed Effects:\n       (Intr)\nyear.c -0.591\noptimizer (nloptwrap) convergence code: 0 (OK)\nModel failed to converge with max|grad| = 0.00437407 (tol = 0.002, component 1)"
+    "text": "Adding a random slope\nLevel 1: \\[{Y}_{it} = \\beta_{0i}  + \\beta_{1i}X_{ti} + \\varepsilon_{ti}\\]\nLevel 2:\n\n\\[{\\beta}_{0i} = \\gamma_{00} + U_{0i}\\]\n\n\\[{\\beta}_{1i} = \\gamma_{10} + U_{1i}\\]\nCombined: \\[{Y}_{ti} = \\gamma_{00} + \\gamma_{10} (X_{1i})+ U_{0i}  + U_{1i}(X_{1i}) + \\varepsilon_{ti}\\]"
   },
   {
     "objectID": "mlm-2.html#as-starting",
@@ -760,7 +760,7 @@
     "href": "mlm-2.html#likelhiood-ratio-test-1",
     "title": "MLM",
     "section": "Likelhiood ratio test",
-    "text": "Likelhiood ratio test\nComparing 2 models is called a likelihood ration test. Need to have: 1. same data 2. nested models (think of constraining a parameter to zero)\nDistributed as chi-square with df equal to constraint differences between models.\n\n\nData: b5_long\nModels:\nmod.1: C ~ 1 + (1 | ID)\nmod.2: C ~ 1 + year + (1 | ID)\n      npar   AIC   BIC logLik deviance  Chisq Df Pr(>Chisq)\nmod.1    3 42778 42802 -21386    42772                     \nmod.2    5 42780 42820 -21385    42770 2.4256  2     0.2974\n\n\nWhat does this look like pictorially?"
+    "text": "Likelhiood ratio test\nComparing 2 models is called a likelihood ration test. Need to have: 1. same data 2. nested models (think of constraining a parameter to zero)\nDistributed as chi-square with df equal to constraint differences between models.\n\n\nData: b5_long\nModels:\nmod.1: C ~ 1 + (1 | ID)\nmod.2: C ~ 1 + year + (1 | ID)\n      npar   AIC   BIC logLik deviance  Chisq Df Pr(>Chisq)\nmod.1    3 42778 42802 -21386    42772                     \nmod.2    5 42780 42820 -21385    42770 2.4256  2     0.2974"
   },
   {
     "objectID": "mlm-2.html#other-types-of-models",
@@ -768,5 +768,12 @@
     "title": "MLM",
     "section": "Other types of models",
     "text": "Other types of models\nDepending on your DV, you might not want to have a Gaussian sampling distribution. Instead you may want something like a Poisson or a negative binomial if you are using some sort of count data. You can do this somewhat with lme4. However, the BRMS package – which uses Bayesian estimation – has many more possibilities: geometric, log normal, weibull, exponential, gamma, Beta, hurdle Poisson/gamma/negative binomial, zero inflated beta/Poisson/negative binomial, cumulative. Maybe we will fit some of these later in the semester."
+  },
+  {
+    "objectID": "hw1.html",
+    "href": "hw1.html",
+    "title": "homework",
+    "section": "",
+    "text": "Note that we are looking at depression across 5 waves during college. Waves are signified by a letter at the start of the variable name, starting with A, then B, then C, etcetera. Not all waves collected depression during college. The scale is called the CED, and is an already calculated composite measure.\nPlease email your answers to me (j.jackson@wustl.edu) that includes a) an Rmd file, and b) a pdf/html of your output.\n\nHow many observations are there? How many subjects? How many subjects have more than 3 observations? Take the wide depression dataset and turn it long format to run subsequent models.\nRun separate linear models on all of the participants subjects (a basic regression) with time as a predictor. What is the average intercept, the average slope? How would you interpret each of these?\nNow run a mlm model with only a random intercept. What is the ICC? Interpret.\nIntroduce time as a fixed term to the mlm model. Interpret your findings. What are there differences (and why do they exist?) in this model vs the models you ran in #2\nRun an additional model with a random slope. How does this change compare to the previous fixed slope model? Should you keep the random slope or not?\nInterpret the correlation between the slope and the intercept.\nCreate a density plot of the random effects from your final model.\nPlot the predicted fixed effects along with the random effects (Eg individual slopes) on the same plot."
   }
 ]

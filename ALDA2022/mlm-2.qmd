@@ -753,8 +753,8 @@ fix_eff
 
 
 -----
-```{r}
-
+```{r, echo=TRUE}
+#| code-fold: true
 b5_long %>% 
   data_grid(year.c = seq_range(year.c, n = 10), .model = b5_long) %>% 
   add_predictions(mod.4) %>% 
@@ -769,8 +769,8 @@ b5_long %>%
 
 -----------
 
-```{r}
-
+```{r, echo = TRUE}
+#| code-fold: true
 b5_long %>% 
   data_grid(year.c = seq_range(year.c, n = 10), .model = b5_long) %>% 
     add_predictions(mod.4) %>% 
@@ -780,6 +780,7 @@ b5_long %>%
   ylim(4.5,5 )
 
 ```
+
 
 ## Adding a random slope
 
@@ -811,8 +812,8 @@ summary(mod.6)
 
 ---------
 
-```{r}
-
+```{r, echo = TRUE}
+#| code-fold: true
 b5_long %>% 
   data_grid(year.c = seq_range(year.c, n = 10), .model = b5_long) %>% 
     add_predictions(mod.6) %>% 

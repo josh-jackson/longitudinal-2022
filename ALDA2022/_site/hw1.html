@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALDA2022 - homeworks</title>
+<title>ALDA2022 - homework</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,7 +82,7 @@ ul.task-list{list-style: none;}
     <a class="nav-link" href="./readings.html">readings</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./homeworks.html" aria-current="page">homeworks</a>
+    <a class="nav-link" href="./homeworks.html">homeworks</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./syllabus.html">Syllabus</a>
@@ -105,7 +105,7 @@ ul.task-list{list-style: none;}
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">homeworks</h1>
+<h1 class="title">homework</h1>
 </div>
 
 
@@ -119,8 +119,18 @@ ul.task-list{list-style: none;}
 
 </header>
 
+<p>Answer the questions below using the HW1 dataset from github.</p>
+<p>Note that we are looking at depression across 5 waves during college. Waves are signified by a letter at the start of the variable name, starting with A, then B, then C, etcetera. Not all waves collected depression during college. The scale is called the CED, and is an already calculated composite measure.</p>
+<p>Please email your answers to me (j.jackson@wustl.edu) that includes a) an Rmd file, and b) a pdf/html of your output.</p>
 <ol type="1">
-<li><a href="./hw1.html">Longitudinal MLM homework</a></li>
+<li><p>How many observations are there? How many subjects? How many subjects have more than 3 observations? Take the wide depression dataset and turn it long format to run subsequent models.</p></li>
+<li><p>Run separate linear models on all of the participants subjects (a basic regression) with time as a predictor. What is the average intercept, the average slope? How would you interpret each of these?</p></li>
+<li><p>Now run a mlm model with only a random intercept. What is the ICC? Interpret.</p></li>
+<li><p>Introduce time as a fixed term to the mlm model. Interpret your findings. What are there differences (and why do they exist?) in this model vs the models you ran in #2</p></li>
+<li><p>Run an additional model with a random slope. How does this change compare to the previous fixed slope model? Should you keep the random slope or not?</p></li>
+<li><p>Interpret the correlation between the slope and the intercept.</p></li>
+<li><p>Create a density plot of the random effects from your final model.</p></li>
+<li><p>Plot the predicted fixed effects along with the random effects (Eg individual slopes) on the same plot.</p></li>
 </ol>
 
 

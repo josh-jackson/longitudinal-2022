@@ -7,7 +7,7 @@ Answer the questions below using the HW1 dataset from github.
 
 Note that we are looking at depression across 5 waves during college. Waves are signified by a letter at the start of the variable name, starting with A, then B, then C, etcetera. Not all waves collected depression during college. The scale is called the CED, and is an already calculated composite measure. 
 
-Please email your answers to me (j.jackson@wustl.edu) that includes a) an Rmd file, b) a pdf/html of your output, and your codebook (in excel, csv, google pages, etc format).
+Please email your answers to me (j.jackson@wustl.edu) that includes a) an Rmd file, and b) a pdf/html of your output.
 
 
 
