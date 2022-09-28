@@ -3,16 +3,20 @@ title: "Syllabus"
 editor: visual
 ---
 
-### Class hours: 
-412 Psych Tuesday 3-4 and Thursday 3-4:20 
+### Class hours:
 
-### Instructor: 
-Joshua Jackson 
+412 Psych Tuesday 3-4 and Thursday 3-4:20
 
-### Office: 
-315b 
+### Instructor:
 
-### Office hours: 
+Joshua Jackson
+
+### Office:
+
+315b
+
+### Office hours:
+
 Thur after class and by appt
 
 This course covers modern methods of handling longitudinal, repeated measures. The class will introduce the rationale of measuring change and stability over time to study phenomena, as well as how within-person designs can increase statistical power and precision compared to more traditional designs. Most the course will use multi-level models and latent (growth) curve models to specify patterns of change across time. Additional topics include: visualization, measurement invariance, time-to- event models and power. PREREQ: Use of R will be required, Familiarity with MLM and/or Structural Equation Models.
@@ -27,7 +31,8 @@ I have PDFs available if you do not want to purchase the textbook.
 
 I find both of these textbooks quite readable, but if you are struggling I have additional recommendations for intro MLM and SEM that may fill in the gaps. Additionally, if there are topics that you are interested in and want to know more about please let me know as there are a number of textbooks devoted to a single topic.
 
-### Grading 
+### Grading
+
 Grading consists of 3 aspects:
 
 1.  Semi-weekly "pop" quiz. Quizzes consist of 1-3 questions based on the previous lecture and readings.
@@ -39,24 +44,25 @@ Grading consists of 3 aspects:
 Grading breakdown is 1/3 for each of these components.
 
 ### Schedule
+
 This will likely change based on our pace and what we want to cover more/less in depth
 
-| Week | Date  | Topic                                    | Readings |
-|------|-------|------------------------------------------|----------|
-| 1    | 8/30  | Motivation and data                      | LA Ch 1 (2 optional)  |
-| 2    | 9/6   | Longitudinal MLM                         | LA Ch 3, 5  |
-| 3    | 9/13  | Longitudinal MLM                         |          |
-| 4    | 9/20  | Longitudinal SEM                         | LSEM 1,3    |
-| 5    | 9/27  | Longitudinal SEM                         | LSEM 8   |
-| 6    | 10/4  | Measurement invariance and treating time | LSEM 7    |
-| 7    | 10/11 | Curves that bend                         | LA 6         |
-| 8    | 10/18 | Curves that bend                         |         |
-| 9    | 10/25 | Predictors of change                     | LA 7       |
-| 10   | 11/1  | Predictors of change                     |        |
-| 11   | 11/8   | Intensive longitudinal designs           | LA 8         |
-| 12   | 11/15  | Multivariate change                      | LA 9         |
-| 13   | 11/22  | Multivariate change                      |          |
-| 14   | 11/29  | 2 measurement points                     |          |
-| 15   | 12/6   | Mixture Models                           |          |
+| Week | Date  | Topic                                    | Readings             |
+|------|-------|------------------------------------------|----------------------|
+| 1    | 8/30  | Motivation and data                      | LA Ch 1 (2 optional) |
+| 2    | 9/6   | Longitudinal MLM                         | LA Ch 3, 5           |
+| 3    | 9/13  | Longitudinal MLM                         |                      |
+| 4    | 9/20  | Longitudinal SEM                         | LSEM 1,3             |
+| 5    | 9/27  | Longitudinal SEM                         | LSEM 8               |
+| 6    | 10/4  | Measurement invariance and treating time | LSEM 7               |
+| 7    | 10/11 | Curves that bend                         | LA 6                 |
+| 8    | 10/18 | Curves that bend                         |                      |
+| 9    | 10/25 | Predictors of change                     | LA 7                 |
+| 10   | 11/1  | Predictors of change                     |                      |
+| 11   | 11/8  | Intensive longitudinal designs           | LA 8                 |
+| 12   | 11/15 | Multivariate change                      | LA 9                 |
+| 13   | 11/22 | Multivariate change                      |                      |
+| 14   | 11/29 | 2 measurement points                     |                      |
+| 15   | 12/6  | Mixture Models                           |                      |
 
 Other topics: Longitudinal mediation (and multilevel mediation), time to event analyses, power, ...?
