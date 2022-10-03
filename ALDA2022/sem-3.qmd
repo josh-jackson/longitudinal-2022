@@ -288,7 +288,7 @@ Anyone have some comments on naming conventions for this dataset?
 
 ## Coding time
 
-Let's use the long dataset from the previous Bayesian workshop, taken from chapter 4 of Singer and Willet. It is a three wave longitudinal study of adolescents. We are looking at alcohol use during the previous year, measured from 0 - 7. COA is a variable indicating the child's parents are alcoholics.
+Let's use the long dataset from chapter 4 of Singer and Willet. It is a three wave longitudinal study of adolescents. We are looking at alcohol use during the previous year, measured from 0 - 7. COA is a variable indicating the child's parents are alcoholics.
 
 ```{r}
 #| code-fold: true
@@ -405,6 +405,9 @@ fit.2 <- growth(model.2, data=alcohol.wide)
 summary(fit.2)
 ```
 
+## modeling residuals
+
+
 ## What is measurement invariance?
 
 -   To meaningfully look at means, we need to have the means mean the same thing.
@@ -439,6 +442,8 @@ semPaths(fit.cfa)
 ## configural (baseline)
 
 ```{r}
+#| code-fold: true
+
 config <- '
 ## define latent variables
 Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31
@@ -473,6 +478,8 @@ Weak measurement invariance test is to constrain the items to be equivalent acro
 A special character is to "relax" constraints that are automatically included. Here NA is used to allow the latent variance at time 2 and 3 to be estimated, rather than to be constrained to 1 (bc below we used a fixed factor approach)
 
 ```{r}
+#| code-fold: true
+
 weak <- '
 ## define latent variables
 Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31
@@ -508,6 +515,8 @@ Strong introduces means to the equation. Well, they were there before, estimated
 Why are we doing that if we want to test whether people change? Shouldnt changes in the means exist? Well, we can
 
 ```{r}
+#| code-fold: true
+
 strong <- '
 ## define latent variables
 Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31
@@ -557,6 +566,8 @@ summary(strong, standardized=TRUE, fit.measures=TRUE)
 ## Strict (loadings, intercept, residual variances)
 
 ```{r}
+#| code-fold: true
+
 strict <- '
 ## define latent variables
 Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31
@@ -632,6 +643,8 @@ anova(config, weak)
 ## 
 
 ```{r}
+#| code-fold: true
+
 ##Compare weak and strong model
 anova(weak, strong)
 
@@ -650,6 +663,8 @@ Substantively, these analyses get at the relative rank order of people across as
 key questions: 1. Should the correlations be the same across time? Should we set them (constrain) to be equal? 2. Should the error variances be correlated? 3. Are the loadings the same across time?
 
 ```{r}
+#| code-fold: true
+
 long.cfa <- '
 ## define latent variables
 Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31
@@ -729,6 +744,8 @@ Repeated measures are latent. Why would we want to do this? At least two reasons
 ------------------------------------------------------------------------
 
 ```{r}
+#| code-fold: true
+
 sec.order <- '
 ## define latent variables
 Pos1 =~ NA*PosAFF11 + L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31
@@ -778,15 +795,19 @@ fit.sec.order <- growth(sec.order, data=wide, missing = "ML")
 
 ```
 
+----------------
+
 ```{r}
 semPaths(fit.sec.order)
 ```
+
+
+------------
 
 ```{r}
 summary(fit.sec.order, fit.measures=TRUE)
 
 ```
 
-```{r}
-semPaths(fit.sec.order)
-```
+
+

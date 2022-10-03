@@ -725,7 +725,7 @@
 </section>
 <section id="coding-time" class="slide level2">
 <h2>Coding time</h2>
-<p>Let’s use the long dataset from the previous Bayesian workshop, taken from chapter 4 of Singer and Willet. It is a three wave longitudinal study of adolescents. We are looking at alcohol use during the previous year, measured from 0 - 7. COA is a variable indicating the child’s parents are alcoholics.</p>
+<p>Let’s use the long dataset from chapter 4 of Singer and Willet. It is a three wave longitudinal study of adolescents. We are looking at alcohol use during the previous year, measured from 0 - 7. COA is a variable indicating the child’s parents are alcoholics.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -1056,6 +1056,9 @@ Variances:
 </div>
 </div>
 </section>
+<section id="modeling-residuals" class="slide level2">
+<h2>modeling residuals</h2>
+</section>
 <section id="what-is-measurement-invariance" class="slide level2">
 <h2>What is measurement invariance?</h2>
 <ul>
@@ -1094,6 +1097,8 @@ Variances:
 <section id="configural-baseline" class="slide level2">
 <h2>configural (baseline)</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>config <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a><span class="st">## define latent variables</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a><span class="st">Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31</span></span>
@@ -1115,6 +1120,7 @@ Variances:
 <span id="cb25-19"><a href="#cb25-19"></a>config <span class="ot">&lt;-</span> <span class="fu">cfa</span>(config, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
 <span id="cb25-20"><a href="#cb25-20"></a></span>
 <span id="cb25-21"><a href="#cb25-21"></a><span class="fu">summary</span>(config, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 76 iterations
 
@@ -1244,6 +1250,8 @@ Variances:
 <p>Weak measurement invariance test is to constrain the items to be equivalent across waves.</p>
 <p>A special character is to “relax” constraints that are automatically included. Here NA is used to allow the latent variance at time 2 and 3 to be estimated, rather than to be constrained to 1 (bc below we used a fixed factor approach)</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>weak <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb27-2"><a href="#cb27-2"></a><span class="st">## define latent variables</span></span>
 <span id="cb27-3"><a href="#cb27-3"></a><span class="st">Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
@@ -1268,6 +1276,7 @@ Variances:
 <span id="cb27-22"><a href="#cb27-22"></a>weak <span class="ot">&lt;-</span> <span class="fu">cfa</span>(weak, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
 <span id="cb27-23"><a href="#cb27-23"></a></span>
 <span id="cb27-24"><a href="#cb27-24"></a><span class="fu">summary</span>(weak, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 81 iterations
 
@@ -1396,6 +1405,8 @@ Variances:
 <p>Strong introduces means to the equation. Well, they were there before, estimated by default because we set meanstructure = TRUE. But now we are going to constrain the means of each item to be the same across time, again using labels.</p>
 <p>Why are we doing that if we want to test whether people change? Shouldnt changes in the means exist? Well, we can</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>strong <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb29-2"><a href="#cb29-2"></a><span class="st">## define latent variables</span></span>
 <span id="cb29-3"><a href="#cb29-3"></a><span class="st">Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
@@ -1440,6 +1451,7 @@ Variances:
 <span id="cb29-42"><a href="#cb29-42"></a>strong <span class="ot">&lt;-</span> <span class="fu">cfa</span>(strong, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
 <span id="cb29-43"><a href="#cb29-43"></a></span>
 <span id="cb29-44"><a href="#cb29-44"></a><span class="fu">summary</span>(strong, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 83 iterations
 
@@ -1566,6 +1578,8 @@ Variances:
 <section id="strict-loadings-intercept-residual-variances" class="slide level2">
 <h2>Strict (loadings, intercept, residual variances)</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>strict <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb31-2"><a href="#cb31-2"></a><span class="st">## define latent variables</span></span>
 <span id="cb31-3"><a href="#cb31-3"></a><span class="st">Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
@@ -1623,6 +1637,7 @@ Variances:
 <span id="cb31-55"><a href="#cb31-55"></a>strict <span class="ot">&lt;-</span> <span class="fu">cfa</span>(strict, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
 <span id="cb31-56"><a href="#cb31-56"></a></span>
 <span id="cb31-57"><a href="#cb31-57"></a><span class="fu">summary</span>(strict, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 82 iterations
 
@@ -1770,8 +1785,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="section" class="slide level2">
 <h2></h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="do">##Compare weak and strong model</span></span>
 <span id="cb35-2"><a href="#cb35-2"></a><span class="fu">anova</span>(weak, strong)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Chi-Squared Difference Test
 
@@ -1781,17 +1799,26 @@ strong 23 4164.8 4285.9 30.144     12.461       4    0.01424 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">fitmeasures</span>(weak)[<span class="st">'cfi'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>cfi 
   1 </code></pre>
 </div>
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">fitmeasures</span>(strong)[<span class="st">'cfi'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      cfi 
 0.9973062 </code></pre>
 </div>
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">fitmeasures</span>(strict)[<span class="st">'cfi'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      cfi 
 0.9888801 </code></pre>
@@ -1804,6 +1831,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Substantively, these analyses get at the relative rank order of people across assessment points. What is nice is that unlike using composites, this looks at latent correlations across time. Also nice is that different measures can be used eg a cognitive ability exam for children which naturally differs in content across age groups.</p>
 <p>key questions: 1. Should the correlations be the same across time? Should we set them (constrain) to be equal? 2. Should the error variances be correlated? 3. Are the loadings the same across time?</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>long.cfa <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb43-2"><a href="#cb43-2"></a><span class="st">## define latent variables</span></span>
 <span id="cb43-3"><a href="#cb43-3"></a><span class="st">Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31</span></span>
@@ -1830,6 +1859,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb43-24"><a href="#cb43-24"></a></span>
 <span id="cb43-25"><a href="#cb43-25"></a><span class="st">'</span></span>
 <span id="cb43-26"><a href="#cb43-26"></a>fit.long.cfa <span class="ot">&lt;-</span> <span class="fu">cfa</span>(long.cfa, <span class="at">data=</span>wide, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(semPlot)</span>
@@ -2415,6 +2445,8 @@ Variances:
 <section class="slide level2">
 
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>sec.order <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb53-2"><a href="#cb53-2"></a><span class="st">## define latent variables</span></span>
 <span id="cb53-3"><a href="#cb53-3"></a><span class="st">Pos1 =~ NA*PosAFF11 + L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
@@ -2460,13 +2492,18 @@ Variances:
 <span id="cb53-43"><a href="#cb53-43"></a></span>
 <span id="cb53-44"><a href="#cb53-44"></a></span>
 <span id="cb53-45"><a href="#cb53-45"></a>fit.sec.order <span class="ot">&lt;-</span> <span class="fu">growth</span>(sec.order, <span class="at">data=</span>wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
+</section>
+<section class="slide level2">
+
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">semPaths</span>(fit.sec.order)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="sem-3_files/figure-revealjs/unnamed-chunk-31-1.png" width="960"></p>
+
 </div>
-</div>
+<img data-src="sem-3_files/figure-revealjs/unnamed-chunk-31-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">summary</span>(fit.sec.order, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2604,12 +2641,6 @@ Constraints:
                                                |Slack|
     L1 - (3-L2-L3)                               0.000
     t1 - (0-t2-t3)                               0.000</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="fu">semPaths</span>(fit.sec.order)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="sem-3_files/figure-revealjs/unnamed-chunk-33-1.png" width="960"></p>
 </div>
 </div>
 
