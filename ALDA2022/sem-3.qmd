@@ -386,10 +386,10 @@ The default of MLM is that these residuals are the same across measurement occas
 
 ```{r}
 #| code-fold: true
-model.1 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
+model.2 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
             s =~ 0*alcuse_14 + .5*alcuse_15 + 1*alcuse_16'
-fit.1 <- growth(model.1, data=alcohol.wide)
-summary(fit.1)
+fit.2 <- growth(model.2, data=alcohol.wide)
+summary(fit.2)
 ```
 
 ## constraining slope to be fixed only
@@ -398,14 +398,72 @@ As with MLM we have options to handle the inclusion of random effects.
 
 ```{r}
 #| code-fold: true
-model.2 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
+model.3 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
             s =~ 0*alcuse_14 + .5*alcuse_15 + 1*alcuse_16
                s ~~0*s'
-fit.2 <- growth(model.2, data=alcohol.wide)
-summary(fit.2)
+fit.3<- growth(model.3, data=alcohol.wide)
+summary(fit.3)
 ```
 
 ## modeling residuals
+
+Constrain to be equal. Compare with mlm residual
+```{r}
+#| code-fold: true
+model.4 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
+            s =~ 0*alcuse_14 + .5*alcuse_15 + 1*alcuse_16
+            
+alcuse_14 ~~ a*alcuse_14
+alcuse_15 ~~ a*alcuse_15
+alcuse_16 ~~ a*alcuse_16'
+
+fit.4 <- growth(model.4, data=alcohol.wide)
+summary(fit.4)
+```
+
+
+## Plotting
+
+```{r}
+lavPredict(fit.1,type="lv")
+```
+
+
+
+-----
+
+```{r}
+lavPredict(fit.1,type="ov")
+```
+
+
+------
+
+```{r}
+#| code-fold: true
+as_tibble(lavPredict(fit.1,type="ov")) %>% 
+  rowid_to_column("ID") %>% 
+  pivot_longer(cols = starts_with("alc"), names_to = c(".value", "wave"), names_sep = "_") %>%
+dplyr::mutate(wave = as.numeric(wave)) %>% 
+ggplot(aes(x = wave, y = alcuse, group = ID, color = factor(ID))) +
+  geom_line() +  theme(legend.position = "none") 
+
+```
+
+
+----
+Plotting the constrained slope variance model
+
+```{r}
+#| code-fold: true
+as_tibble(lavPredict(fit.3,type="ov")) %>% 
+  rowid_to_column("ID") %>% 
+  pivot_longer(cols = starts_with("alc"), names_to = c(".value", "wave"), names_sep = "_") %>%
+dplyr::mutate(wave = as.numeric(wave)) %>% 
+ggplot(aes(x = wave, y = alcuse, group = ID, color = factor(ID))) +
+  geom_line() +  theme(legend.position = "none") 
+
+```
 
 
 ## What is measurement invariance?
