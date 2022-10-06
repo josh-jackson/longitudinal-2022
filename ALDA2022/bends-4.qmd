@@ -248,6 +248,8 @@ anova(p3, p1)
 
 ```{r}
 #| code-fold: true
+
+#use alcohol data from before
 alcohol <- read.csv("https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/alcohol1_pp.csv")
 
 alcohol.wide <- alcohol %>% 
@@ -255,7 +257,11 @@ alcohol.wide <- alcohol %>%
   pivot_wider(names_from = "age", 
               names_prefix = "alcuse_",
               values_from  = alcuse) 
+alcohol.wide
 ```
+
+
+-------
 
 ```{r}
 #| code-fold: true
@@ -285,7 +291,7 @@ summary(p4)
 
 -----
 
-
+Lets use the personality data from the mlm above. First gotta convert into wide. 
 ```{r}
 #| code-fold: true
 personality2 <- read.csv("https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/Subject_personality.csv")
@@ -304,7 +310,7 @@ p.wide
 ------
 
 ```{r}
-#| code-fold: true
+
 model.5 <- '  
 
 i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 
@@ -327,8 +333,9 @@ summary(p5)
 
 -------
 
+constrain variances
 ```{r}
-#| code-fold: true
+
 model.6 <- '  
 
 i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 
@@ -350,6 +357,36 @@ p6 <- growth(model.6, data = p.wide, missing = "ML")
 
 ```{r}
 summary(p6)
+```
+
+
+
+-----
+
+```{r}
+head(lavPredict(p6,type="lv"))
+```
+
+
+
+------
+
+```{r}
+head(lavPredict(p6,type="ov"))
+```
+
+
+-------------
+
+
+```{r}
+#| code-fold: true
+as_tibble(lavPredict(p6,type="ov")) %>% 
+  rowid_to_column("ID") %>% 
+  pivot_longer(cols = starts_with("extra"), names_to = c(".value", "wave"), names_sep = "_") %>%
+dplyr::mutate(wave = as.numeric(wave)) %>% 
+ggplot(aes(x = wave, y = extra, group = ID, color = factor(ID))) +
+  geom_line(alpha = .2) +  theme(legend.position = "none") 
 ```
 
 
@@ -380,11 +417,22 @@ summary(p7)
 
 
 
------
-
-Does not change the fit of the model nor the implied means, but it can change your parameters by changing the time scaling. 
+---------
 
 
+```{r}
+#| code-fold: true
+as_tibble(lavPredict(p7,type="ov")) %>% 
+  rowid_to_column("ID") %>% 
+  pivot_longer(cols = starts_with("extra"), names_to = c(".value", "wave"), names_sep = "_") %>%
+dplyr::mutate(wave = as.numeric(wave)) %>% 
+ggplot(aes(x = wave, y = extra, group = ID, color = factor(ID))) +
+  geom_line(alpha = .2) +  theme(legend.position = "none") 
+```
+
+
+
+--------
 
 ## Piecewise
 

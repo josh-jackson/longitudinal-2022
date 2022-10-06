@@ -683,39 +683,60 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>alcohol <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/alcohol1_pp.csv"</span>)</span>
-<span id="cb20-2"><a href="#cb20-2"></a></span>
-<span id="cb20-3"><a href="#cb20-3"></a>alcohol.wide <span class="ot">&lt;-</span> alcohol <span class="sc">%&gt;%</span> </span>
-<span id="cb20-4"><a href="#cb20-4"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>X, <span class="sc">-</span>age_14, <span class="sc">-</span>ccoa) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"age"</span>, </span>
-<span id="cb20-6"><a href="#cb20-6"></a>              <span class="at">names_prefix =</span> <span class="st">"alcuse_"</span>,</span>
-<span id="cb20-7"><a href="#cb20-7"></a>              <span class="at">values_from  =</span> alcuse) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co">#use alcohol data from before</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>alcohol <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/alcohol1_pp.csv"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3"></a></span>
+<span id="cb20-4"><a href="#cb20-4"></a>alcohol.wide <span class="ot">&lt;-</span> alcohol <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>X, <span class="sc">-</span>age_14, <span class="sc">-</span>ccoa) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"age"</span>, </span>
+<span id="cb20-7"><a href="#cb20-7"></a>              <span class="at">names_prefix =</span> <span class="st">"alcuse_"</span>,</span>
+<span id="cb20-8"><a href="#cb20-8"></a>              <span class="at">values_from  =</span> alcuse) </span>
+<span id="cb20-9"><a href="#cb20-9"></a>alcohol.wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 82 × 8
+      id   coa  male  peer  cpeer alcuse_14 alcuse_15 alcuse_16
+   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+ 1     1     1     0 1.26   0.247      1.73      2         2   
+ 2     2     1     1 0.894 -0.124      0         0         1   
+ 3     3     1     1 0.894 -0.124      1         2         3.32
+ 4     4     1     1 1.79   0.771      0         2         1.73
+ 5     5     1     0 0.894 -0.124      0         0         0   
+ 6     6     1     1 1.55   0.531      3         3         3.16
+ 7     7     1     0 1.55   0.531      1.73      2.45      1   
+ 8     8     1     1 0     -1.02       0         0         0   
+ 9     9     1     1 0     -1.02       0         1         3.46
+10    10     1     0 2      0.982      1         1         1   
+# … with 72 more rows</code></pre>
 </div>
+</div>
+</section>
+<section class="slide level2">
+
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>model<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="st">'  </span></span>
-<span id="cb21-2"><a href="#cb21-2"></a></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="st">i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 </span></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="st">s =~ 0*alcuse_14 + 2*alcuse_15 + 4*alcuse_16</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a><span class="st">q =~ 0*alcuse_14 + 4*alcuse_15 + 16*alcuse_16  </span></span>
-<span id="cb21-6"><a href="#cb21-6"></a></span>
-<span id="cb21-7"><a href="#cb21-7"></a><span class="st">q~~0*q</span></span>
-<span id="cb21-8"><a href="#cb21-8"></a></span>
-<span id="cb21-9"><a href="#cb21-9"></a><span class="st">alcuse_14~~a*alcuse_14</span></span>
-<span id="cb21-10"><a href="#cb21-10"></a><span class="st">alcuse_15~~a*alcuse_15</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a><span class="st">alcuse_16~~a*alcuse_16</span></span>
-<span id="cb21-12"><a href="#cb21-12"></a><span class="st">'</span></span>
-<span id="cb21-13"><a href="#cb21-13"></a></span>
-<span id="cb21-14"><a href="#cb21-14"></a>p4 <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.4</span>, <span class="at">data =</span> alcohol.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>model<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="st">'  </span></span>
+<span id="cb22-2"><a href="#cb22-2"></a></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="st">i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 </span></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="st">s =~ 0*alcuse_14 + 2*alcuse_15 + 4*alcuse_16</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="st">q =~ 0*alcuse_14 + 4*alcuse_15 + 16*alcuse_16  </span></span>
+<span id="cb22-6"><a href="#cb22-6"></a></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="st">q~~0*q</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a></span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="st">alcuse_14~~a*alcuse_14</span></span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="st">alcuse_15~~a*alcuse_15</span></span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="st">alcuse_16~~a*alcuse_16</span></span>
+<span id="cb22-12"><a href="#cb22-12"></a><span class="st">'</span></span>
+<span id="cb22-13"><a href="#cb22-13"></a></span>
+<span id="cb22-14"><a href="#cb22-14"></a>p4 <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.4</span>, <span class="at">data =</span> alcohol.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">summary</span>(p4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">summary</span>(p4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 37 iterations
 
@@ -783,19 +804,20 @@ Variances:
 </section>
 <section class="slide level2">
 
+<p>Lets use the personality data from the mlm above. First gotta convert into wide.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>personality2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/Subject_personality.csv"</span>)</span>
-<span id="cb24-2"><a href="#cb24-2"></a></span>
-<span id="cb24-3"><a href="#cb24-3"></a>p.wide<span class="ot">&lt;-</span> personality2 <span class="sc">%&gt;%</span> </span>
-<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">group_by</span>(mapid) <span class="sc">%&gt;%</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">arrange</span>(neodate) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-6"><a href="#cb24-6"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wave =</span> <span class="fu">seq_len</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-7"><a href="#cb24-7"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(age<span class="sc">:</span>neuroticism), <span class="sc">-</span><span class="fu">c</span>(openness<span class="sc">:</span>gender)) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-8"><a href="#cb24-8"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"wave"</span>, <span class="at">values_from =</span> <span class="st">"extraversion"</span>,<span class="at">names_prefix =</span> <span class="st">"extra_"</span>)</span>
-<span id="cb24-9"><a href="#cb24-9"></a></span>
-<span id="cb24-10"><a href="#cb24-10"></a>p.wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>personality2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/Subject_personality.csv"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a></span>
+<span id="cb25-3"><a href="#cb25-3"></a>p.wide<span class="ot">&lt;-</span> personality2 <span class="sc">%&gt;%</span> </span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">group_by</span>(mapid) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">arrange</span>(neodate) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-6"><a href="#cb25-6"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wave =</span> <span class="fu">seq_len</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-7"><a href="#cb25-7"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(age<span class="sc">:</span>neuroticism), <span class="sc">-</span><span class="fu">c</span>(openness<span class="sc">:</span>gender)) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-8"><a href="#cb25-8"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"wave"</span>, <span class="at">values_from =</span> <span class="st">"extraversion"</span>,<span class="at">names_prefix =</span> <span class="st">"extra_"</span>)</span>
+<span id="cb25-9"><a href="#cb25-9"></a></span>
+<span id="cb25-10"><a href="#cb25-10"></a>p.wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,090 × 6
@@ -819,24 +841,21 @@ Variances:
 <section class="slide level2">
 
 <div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>model<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="st">'  </span></span>
-<span id="cb26-2"><a href="#cb26-2"></a></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="st">i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 </span></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="st">s =~ 0*extra_1 + 1*extra_2 + 2*extra_3 + 3*extra_4 + 4*extra_5 </span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="st">q =~ 0*extra_1 + 1*extra_2 + 4*extra_3 + 9*extra_4 + 16*extra_5  </span></span>
-<span id="cb26-6"><a href="#cb26-6"></a></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="st">'</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a></span>
-<span id="cb26-9"><a href="#cb26-9"></a>p5 <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.5</span>, <span class="at">data =</span> p.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>model<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="st">'  </span></span>
+<span id="cb27-2"><a href="#cb27-2"></a></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="st">i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 </span></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="st">s =~ 0*extra_1 + 1*extra_2 + 2*extra_3 + 3*extra_4 + 4*extra_5 </span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="st">q =~ 0*extra_1 + 1*extra_2 + 4*extra_3 + 9*extra_4 + 16*extra_5  </span></span>
+<span id="cb27-6"><a href="#cb27-6"></a></span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="st">'</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a></span>
+<span id="cb27-9"><a href="#cb27-9"></a>p5 <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.5</span>, <span class="at">data =</span> p.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">summary</span>(p5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">summary</span>(p5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 135 iterations
 
@@ -914,30 +933,28 @@ Variances:
 </section>
 <section class="slide level2">
 
+<p>constrain variances</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>model<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="st">'  </span></span>
-<span id="cb29-2"><a href="#cb29-2"></a></span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="st">i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 </span></span>
-<span id="cb29-4"><a href="#cb29-4"></a><span class="st">s =~ 0*extra_1 + 1*extra_2 + 2*extra_3 + 3*extra_4 + 4*extra_5 </span></span>
-<span id="cb29-5"><a href="#cb29-5"></a><span class="st">q =~ 0*extra_1 + 1*extra_2 + 4*extra_3 + 9*extra_4 + 16*extra_5  </span></span>
-<span id="cb29-6"><a href="#cb29-6"></a></span>
-<span id="cb29-7"><a href="#cb29-7"></a><span class="st">extra_1 ~~ Q*extra_1</span></span>
-<span id="cb29-8"><a href="#cb29-8"></a><span class="st">extra_2 ~~ Q*extra_2</span></span>
-<span id="cb29-9"><a href="#cb29-9"></a><span class="st">extra_3 ~~ Q*extra_3</span></span>
-<span id="cb29-10"><a href="#cb29-10"></a><span class="st">extra_4 ~~ Q*extra_4</span></span>
-<span id="cb29-11"><a href="#cb29-11"></a><span class="st">extra_5 ~~ Q*extra_5</span></span>
-<span id="cb29-12"><a href="#cb29-12"></a><span class="st">'</span></span>
-<span id="cb29-13"><a href="#cb29-13"></a></span>
-<span id="cb29-14"><a href="#cb29-14"></a>p6 <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.6</span>, <span class="at">data =</span> p.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>model<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="st">'  </span></span>
+<span id="cb30-2"><a href="#cb30-2"></a></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="st">i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 </span></span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="st">s =~ 0*extra_1 + 1*extra_2 + 2*extra_3 + 3*extra_4 + 4*extra_5 </span></span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="st">q =~ 0*extra_1 + 1*extra_2 + 4*extra_3 + 9*extra_4 + 16*extra_5  </span></span>
+<span id="cb30-6"><a href="#cb30-6"></a></span>
+<span id="cb30-7"><a href="#cb30-7"></a><span class="st">extra_1 ~~ Q*extra_1</span></span>
+<span id="cb30-8"><a href="#cb30-8"></a><span class="st">extra_2 ~~ Q*extra_2</span></span>
+<span id="cb30-9"><a href="#cb30-9"></a><span class="st">extra_3 ~~ Q*extra_3</span></span>
+<span id="cb30-10"><a href="#cb30-10"></a><span class="st">extra_4 ~~ Q*extra_4</span></span>
+<span id="cb30-11"><a href="#cb30-11"></a><span class="st">extra_5 ~~ Q*extra_5</span></span>
+<span id="cb30-12"><a href="#cb30-12"></a><span class="st">'</span></span>
+<span id="cb30-13"><a href="#cb30-13"></a></span>
+<span id="cb30-14"><a href="#cb30-14"></a>p6 <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.6</span>, <span class="at">data =</span> p.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">summary</span>(p6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">summary</span>(p6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 117 iterations
 
@@ -1014,24 +1031,69 @@ Variances:
 </div>
 </div>
 </section>
-<section id="sem-latent-basis" class="slide level2">
-<h2>SEM latent basis</h2>
+<section class="slide level2">
+
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>model<span class="fl">.7</span> <span class="ot">&lt;-</span> <span class="st">'  </span></span>
-<span id="cb32-3"><a href="#cb32-3"></a></span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="st">i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 </span></span>
-<span id="cb32-5"><a href="#cb32-5"></a><span class="st">s =~ 0*extra_1 + extra_2 + extra_3 + extra_4 + 4*extra_5 </span></span>
-<span id="cb32-6"><a href="#cb32-6"></a></span>
-<span id="cb32-7"><a href="#cb32-7"></a><span class="st">'</span></span>
-<span id="cb32-8"><a href="#cb32-8"></a></span>
-<span id="cb32-9"><a href="#cb32-9"></a>p7 <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.7</span>, <span class="at">data =</span> p.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">head</span>(<span class="fu">lavPredict</span>(p6,<span class="at">type=</span><span class="st">"lv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            i          s             q
+[1,] 32.65393 -0.4115328  0.0542173074
+[2,] 32.35908 -0.3016062 -0.0001687605
+[3,] 28.37174 -0.8763890  0.1449828120
+[4,] 30.56915 -0.8415910  0.1606965177
+[5,] 19.08634 -1.7300094  0.2917956478
+[6,] 27.68981 -0.9944495  0.1728991739</code></pre>
+</div>
 </div>
 </section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">summary</span>(p7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">head</span>(<span class="fu">lavPredict</span>(p6,<span class="at">type=</span><span class="st">"ov"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      extra_1  extra_2  extra_3  extra_4  extra_5
+[1,] 32.65393 32.29662 32.04774 31.90729 31.87528
+[2,] 32.35908 32.05731 31.75520 31.45275 31.14996
+[3,] 28.37174 27.64033 27.19889 27.04742 27.18591
+[4,] 30.56915 29.88826 29.52875 29.49065 29.77393
+[5,] 19.08634 17.64813 16.79350 16.52247 16.83503
+[6,] 27.68981 26.86826 26.39251 26.26255 26.47840</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">as_tibble</span>(<span class="fu">lavPredict</span>(p6,<span class="at">type=</span><span class="st">"ov"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"extra"</span>), <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"wave"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a>dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wave =</span> <span class="fu">as.numeric</span>(wave)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wave, <span class="at">y =</span> extra, <span class="at">group =</span> ID, <span class="at">color =</span> <span class="fu">factor</span>(ID))) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="bends-4_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"></section>
+<section id="sem-latent-basis" class="slide level2">
+<h2>SEM latent basis</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>model<span class="fl">.7</span> <span class="ot">&lt;-</span> <span class="st">'  </span></span>
+<span id="cb38-3"><a href="#cb38-3"></a></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="st">i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 </span></span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="st">s =~ 0*extra_1 + extra_2 + extra_3 + extra_4 + 4*extra_5 </span></span>
+<span id="cb38-6"><a href="#cb38-6"></a></span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="st">'</span></span>
+<span id="cb38-8"><a href="#cb38-8"></a></span>
+<span id="cb38-9"><a href="#cb38-9"></a>p7 <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.7</span>, <span class="at">data =</span> p.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">summary</span>(p7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 178 iterations
 
@@ -1098,8 +1160,19 @@ Variances:
 </section>
 <section class="slide level2">
 
-<p>Does not change the fit of the model nor the implied means, but it can change your parameters by changing the time scaling.</p>
-</section>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">as_tibble</span>(<span class="fu">lavPredict</span>(p7,<span class="at">type=</span><span class="st">"ov"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-3"><a href="#cb41-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"extra"</span>), <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"wave"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a>dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wave =</span> <span class="fu">as.numeric</span>(wave)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-5"><a href="#cb41-5"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wave, <span class="at">y =</span> extra, <span class="at">group =</span> ID, <span class="at">color =</span> <span class="fu">factor</span>(ID))) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="bends-4_files/figure-revealjs/unnamed-chunk-30-1.png" width="960" class="r-stretch"></section>
 <section id="piecewise" class="slide level2">
 <h2>Piecewise</h2>
 <ul>
@@ -1116,12 +1189,12 @@ Variances:
 <li>The easiest example is to take your time variable and transform it into a Time1 and time2, that represent the different time periods</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>t1 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb35-2"><a href="#cb35-2"></a>  <span class="sc">~</span>time, <span class="sc">~</span>t0, <span class="sc">~</span>t1,<span class="sc">~</span>t2,<span class="sc">~</span>t3,<span class="sc">~</span>t4,<span class="sc">~</span>t5,</span>
-<span id="cb35-3"><a href="#cb35-3"></a>  <span class="st">"time 1"</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,</span>
-<span id="cb35-4"><a href="#cb35-4"></a>  <span class="st">"time 2"</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span></span>
-<span id="cb35-5"><a href="#cb35-5"></a>)</span>
-<span id="cb35-6"><a href="#cb35-6"></a>t1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>t1 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb42-2"><a href="#cb42-2"></a>  <span class="sc">~</span>time, <span class="sc">~</span>t0, <span class="sc">~</span>t1,<span class="sc">~</span>t2,<span class="sc">~</span>t3,<span class="sc">~</span>t4,<span class="sc">~</span>t5,</span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="st">"time 1"</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,</span>
+<span id="cb42-4"><a href="#cb42-4"></a>  <span class="st">"time 2"</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a>)</span>
+<span id="cb42-6"><a href="#cb42-6"></a>t1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   time      t0    t1    t2    t3    t4    t5
@@ -1141,12 +1214,12 @@ Variances:
 <li>Here the first trajectory keeps going, whereas the second trajectory starts at the position of the knot.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>t2 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="sc">~</span>time, <span class="sc">~</span>t0, <span class="sc">~</span>t1,<span class="sc">~</span>t2,<span class="sc">~</span>t3,<span class="sc">~</span>t4,<span class="sc">~</span>t5,</span>
-<span id="cb37-3"><a href="#cb37-3"></a>  <span class="st">"time 1"</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,</span>
-<span id="cb37-4"><a href="#cb37-4"></a>  <span class="st">"time 2"</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span></span>
-<span id="cb37-5"><a href="#cb37-5"></a>)</span>
-<span id="cb37-6"><a href="#cb37-6"></a>t2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>t2 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="sc">~</span>time, <span class="sc">~</span>t0, <span class="sc">~</span>t1,<span class="sc">~</span>t2,<span class="sc">~</span>t3,<span class="sc">~</span>t4,<span class="sc">~</span>t5,</span>
+<span id="cb44-3"><a href="#cb44-3"></a>  <span class="st">"time 1"</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,</span>
+<span id="cb44-4"><a href="#cb44-4"></a>  <span class="st">"time 2"</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span></span>
+<span id="cb44-5"><a href="#cb44-5"></a>)</span>
+<span id="cb44-6"><a href="#cb44-6"></a>t2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   time      t0    t1    t2    t3    t4    t5
@@ -1176,15 +1249,15 @@ Variances:
 <p>0 1 2 2 2<br>
 0 0 0 1 2</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>personality<span class="sc">$</span>time1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">recode</span>(personality<span class="sc">$</span>wave, <span class="st">'1'</span> <span class="ot">=</span> <span class="dv">0</span> , <span class="st">'2'</span> <span class="ot">=</span> <span class="dv">1</span>,  <span class="st">'3'</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">'4'</span> <span class="ot">=</span> <span class="dv">2</span>,<span class="st">'5'</span> <span class="ot">=</span> <span class="dv">2</span>)      </span>
-<span id="cb39-2"><a href="#cb39-2"></a>personality<span class="sc">$</span>time2 <span class="ot">&lt;-</span> <span class="fu">recode</span>(personality<span class="sc">$</span>wave, <span class="st">'1'</span> <span class="ot">=</span> <span class="dv">0</span> , <span class="st">'2'</span> <span class="ot">=</span> <span class="dv">0</span>,  <span class="st">'3'</span> <span class="ot">=</span> <span class="dv">0</span>, <span class="st">'4'</span> <span class="ot">=</span> <span class="dv">1</span>,<span class="st">'5'</span> <span class="ot">=</span> <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>personality<span class="sc">$</span>time1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">recode</span>(personality<span class="sc">$</span>wave, <span class="st">'1'</span> <span class="ot">=</span> <span class="dv">0</span> , <span class="st">'2'</span> <span class="ot">=</span> <span class="dv">1</span>,  <span class="st">'3'</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">'4'</span> <span class="ot">=</span> <span class="dv">2</span>,<span class="st">'5'</span> <span class="ot">=</span> <span class="dv">2</span>)      </span>
+<span id="cb46-2"><a href="#cb46-2"></a>personality<span class="sc">$</span>time2 <span class="ot">&lt;-</span> <span class="fu">recode</span>(personality<span class="sc">$</span>wave, <span class="st">'1'</span> <span class="ot">=</span> <span class="dv">0</span> , <span class="st">'2'</span> <span class="ot">=</span> <span class="dv">0</span>,  <span class="st">'3'</span> <span class="ot">=</span> <span class="dv">0</span>, <span class="st">'4'</span> <span class="ot">=</span> <span class="dv">1</span>,<span class="st">'5'</span> <span class="ot">=</span> <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>p7 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(extraversion <span class="sc">~</span> time1 <span class="sc">+</span> time2 <span class="sc">+</span> (time1 <span class="sc">|</span> mapid) , <span class="at">data=</span>personality)</span>
-<span id="cb40-2"><a href="#cb40-2"></a><span class="fu">summary</span>(p7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>p7 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(extraversion <span class="sc">~</span> time1 <span class="sc">+</span> time2 <span class="sc">+</span> (time1 <span class="sc">|</span> mapid) , <span class="at">data=</span>personality)</span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="fu">summary</span>(p7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: extraversion ~ time1 + time2 + (time1 | mapid)
@@ -1222,8 +1295,8 @@ boundary (singular) fit: see help('isSingular')</code></pre>
 
 <p>0 1 3 4 5 (Wave) 0 0 0 1 2 (same as time 2 previously)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>p8 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(extraversion <span class="sc">~</span> wave <span class="sc">+</span> time2 <span class="sc">+</span> (wave  <span class="sc">|</span> mapid) , <span class="at">data=</span>personality)</span>
-<span id="cb42-2"><a href="#cb42-2"></a><span class="fu">summary</span>(p8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>p8 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(extraversion <span class="sc">~</span> wave <span class="sc">+</span> time2 <span class="sc">+</span> (wave  <span class="sc">|</span> mapid) , <span class="at">data=</span>personality)</span>
+<span id="cb49-2"><a href="#cb49-2"></a><span class="fu">summary</span>(p8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: extraversion ~ wave + time2 + (wave | mapid)
