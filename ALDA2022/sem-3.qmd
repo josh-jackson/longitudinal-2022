@@ -248,15 +248,17 @@ semPaths(fit.2)
 
 1.  Growth models
 
-2.  Growth models + cross lags
+2.  Longitudinal CFA
 
-3.  Longitudinal CFA
+3.  Cross lag panel model
 
-4.  Panel/cross lag/longitudinal path model/mediation
+4.  Longitudinal mediation
 
-5.  Latent change/difference score models
+5.  Growth models + cross lags  
 
-6.  Mixture or class based longitudinal models
+6.  Latent change/difference score models
+
+7.  Mixture or class based longitudinal models
 
 ## lavaan
 
@@ -530,11 +532,14 @@ Notice that we didnt do anything different here except for fitting a mean struct
 
 ## Weak (constrain loadings)
 
-With SEM models you can constrain or fix certain parameters to be whatever you want them to be. The syntax is some number or letters followed by an \*. If the values are numbers, then it will force the parameters to be that number. If they are letter, then it names the parameter and forces all of those with the same naming scheme to be equivalent. But it allows the estimation to figure out what number it should be.
+- If the values are numbers, constraints will force the parameters to be that number. If they are letter, then it names the parameter and forces all of those with the same naming scheme to be equivalent. 
 
-Weak measurement invariance test is to constrain the items to be equivalent across waves.
+- Weak measurement invariance test is to constrain the item loadings to be equivalent across waves.
 
-A special character is to "relax" constraints that are automatically included. Here NA is used to allow the latent variance at time 2 and 3 to be estimated, rather than to be constrained to 1 (bc below we used a fixed factor approach)
+-  Here NA is used to allow the latent variance at time 2 and 3 to be estimated, rather than to be automatically constrained to 1 (bc we used a fixed factor approach)
+
+-------
+
 
 ```{r}
 #| code-fold: true
@@ -569,9 +574,9 @@ summary(weak, standardized=TRUE, fit.measures=TRUE)
 
 ## Strong (constrain loadings and intercepts)
 
-Strong introduces means to the equation. Well, they were there before, estimated by default because we set meanstructure = TRUE. But now we are going to constrain the means of each item to be the same across time, again using labels.
+- Strong introduces means to the equation.They were there before but now we constrain the means of each item to be the same across time
 
-Why are we doing that if we want to test whether people change? Shouldnt changes in the means exist? Well, we can
+- Why are we doing that if we want to test whether people change? Change will be reflected latently. 
 
 ```{r}
 #| code-fold: true
@@ -623,6 +628,8 @@ summary(strong, standardized=TRUE, fit.measures=TRUE)
 ```
 
 ## Strict (loadings, intercept, residual variances)
+
+The next step is to constrain residual variances to be the same. This step isn't necessary to for correctly interpretting growth models. 
 
 ```{r}
 #| code-fold: true
@@ -692,14 +699,15 @@ Note that there are other types of MI that we could investigate, depending on wh
 
 ## Comparing the models
 
-Usually done through chi-square difference test. But this is a very sensitive test, especially with larger samples. Better to look at changes in CFI. If delta is .01 or greater than maybe it shows misfit.
+Usually done through chi-square difference test. You want NS, i.e. the constrains do not lead to worse fit. But this is a very sensitive test, especially with larger samples. Better to look at changes in CFI. If delta is .01 or greater than maybe it shows misfit.
 
 ```{r}
 ##Compare configural and weak model
 anova(config, weak)
 ```
 
-## 
+--------
+
 
 ```{r}
 #| code-fold: true
@@ -713,13 +721,41 @@ fitmeasures(strict)['cfi']
 
 ```
 
+## Types of longitudinal models
+
+1.  Growth models
+
+2.  Longitudinal CFA
+
+3.  Cross lag panel model
+
+4.  Longitudinal mediation
+
+5.  Growth models + cross lags  
+
+6.  Latent change/difference score models
+
+7.  Mixture or class based longitudinal models
+
+
 ## Longitudinal CFA
 
-Starting point in longitudinal analysis. Can be simply thought of as does this construct relate to itself across time? And, to the extent that it does not, is that due to changes in how the construct is measured over time?
+- Can be simply thought of as does this construct relate to itself across time? And, to the extent that it does not, is that due to changes in how the construct is measured over time?
 
-Substantively, these analyses get at the relative rank order of people across assessment points. What is nice is that unlike using composites, this looks at latent correlations across time. Also nice is that different measures can be used eg a cognitive ability exam for children which naturally differs in content across age groups.
+- Substantively, these analyses get at the relative rank order of people across assessment points. What is nice is that unlike using composites, this looks at latent correlations across time. 
 
-key questions: 1. Should the correlations be the same across time? Should we set them (constrain) to be equal? 2. Should the error variances be correlated? 3. Are the loadings the same across time?
+-Also nice is that different measures can be used eg a cognitive ability exam for children which naturally differs in content across age groups.
+
+------
+
+key questions for longitudinal CFA: 
+1. Should the correlations be the same across time? Should we set them (constrain) to be equal?  
+2. Should the error variances be correlated?  
+3. Are the loadings the same across time? 
+
+
+------
+
 
 ```{r}
 #| code-fold: true
@@ -754,14 +790,21 @@ fit.long.cfa <- cfa(long.cfa, data=wide, std.lv=TRUE)
 
 ```
 
+
+----
+
 ```{r}
 library(semPlot)
 semPaths(fit.long.cfa)
 ```
 
+
+----
+
 ```{r}
 summary(fit.long.cfa)
 ```
+
 
 ## unstandardized estimates
 
@@ -775,22 +818,25 @@ fit.long.cfa.us <- cfa(long.cfa, data=wide, std.lv=FALSE)
 summary(fit.long.cfa.us)
 ```
 
+-----
+
 We can also get standardized estimates in the the summary step, even when using the fixed factor approach.
 
 ```{r}
 summary(fit.long.cfa.us, standardized = TRUE)
 ```
 
+
 ## introducing means.
 
-Notice how we can also esimate means of the variables, though we don't necessarily need to. These are now under the "intercepts" heading.
+- Notice how we can also estimate means of the variables, though we don't necessarily need to. These are now under the "intercepts" heading.
 
 ```{r}
 fit.long.cfa.us.mean <- cfa(long.cfa, meanstructure=TRUE, data=wide, std.lv=FALSE)
 summary(fit.long.cfa.us.mean)
 ```
 
-Why are our latent variables zero? The cfa and sem functions fix the latent variable intercepts (which in this case correspond to the latent means) to zero. We have to override these defaults by asking the model to fit them. More on this below.
+
 
 ## Second order growth model
 
@@ -801,6 +847,70 @@ Repeated measures are latent. Why would we want to do this? At least two reasons
 2.  we can impose constraints for measurement invariance across time (MI).
 
 ------------------------------------------------------------------------
+
+```{r}
+#| code-fold: true
+
+sec.order <- '
+## define latent variables
+Pos1 =~ PosAFF11 + L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31
+Pos2 =~ PosAFF12 + L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32
+Pos3 =~ PosAFF13 + L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33
+
+## intercepts
+PosAFF11 ~ t1*1
+PosAFF21 ~ t2*1
+PosAFF31 ~ t3*1
+
+PosAFF12 ~ t1*1
+PosAFF22 ~ t2*1
+PosAFF32 ~ t3*1
+
+PosAFF13 ~ t1*1
+PosAFF23 ~ t2*1
+PosAFF33 ~ t3*1
+
+
+## correlated residuals across time
+PosAFF11 ~~ PosAFF12 + PosAFF13
+PosAFF12 ~~ PosAFF13
+PosAFF21 ~~ PosAFF22 + PosAFF23
+PosAFF22 ~~ PosAFF23
+PosAFF31 ~~ PosAFF32 + PosAFF33
+PosAFF32 ~~ PosAFF33
+
+
+## latent variable intercepts
+Pos1 ~ 0*1
+Pos2  ~ 0*1
+Pos3  ~ 0*1
+
+
+i =~ 1*Pos1 + 1*Pos2 + 1*Pos3 
+s =~ 0*Pos1 + 1*Pos2 + 2*Pos3 '
+
+
+fit.sec.order <- growth(sec.order, data=wide, missing = "ML")
+
+
+```
+
+----------------
+
+```{r}
+semPaths(fit.sec.order)
+```
+
+
+------------
+
+```{r}
+summary(fit.sec.order, fit.measures=TRUE)
+
+```
+
+
+## effect coding
 
 ```{r}
 #| code-fold: true
@@ -854,19 +964,9 @@ fit.sec.order <- growth(sec.order, data=wide, missing = "ML")
 
 ```
 
-----------------
+----
 
 ```{r}
-semPaths(fit.sec.order)
+summary(fit.sec.order)
 ```
-
-
-------------
-
-```{r}
-summary(fit.sec.order, fit.measures=TRUE)
-
-```
-
-
 
