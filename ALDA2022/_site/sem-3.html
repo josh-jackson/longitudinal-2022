@@ -1322,50 +1322,42 @@ Variances:
 <span id="cb30-5"><a href="#cb30-5"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wave, <span class="at">y =</span> alcuse, <span class="at">group =</span> ID, <span class="at">color =</span> <span class="fu">factor</span>(ID))) <span class="sc">+</span></span>
 <span id="cb30-6"><a href="#cb30-6"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<p><img data-src="sem-3_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
+
 </div>
+<img data-src="sem-3_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>Plotting the constrained slope variance model</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">as_tibble</span>(<span class="fu">lavPredict</span>(fit<span class="fl">.3</span>,<span class="at">type=</span><span class="st">"ov"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"alc"</span>), <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"wave"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a>dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wave =</span> <span class="fu">as.numeric</span>(wave)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wave, <span class="at">y =</span> alcuse, <span class="at">group =</span> ID, <span class="at">color =</span> <span class="fu">factor</span>(ID))) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
 </div>
-<table style="width:7%;">
-<colgroup>
-<col style="width: 6%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Plotting the constrained slope variance model</td>
-</tr>
-<tr class="even">
-<td>::: {.cell}</td>
-</tr>
-<tr class="odd">
-<td><code>{.r .cell-code  code-fold="true"} as_tibble(lavPredict(fit.3,type="ov")) %&gt;% rowid_to_column("ID") %&gt;% pivot_longer(cols = starts_with("alc"), names_to = c(".value", "wave"), names_sep = "_") %&gt;% dplyr::mutate(wave = as.numeric(wave)) %&gt;% ggplot(aes(x = wave, y = alcuse, group = ID, color = factor(ID))) + geom_line() +  theme(legend.position = "none")</code></td>
-</tr>
-<tr class="even">
-<td>::: {.cell-output-display} <img data-src="sem-3_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"> ::: :::</td>
-</tr>
-<tr class="odd">
-<td>## What is measurement invariance?</td>
-</tr>
-<tr class="even">
-<td>- To meaningfully look at means, we need to have the means mean the same thing.</td>
-</tr>
-<tr class="odd">
-<td>- Otherwise, change could reflect people responding to the indicators differently. For example, a common item on an extraversion scale is “Do you like to go to parties?” This is likely interpreted differently by a 20 year old compared to a 70 year old.</td>
-</tr>
-<tr class="even">
-<td>- Maturation is the easiest way to see measurement differences, but it also happens when you want to compare groups. This assumption is typically never critically examined.</td>
-</tr>
-<tr class="odd">
-<td>## types of MI</td>
-</tr>
-<tr class="even">
-<td>- Configural (pattern). Asks: does your measure have the same factor structure? Typically always true with a decent measure of your construct. Can be tested through test statistics and eye-balling. Serves as default model to compare with our more stringent models.</td>
-</tr>
-<tr class="odd">
-<td>- Weak (metric/loading). Can be easily met. Not meeting this shows big problems, unless you are working with a really large dataset (where there is large power to find differences).</td>
-</tr>
-</tbody>
-</table>
+<img data-src="sem-3_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch"></section>
+<section id="what-is-measurement-invariance" class="slide level2">
+<h2>What is measurement invariance?</h2>
+<ul>
+<li><p>To meaningfully look at means, we need to have the means mean the same thing.</p></li>
+<li><p>Otherwise, change could reflect people responding to the indicators differently. For example, a common item on an extraversion scale is “Do you like to go to parties?” This is likely interpreted differently by a 20 year old compared to a 70 year old.</p></li>
+<li><p>Maturation is the easiest way to see measurement differences, but it also happens when you want to compare groups. This assumption is typically never critically examined.</p></li>
+</ul>
+</section>
+<section id="types-of-mi" class="slide level2">
+<h2>types of MI</h2>
+<ul>
+<li><p>Configural (pattern). Asks: does your measure have the same factor structure? Typically always true with a decent measure of your construct. Can be tested through test statistics and eye-balling. Serves as default model to compare with our more stringent models.</p></li>
+<li><p>Weak (metric/loading). Can be easily met. Not meeting this shows big problems, unless you are working with a really large dataset (where there is large power to find differences).</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
 <ul>
 <li><p>Strong (Scalar/intercept). Need to meet this designation to run longitudinal models and look at means across time.</p></li>
 <li><p>Strict (residual/error variance). Not necessarily better than Strong, and does not need to be satisfied to use longitudinal models. Why might this not hold even if you are assessing the same construct? Hint: think of what residual variance is made up of.</p></li>
@@ -1376,10 +1368,10 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>cfa <span class="ot">&lt;-</span> <span class="st">'Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31'</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a></span>
-<span id="cb31-3"><a href="#cb31-3"></a>fit.cfa <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfa, <span class="at">data=</span>wide, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="fu">semPaths</span>(fit.cfa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>cfa <span class="ot">&lt;-</span> <span class="st">'Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31'</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a></span>
+<span id="cb32-3"><a href="#cb32-3"></a>fit.cfa <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfa, <span class="at">data=</span>wide, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="fu">semPaths</span>(fit.cfa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -1389,27 +1381,27 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>config <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="st">## define latent variables</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="st">Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="st">Pos2 =~ PosAFF12 + PosAFF22 + PosAFF32</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a><span class="st">Pos3 =~ PosAFF13 + PosAFF23 + PosAFF33</span></span>
-<span id="cb32-6"><a href="#cb32-6"></a></span>
-<span id="cb32-7"><a href="#cb32-7"></a></span>
-<span id="cb32-8"><a href="#cb32-8"></a><span class="st">## correlated residuals across time</span></span>
-<span id="cb32-9"><a href="#cb32-9"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
-<span id="cb32-10"><a href="#cb32-10"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
-<span id="cb32-11"><a href="#cb32-11"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
-<span id="cb32-12"><a href="#cb32-12"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
-<span id="cb32-13"><a href="#cb32-13"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
-<span id="cb32-14"><a href="#cb32-14"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
-<span id="cb32-15"><a href="#cb32-15"></a></span>
-<span id="cb32-16"><a href="#cb32-16"></a></span>
-<span id="cb32-17"><a href="#cb32-17"></a><span class="st">'</span></span>
-<span id="cb32-18"><a href="#cb32-18"></a></span>
-<span id="cb32-19"><a href="#cb32-19"></a>config <span class="ot">&lt;-</span> <span class="fu">cfa</span>(config, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
-<span id="cb32-20"><a href="#cb32-20"></a></span>
-<span id="cb32-21"><a href="#cb32-21"></a><span class="fu">summary</span>(config, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>config <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="st">## define latent variables</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="st">Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a><span class="st">Pos2 =~ PosAFF12 + PosAFF22 + PosAFF32</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a><span class="st">Pos3 =~ PosAFF13 + PosAFF23 + PosAFF33</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a></span>
+<span id="cb33-7"><a href="#cb33-7"></a></span>
+<span id="cb33-8"><a href="#cb33-8"></a><span class="st">## correlated residuals across time</span></span>
+<span id="cb33-9"><a href="#cb33-9"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
+<span id="cb33-10"><a href="#cb33-10"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
+<span id="cb33-11"><a href="#cb33-11"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
+<span id="cb33-12"><a href="#cb33-12"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
+<span id="cb33-13"><a href="#cb33-13"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
+<span id="cb33-14"><a href="#cb33-14"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
+<span id="cb33-15"><a href="#cb33-15"></a></span>
+<span id="cb33-16"><a href="#cb33-16"></a></span>
+<span id="cb33-17"><a href="#cb33-17"></a><span class="st">'</span></span>
+<span id="cb33-18"><a href="#cb33-18"></a></span>
+<span id="cb33-19"><a href="#cb33-19"></a>config <span class="ot">&lt;-</span> <span class="fu">cfa</span>(config, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
+<span id="cb33-20"><a href="#cb33-20"></a></span>
+<span id="cb33-21"><a href="#cb33-21"></a><span class="fu">summary</span>(config, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 76 iterations
@@ -1542,30 +1534,30 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>weak <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="st">## define latent variables</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="st">Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a><span class="st">Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a><span class="st">Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33</span></span>
-<span id="cb34-6"><a href="#cb34-6"></a></span>
-<span id="cb34-7"><a href="#cb34-7"></a><span class="st">## free latent variances at later times (only set the scale once)</span></span>
-<span id="cb34-8"><a href="#cb34-8"></a><span class="st">Pos2 ~~ NA*Pos2</span></span>
-<span id="cb34-9"><a href="#cb34-9"></a><span class="st">Pos3 ~~ NA*Pos3</span></span>
-<span id="cb34-10"><a href="#cb34-10"></a></span>
-<span id="cb34-11"><a href="#cb34-11"></a><span class="st">## correlated residuals across time</span></span>
-<span id="cb34-12"><a href="#cb34-12"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
-<span id="cb34-13"><a href="#cb34-13"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
-<span id="cb34-14"><a href="#cb34-14"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
-<span id="cb34-15"><a href="#cb34-15"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
-<span id="cb34-16"><a href="#cb34-16"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
-<span id="cb34-17"><a href="#cb34-17"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
-<span id="cb34-18"><a href="#cb34-18"></a></span>
-<span id="cb34-19"><a href="#cb34-19"></a></span>
-<span id="cb34-20"><a href="#cb34-20"></a><span class="st">'</span></span>
-<span id="cb34-21"><a href="#cb34-21"></a></span>
-<span id="cb34-22"><a href="#cb34-22"></a>weak <span class="ot">&lt;-</span> <span class="fu">cfa</span>(weak, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
-<span id="cb34-23"><a href="#cb34-23"></a></span>
-<span id="cb34-24"><a href="#cb34-24"></a><span class="fu">summary</span>(weak, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>weak <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="st">## define latent variables</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="st">Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="st">Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="st">Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a></span>
+<span id="cb35-7"><a href="#cb35-7"></a><span class="st">## free latent variances at later times (only set the scale once)</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a><span class="st">Pos2 ~~ NA*Pos2</span></span>
+<span id="cb35-9"><a href="#cb35-9"></a><span class="st">Pos3 ~~ NA*Pos3</span></span>
+<span id="cb35-10"><a href="#cb35-10"></a></span>
+<span id="cb35-11"><a href="#cb35-11"></a><span class="st">## correlated residuals across time</span></span>
+<span id="cb35-12"><a href="#cb35-12"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
+<span id="cb35-13"><a href="#cb35-13"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
+<span id="cb35-14"><a href="#cb35-14"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
+<span id="cb35-15"><a href="#cb35-15"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
+<span id="cb35-16"><a href="#cb35-16"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
+<span id="cb35-17"><a href="#cb35-17"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
+<span id="cb35-18"><a href="#cb35-18"></a></span>
+<span id="cb35-19"><a href="#cb35-19"></a></span>
+<span id="cb35-20"><a href="#cb35-20"></a><span class="st">'</span></span>
+<span id="cb35-21"><a href="#cb35-21"></a></span>
+<span id="cb35-22"><a href="#cb35-22"></a>weak <span class="ot">&lt;-</span> <span class="fu">cfa</span>(weak, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
+<span id="cb35-23"><a href="#cb35-23"></a></span>
+<span id="cb35-24"><a href="#cb35-24"></a><span class="fu">summary</span>(weak, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 81 iterations
@@ -1697,50 +1689,50 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>strong <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="st">## define latent variables</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a><span class="st">Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
-<span id="cb36-4"><a href="#cb36-4"></a><span class="st">Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32</span></span>
-<span id="cb36-5"><a href="#cb36-5"></a><span class="st">Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33</span></span>
-<span id="cb36-6"><a href="#cb36-6"></a></span>
-<span id="cb36-7"><a href="#cb36-7"></a></span>
-<span id="cb36-8"><a href="#cb36-8"></a><span class="st">## free latent variances at later times (only set the scale once)</span></span>
-<span id="cb36-9"><a href="#cb36-9"></a><span class="st">Pos2 ~~ NA*Pos2</span></span>
-<span id="cb36-10"><a href="#cb36-10"></a><span class="st">Pos3 ~~ NA*Pos3</span></span>
-<span id="cb36-11"><a href="#cb36-11"></a></span>
-<span id="cb36-12"><a href="#cb36-12"></a></span>
-<span id="cb36-13"><a href="#cb36-13"></a><span class="st">## correlated residuals across time</span></span>
-<span id="cb36-14"><a href="#cb36-14"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
-<span id="cb36-15"><a href="#cb36-15"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
-<span id="cb36-16"><a href="#cb36-16"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
-<span id="cb36-17"><a href="#cb36-17"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
-<span id="cb36-18"><a href="#cb36-18"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
-<span id="cb36-19"><a href="#cb36-19"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
-<span id="cb36-20"><a href="#cb36-20"></a></span>
-<span id="cb36-21"><a href="#cb36-21"></a></span>
-<span id="cb36-22"><a href="#cb36-22"></a><span class="st">## constrain intercepts across time</span></span>
-<span id="cb36-23"><a href="#cb36-23"></a><span class="st">PosAFF11 ~ t1*1</span></span>
-<span id="cb36-24"><a href="#cb36-24"></a><span class="st">PosAFF21 ~ t2*1</span></span>
-<span id="cb36-25"><a href="#cb36-25"></a><span class="st">PosAFF31 ~ t3*1</span></span>
-<span id="cb36-26"><a href="#cb36-26"></a></span>
-<span id="cb36-27"><a href="#cb36-27"></a></span>
-<span id="cb36-28"><a href="#cb36-28"></a><span class="st">PosAFF12 ~ t1*1</span></span>
-<span id="cb36-29"><a href="#cb36-29"></a><span class="st">PosAFF22 ~ t2*1</span></span>
-<span id="cb36-30"><a href="#cb36-30"></a><span class="st">PosAFF32 ~ t3*1</span></span>
-<span id="cb36-31"><a href="#cb36-31"></a></span>
-<span id="cb36-32"><a href="#cb36-32"></a></span>
-<span id="cb36-33"><a href="#cb36-33"></a><span class="st">PosAFF13 ~ t1*1</span></span>
-<span id="cb36-34"><a href="#cb36-34"></a><span class="st">PosAFF23 ~ t2*1</span></span>
-<span id="cb36-35"><a href="#cb36-35"></a><span class="st">PosAFF33 ~ t3*1</span></span>
-<span id="cb36-36"><a href="#cb36-36"></a></span>
-<span id="cb36-37"><a href="#cb36-37"></a></span>
-<span id="cb36-38"><a href="#cb36-38"></a><span class="st">## free latent means at later times (only set the scale once)</span></span>
-<span id="cb36-39"><a href="#cb36-39"></a><span class="st">Pos2 ~ NA*1</span></span>
-<span id="cb36-40"><a href="#cb36-40"></a><span class="st">Pos3 ~ NA*1'</span></span>
-<span id="cb36-41"><a href="#cb36-41"></a></span>
-<span id="cb36-42"><a href="#cb36-42"></a>strong <span class="ot">&lt;-</span> <span class="fu">cfa</span>(strong, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
-<span id="cb36-43"><a href="#cb36-43"></a></span>
-<span id="cb36-44"><a href="#cb36-44"></a><span class="fu">summary</span>(strong, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>strong <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="st">## define latent variables</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a><span class="st">Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a><span class="st">Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32</span></span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="st">Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a></span>
+<span id="cb37-7"><a href="#cb37-7"></a></span>
+<span id="cb37-8"><a href="#cb37-8"></a><span class="st">## free latent variances at later times (only set the scale once)</span></span>
+<span id="cb37-9"><a href="#cb37-9"></a><span class="st">Pos2 ~~ NA*Pos2</span></span>
+<span id="cb37-10"><a href="#cb37-10"></a><span class="st">Pos3 ~~ NA*Pos3</span></span>
+<span id="cb37-11"><a href="#cb37-11"></a></span>
+<span id="cb37-12"><a href="#cb37-12"></a></span>
+<span id="cb37-13"><a href="#cb37-13"></a><span class="st">## correlated residuals across time</span></span>
+<span id="cb37-14"><a href="#cb37-14"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
+<span id="cb37-15"><a href="#cb37-15"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
+<span id="cb37-16"><a href="#cb37-16"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
+<span id="cb37-17"><a href="#cb37-17"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
+<span id="cb37-18"><a href="#cb37-18"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
+<span id="cb37-19"><a href="#cb37-19"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
+<span id="cb37-20"><a href="#cb37-20"></a></span>
+<span id="cb37-21"><a href="#cb37-21"></a></span>
+<span id="cb37-22"><a href="#cb37-22"></a><span class="st">## constrain intercepts across time</span></span>
+<span id="cb37-23"><a href="#cb37-23"></a><span class="st">PosAFF11 ~ t1*1</span></span>
+<span id="cb37-24"><a href="#cb37-24"></a><span class="st">PosAFF21 ~ t2*1</span></span>
+<span id="cb37-25"><a href="#cb37-25"></a><span class="st">PosAFF31 ~ t3*1</span></span>
+<span id="cb37-26"><a href="#cb37-26"></a></span>
+<span id="cb37-27"><a href="#cb37-27"></a></span>
+<span id="cb37-28"><a href="#cb37-28"></a><span class="st">PosAFF12 ~ t1*1</span></span>
+<span id="cb37-29"><a href="#cb37-29"></a><span class="st">PosAFF22 ~ t2*1</span></span>
+<span id="cb37-30"><a href="#cb37-30"></a><span class="st">PosAFF32 ~ t3*1</span></span>
+<span id="cb37-31"><a href="#cb37-31"></a></span>
+<span id="cb37-32"><a href="#cb37-32"></a></span>
+<span id="cb37-33"><a href="#cb37-33"></a><span class="st">PosAFF13 ~ t1*1</span></span>
+<span id="cb37-34"><a href="#cb37-34"></a><span class="st">PosAFF23 ~ t2*1</span></span>
+<span id="cb37-35"><a href="#cb37-35"></a><span class="st">PosAFF33 ~ t3*1</span></span>
+<span id="cb37-36"><a href="#cb37-36"></a></span>
+<span id="cb37-37"><a href="#cb37-37"></a></span>
+<span id="cb37-38"><a href="#cb37-38"></a><span class="st">## free latent means at later times (only set the scale once)</span></span>
+<span id="cb37-39"><a href="#cb37-39"></a><span class="st">Pos2 ~ NA*1</span></span>
+<span id="cb37-40"><a href="#cb37-40"></a><span class="st">Pos3 ~ NA*1'</span></span>
+<span id="cb37-41"><a href="#cb37-41"></a></span>
+<span id="cb37-42"><a href="#cb37-42"></a>strong <span class="ot">&lt;-</span> <span class="fu">cfa</span>(strong, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
+<span id="cb37-43"><a href="#cb37-43"></a></span>
+<span id="cb37-44"><a href="#cb37-44"></a><span class="fu">summary</span>(strong, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 83 iterations
@@ -1870,63 +1862,63 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>strict <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="st">## define latent variables</span></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="st">Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="st">Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32</span></span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="st">Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33</span></span>
-<span id="cb38-6"><a href="#cb38-6"></a></span>
-<span id="cb38-7"><a href="#cb38-7"></a></span>
-<span id="cb38-8"><a href="#cb38-8"></a><span class="st">## free latent variances at later times (only set the scale once)</span></span>
-<span id="cb38-9"><a href="#cb38-9"></a><span class="st">Pos2 ~~ NA*Pos2</span></span>
-<span id="cb38-10"><a href="#cb38-10"></a><span class="st">Pos3 ~~ NA*Pos3</span></span>
-<span id="cb38-11"><a href="#cb38-11"></a></span>
-<span id="cb38-12"><a href="#cb38-12"></a></span>
-<span id="cb38-13"><a href="#cb38-13"></a><span class="st">## correlated residuals across time</span></span>
-<span id="cb38-14"><a href="#cb38-14"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
-<span id="cb38-15"><a href="#cb38-15"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
-<span id="cb38-16"><a href="#cb38-16"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
-<span id="cb38-17"><a href="#cb38-17"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
-<span id="cb38-18"><a href="#cb38-18"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
-<span id="cb38-19"><a href="#cb38-19"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
-<span id="cb38-20"><a href="#cb38-20"></a></span>
-<span id="cb38-21"><a href="#cb38-21"></a><span class="st">## equality of residuals </span></span>
-<span id="cb38-22"><a href="#cb38-22"></a><span class="st">PosAFF11 ~~ r*PosAFF11 </span></span>
-<span id="cb38-23"><a href="#cb38-23"></a><span class="st">PosAFF12 ~~ r*PosAFF12</span></span>
-<span id="cb38-24"><a href="#cb38-24"></a><span class="st">PosAFF13 ~~ r*PosAFF13</span></span>
-<span id="cb38-25"><a href="#cb38-25"></a></span>
-<span id="cb38-26"><a href="#cb38-26"></a><span class="st">PosAFF21 ~~ r*PosAFF21 </span></span>
-<span id="cb38-27"><a href="#cb38-27"></a><span class="st">PosAFF22 ~~ r*PosAFF22</span></span>
-<span id="cb38-28"><a href="#cb38-28"></a><span class="st">PosAFF23 ~~ r*PosAFF23</span></span>
-<span id="cb38-29"><a href="#cb38-29"></a></span>
-<span id="cb38-30"><a href="#cb38-30"></a><span class="st">PosAFF31 ~~ r*PosAFF31 </span></span>
-<span id="cb38-31"><a href="#cb38-31"></a><span class="st">PosAFF32 ~~ r*PosAFF32</span></span>
-<span id="cb38-32"><a href="#cb38-32"></a><span class="st">PosAFF33 ~~ r*PosAFF33</span></span>
-<span id="cb38-33"><a href="#cb38-33"></a></span>
-<span id="cb38-34"><a href="#cb38-34"></a></span>
-<span id="cb38-35"><a href="#cb38-35"></a><span class="st">## constrain intercepts across time</span></span>
-<span id="cb38-36"><a href="#cb38-36"></a><span class="st">PosAFF11 ~ t1*1</span></span>
-<span id="cb38-37"><a href="#cb38-37"></a><span class="st">PosAFF21 ~ t2*1</span></span>
-<span id="cb38-38"><a href="#cb38-38"></a><span class="st">PosAFF31 ~ t3*1</span></span>
-<span id="cb38-39"><a href="#cb38-39"></a></span>
-<span id="cb38-40"><a href="#cb38-40"></a></span>
-<span id="cb38-41"><a href="#cb38-41"></a><span class="st">PosAFF12 ~ t1*1</span></span>
-<span id="cb38-42"><a href="#cb38-42"></a><span class="st">PosAFF22 ~ t2*1</span></span>
-<span id="cb38-43"><a href="#cb38-43"></a><span class="st">PosAFF32 ~ t3*1</span></span>
-<span id="cb38-44"><a href="#cb38-44"></a></span>
-<span id="cb38-45"><a href="#cb38-45"></a></span>
-<span id="cb38-46"><a href="#cb38-46"></a><span class="st">PosAFF13 ~ t1*1</span></span>
-<span id="cb38-47"><a href="#cb38-47"></a><span class="st">PosAFF23 ~ t2*1</span></span>
-<span id="cb38-48"><a href="#cb38-48"></a><span class="st">PosAFF33 ~ t3*1</span></span>
-<span id="cb38-49"><a href="#cb38-49"></a></span>
-<span id="cb38-50"><a href="#cb38-50"></a></span>
-<span id="cb38-51"><a href="#cb38-51"></a><span class="st">## free latent means at later times (only set the scale once)</span></span>
-<span id="cb38-52"><a href="#cb38-52"></a><span class="st">Pos2 ~ NA*1</span></span>
-<span id="cb38-53"><a href="#cb38-53"></a><span class="st">Pos3 ~ NA*1'</span></span>
-<span id="cb38-54"><a href="#cb38-54"></a></span>
-<span id="cb38-55"><a href="#cb38-55"></a>strict <span class="ot">&lt;-</span> <span class="fu">cfa</span>(strict, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
-<span id="cb38-56"><a href="#cb38-56"></a></span>
-<span id="cb38-57"><a href="#cb38-57"></a><span class="fu">summary</span>(strict, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>strict <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="st">## define latent variables</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="st">Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="st">Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32</span></span>
+<span id="cb39-5"><a href="#cb39-5"></a><span class="st">Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33</span></span>
+<span id="cb39-6"><a href="#cb39-6"></a></span>
+<span id="cb39-7"><a href="#cb39-7"></a></span>
+<span id="cb39-8"><a href="#cb39-8"></a><span class="st">## free latent variances at later times (only set the scale once)</span></span>
+<span id="cb39-9"><a href="#cb39-9"></a><span class="st">Pos2 ~~ NA*Pos2</span></span>
+<span id="cb39-10"><a href="#cb39-10"></a><span class="st">Pos3 ~~ NA*Pos3</span></span>
+<span id="cb39-11"><a href="#cb39-11"></a></span>
+<span id="cb39-12"><a href="#cb39-12"></a></span>
+<span id="cb39-13"><a href="#cb39-13"></a><span class="st">## correlated residuals across time</span></span>
+<span id="cb39-14"><a href="#cb39-14"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
+<span id="cb39-15"><a href="#cb39-15"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
+<span id="cb39-16"><a href="#cb39-16"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
+<span id="cb39-17"><a href="#cb39-17"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
+<span id="cb39-18"><a href="#cb39-18"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
+<span id="cb39-19"><a href="#cb39-19"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
+<span id="cb39-20"><a href="#cb39-20"></a></span>
+<span id="cb39-21"><a href="#cb39-21"></a><span class="st">## equality of residuals </span></span>
+<span id="cb39-22"><a href="#cb39-22"></a><span class="st">PosAFF11 ~~ r*PosAFF11 </span></span>
+<span id="cb39-23"><a href="#cb39-23"></a><span class="st">PosAFF12 ~~ r*PosAFF12</span></span>
+<span id="cb39-24"><a href="#cb39-24"></a><span class="st">PosAFF13 ~~ r*PosAFF13</span></span>
+<span id="cb39-25"><a href="#cb39-25"></a></span>
+<span id="cb39-26"><a href="#cb39-26"></a><span class="st">PosAFF21 ~~ r*PosAFF21 </span></span>
+<span id="cb39-27"><a href="#cb39-27"></a><span class="st">PosAFF22 ~~ r*PosAFF22</span></span>
+<span id="cb39-28"><a href="#cb39-28"></a><span class="st">PosAFF23 ~~ r*PosAFF23</span></span>
+<span id="cb39-29"><a href="#cb39-29"></a></span>
+<span id="cb39-30"><a href="#cb39-30"></a><span class="st">PosAFF31 ~~ r*PosAFF31 </span></span>
+<span id="cb39-31"><a href="#cb39-31"></a><span class="st">PosAFF32 ~~ r*PosAFF32</span></span>
+<span id="cb39-32"><a href="#cb39-32"></a><span class="st">PosAFF33 ~~ r*PosAFF33</span></span>
+<span id="cb39-33"><a href="#cb39-33"></a></span>
+<span id="cb39-34"><a href="#cb39-34"></a></span>
+<span id="cb39-35"><a href="#cb39-35"></a><span class="st">## constrain intercepts across time</span></span>
+<span id="cb39-36"><a href="#cb39-36"></a><span class="st">PosAFF11 ~ t1*1</span></span>
+<span id="cb39-37"><a href="#cb39-37"></a><span class="st">PosAFF21 ~ t2*1</span></span>
+<span id="cb39-38"><a href="#cb39-38"></a><span class="st">PosAFF31 ~ t3*1</span></span>
+<span id="cb39-39"><a href="#cb39-39"></a></span>
+<span id="cb39-40"><a href="#cb39-40"></a></span>
+<span id="cb39-41"><a href="#cb39-41"></a><span class="st">PosAFF12 ~ t1*1</span></span>
+<span id="cb39-42"><a href="#cb39-42"></a><span class="st">PosAFF22 ~ t2*1</span></span>
+<span id="cb39-43"><a href="#cb39-43"></a><span class="st">PosAFF32 ~ t3*1</span></span>
+<span id="cb39-44"><a href="#cb39-44"></a></span>
+<span id="cb39-45"><a href="#cb39-45"></a></span>
+<span id="cb39-46"><a href="#cb39-46"></a><span class="st">PosAFF13 ~ t1*1</span></span>
+<span id="cb39-47"><a href="#cb39-47"></a><span class="st">PosAFF23 ~ t2*1</span></span>
+<span id="cb39-48"><a href="#cb39-48"></a><span class="st">PosAFF33 ~ t3*1</span></span>
+<span id="cb39-49"><a href="#cb39-49"></a></span>
+<span id="cb39-50"><a href="#cb39-50"></a></span>
+<span id="cb39-51"><a href="#cb39-51"></a><span class="st">## free latent means at later times (only set the scale once)</span></span>
+<span id="cb39-52"><a href="#cb39-52"></a><span class="st">Pos2 ~ NA*1</span></span>
+<span id="cb39-53"><a href="#cb39-53"></a><span class="st">Pos3 ~ NA*1'</span></span>
+<span id="cb39-54"><a href="#cb39-54"></a></span>
+<span id="cb39-55"><a href="#cb39-55"></a>strict <span class="ot">&lt;-</span> <span class="fu">cfa</span>(strict, <span class="at">data=</span>wide, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span>
+<span id="cb39-56"><a href="#cb39-56"></a></span>
+<span id="cb39-57"><a href="#cb39-57"></a><span class="fu">summary</span>(strict, <span class="at">standardized=</span><span class="cn">TRUE</span>, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 82 iterations
@@ -2059,8 +2051,8 @@ Variances:
 <h2>Comparing the models</h2>
 <p>Usually done through chi-square difference test. But this is a very sensitive test, especially with larger samples. Better to look at changes in CFI. If delta is .01 or greater than maybe it shows misfit.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="do">##Compare configural and weak model</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a><span class="fu">anova</span>(config, weak)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="do">##Compare configural and weak model</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="fu">anova</span>(config, weak)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Chi-Squared Difference Test
 
@@ -2077,8 +2069,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="do">##Compare weak and strong model</span></span>
-<span id="cb42-2"><a href="#cb42-2"></a><span class="fu">anova</span>(weak, strong)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="do">##Compare weak and strong model</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="fu">anova</span>(weak, strong)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Chi-Squared Difference Test
@@ -2091,7 +2083,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">fitmeasures</span>(weak)[<span class="st">'cfi'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">fitmeasures</span>(weak)[<span class="st">'cfi'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>cfi 
@@ -2099,7 +2091,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">fitmeasures</span>(strong)[<span class="st">'cfi'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">fitmeasures</span>(strong)[<span class="st">'cfi'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      cfi 
@@ -2107,7 +2099,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">fitmeasures</span>(strict)[<span class="st">'cfi'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">fitmeasures</span>(strict)[<span class="st">'cfi'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      cfi 
@@ -2123,41 +2115,41 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>long.cfa <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb50-2"><a href="#cb50-2"></a><span class="st">## define latent variables</span></span>
-<span id="cb50-3"><a href="#cb50-3"></a><span class="st">Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31</span></span>
-<span id="cb50-4"><a href="#cb50-4"></a><span class="st">Pos2 =~ PosAFF12 + PosAFF22 + PosAFF32</span></span>
-<span id="cb50-5"><a href="#cb50-5"></a><span class="st">Pos3 =~ PosAFF13 + PosAFF23 + PosAFF33</span></span>
-<span id="cb50-6"><a href="#cb50-6"></a><span class="st">Neg1 =~ NegAFF11 + NegAFF21 + NegAFF31</span></span>
-<span id="cb50-7"><a href="#cb50-7"></a><span class="st">Neg2 =~ NegAFF12 + NegAFF22 + NegAFF32</span></span>
-<span id="cb50-8"><a href="#cb50-8"></a><span class="st">Neg3 =~ NegAFF13 + NegAFF23 + NegAFF33</span></span>
-<span id="cb50-9"><a href="#cb50-9"></a></span>
-<span id="cb50-10"><a href="#cb50-10"></a><span class="st">## correlated residuals across time</span></span>
-<span id="cb50-11"><a href="#cb50-11"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
-<span id="cb50-12"><a href="#cb50-12"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
-<span id="cb50-13"><a href="#cb50-13"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
-<span id="cb50-14"><a href="#cb50-14"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
-<span id="cb50-15"><a href="#cb50-15"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
-<span id="cb50-16"><a href="#cb50-16"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
-<span id="cb50-17"><a href="#cb50-17"></a></span>
-<span id="cb50-18"><a href="#cb50-18"></a><span class="st">NegAFF11 ~~ NegAFF12 + NegAFF13</span></span>
-<span id="cb50-19"><a href="#cb50-19"></a><span class="st">NegAFF12 ~~ NegAFF13</span></span>
-<span id="cb50-20"><a href="#cb50-20"></a><span class="st">NegAFF21 ~~ NegAFF22 + NegAFF23</span></span>
-<span id="cb50-21"><a href="#cb50-21"></a><span class="st">NegAFF22 ~~ NegAFF23</span></span>
-<span id="cb50-22"><a href="#cb50-22"></a><span class="st">NegAFF31 ~~ NegAFF32 + NegAFF33</span></span>
-<span id="cb50-23"><a href="#cb50-23"></a><span class="st">NegAFF32 ~~ NegAFF33</span></span>
-<span id="cb50-24"><a href="#cb50-24"></a></span>
-<span id="cb50-25"><a href="#cb50-25"></a><span class="st">'</span></span>
-<span id="cb50-26"><a href="#cb50-26"></a>fit.long.cfa <span class="ot">&lt;-</span> <span class="fu">cfa</span>(long.cfa, <span class="at">data=</span>wide, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>long.cfa <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb51-2"><a href="#cb51-2"></a><span class="st">## define latent variables</span></span>
+<span id="cb51-3"><a href="#cb51-3"></a><span class="st">Pos1 =~ PosAFF11 + PosAFF21 + PosAFF31</span></span>
+<span id="cb51-4"><a href="#cb51-4"></a><span class="st">Pos2 =~ PosAFF12 + PosAFF22 + PosAFF32</span></span>
+<span id="cb51-5"><a href="#cb51-5"></a><span class="st">Pos3 =~ PosAFF13 + PosAFF23 + PosAFF33</span></span>
+<span id="cb51-6"><a href="#cb51-6"></a><span class="st">Neg1 =~ NegAFF11 + NegAFF21 + NegAFF31</span></span>
+<span id="cb51-7"><a href="#cb51-7"></a><span class="st">Neg2 =~ NegAFF12 + NegAFF22 + NegAFF32</span></span>
+<span id="cb51-8"><a href="#cb51-8"></a><span class="st">Neg3 =~ NegAFF13 + NegAFF23 + NegAFF33</span></span>
+<span id="cb51-9"><a href="#cb51-9"></a></span>
+<span id="cb51-10"><a href="#cb51-10"></a><span class="st">## correlated residuals across time</span></span>
+<span id="cb51-11"><a href="#cb51-11"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
+<span id="cb51-12"><a href="#cb51-12"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
+<span id="cb51-13"><a href="#cb51-13"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
+<span id="cb51-14"><a href="#cb51-14"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
+<span id="cb51-15"><a href="#cb51-15"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
+<span id="cb51-16"><a href="#cb51-16"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
+<span id="cb51-17"><a href="#cb51-17"></a></span>
+<span id="cb51-18"><a href="#cb51-18"></a><span class="st">NegAFF11 ~~ NegAFF12 + NegAFF13</span></span>
+<span id="cb51-19"><a href="#cb51-19"></a><span class="st">NegAFF12 ~~ NegAFF13</span></span>
+<span id="cb51-20"><a href="#cb51-20"></a><span class="st">NegAFF21 ~~ NegAFF22 + NegAFF23</span></span>
+<span id="cb51-21"><a href="#cb51-21"></a><span class="st">NegAFF22 ~~ NegAFF23</span></span>
+<span id="cb51-22"><a href="#cb51-22"></a><span class="st">NegAFF31 ~~ NegAFF32 + NegAFF33</span></span>
+<span id="cb51-23"><a href="#cb51-23"></a><span class="st">NegAFF32 ~~ NegAFF33</span></span>
+<span id="cb51-24"><a href="#cb51-24"></a></span>
+<span id="cb51-25"><a href="#cb51-25"></a><span class="st">'</span></span>
+<span id="cb51-26"><a href="#cb51-26"></a>fit.long.cfa <span class="ot">&lt;-</span> <span class="fu">cfa</span>(long.cfa, <span class="at">data=</span>wide, <span class="at">std.lv=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">library</span>(semPlot)</span>
-<span id="cb51-2"><a href="#cb51-2"></a><span class="fu">semPaths</span>(fit.long.cfa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">library</span>(semPlot)</span>
+<span id="cb52-2"><a href="#cb52-2"></a><span class="fu">semPaths</span>(fit.long.cfa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="sem-3_files/figure-revealjs/unnamed-chunk-30-1.png" width="960" class="r-stretch"><div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">summary</span>(fit.long.cfa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">summary</span>(fit.long.cfa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 128 iterations
 
@@ -2296,8 +2288,8 @@ Variances:
 </ol>
 <p>This uses the marker variable approach. The above uses the fixed factor method.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>fit.long.cfa.us <span class="ot">&lt;-</span> <span class="fu">cfa</span>(long.cfa, <span class="at">data=</span>wide, <span class="at">std.lv=</span><span class="cn">FALSE</span>)</span>
-<span id="cb54-2"><a href="#cb54-2"></a><span class="fu">summary</span>(fit.long.cfa.us)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>fit.long.cfa.us <span class="ot">&lt;-</span> <span class="fu">cfa</span>(long.cfa, <span class="at">data=</span>wide, <span class="at">std.lv=</span><span class="cn">FALSE</span>)</span>
+<span id="cb55-2"><a href="#cb55-2"></a><span class="fu">summary</span>(fit.long.cfa.us)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 144 iterations
 
@@ -2429,7 +2421,7 @@ Variances:
 </div>
 <p>We can also get standardized estimates in the the summary step, even when using the fixed factor approach.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="fu">summary</span>(fit.long.cfa.us, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="fu">summary</span>(fit.long.cfa.us, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 144 iterations
 
@@ -2564,8 +2556,8 @@ Variances:
 <h2>introducing means.</h2>
 <p>Notice how we can also esimate means of the variables, though we don’t necessarily need to. These are now under the “intercepts” heading.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>fit.long.cfa.us.mean <span class="ot">&lt;-</span> <span class="fu">cfa</span>(long.cfa, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">data=</span>wide, <span class="at">std.lv=</span><span class="cn">FALSE</span>)</span>
-<span id="cb58-2"><a href="#cb58-2"></a><span class="fu">summary</span>(fit.long.cfa.us.mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>fit.long.cfa.us.mean <span class="ot">&lt;-</span> <span class="fu">cfa</span>(long.cfa, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">data=</span>wide, <span class="at">std.lv=</span><span class="cn">FALSE</span>)</span>
+<span id="cb59-2"><a href="#cb59-2"></a><span class="fu">summary</span>(fit.long.cfa.us.mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 144 iterations
 
@@ -2737,65 +2729,65 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>sec.order <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb60-2"><a href="#cb60-2"></a><span class="st">## define latent variables</span></span>
-<span id="cb60-3"><a href="#cb60-3"></a><span class="st">Pos1 =~ NA*PosAFF11 + L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
-<span id="cb60-4"><a href="#cb60-4"></a><span class="st">Pos2 =~ NA*PosAFF12 + L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32</span></span>
-<span id="cb60-5"><a href="#cb60-5"></a><span class="st">Pos3 =~ NA*PosAFF13 + L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33</span></span>
-<span id="cb60-6"><a href="#cb60-6"></a></span>
-<span id="cb60-7"><a href="#cb60-7"></a><span class="st">## intercepts</span></span>
-<span id="cb60-8"><a href="#cb60-8"></a><span class="st">PosAFF11 ~ t1*1</span></span>
-<span id="cb60-9"><a href="#cb60-9"></a><span class="st">PosAFF21 ~ t2*1</span></span>
-<span id="cb60-10"><a href="#cb60-10"></a><span class="st">PosAFF31 ~ t3*1</span></span>
-<span id="cb60-11"><a href="#cb60-11"></a></span>
-<span id="cb60-12"><a href="#cb60-12"></a><span class="st">PosAFF12 ~ t1*1</span></span>
-<span id="cb60-13"><a href="#cb60-13"></a><span class="st">PosAFF22 ~ t2*1</span></span>
-<span id="cb60-14"><a href="#cb60-14"></a><span class="st">PosAFF32 ~ t3*1</span></span>
-<span id="cb60-15"><a href="#cb60-15"></a></span>
-<span id="cb60-16"><a href="#cb60-16"></a><span class="st">PosAFF13 ~ t1*1</span></span>
-<span id="cb60-17"><a href="#cb60-17"></a><span class="st">PosAFF23 ~ t2*1</span></span>
-<span id="cb60-18"><a href="#cb60-18"></a><span class="st">PosAFF33 ~ t3*1</span></span>
-<span id="cb60-19"><a href="#cb60-19"></a></span>
-<span id="cb60-20"><a href="#cb60-20"></a></span>
-<span id="cb60-21"><a href="#cb60-21"></a><span class="st">## correlated residuals across time</span></span>
-<span id="cb60-22"><a href="#cb60-22"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
-<span id="cb60-23"><a href="#cb60-23"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
-<span id="cb60-24"><a href="#cb60-24"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
-<span id="cb60-25"><a href="#cb60-25"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
-<span id="cb60-26"><a href="#cb60-26"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
-<span id="cb60-27"><a href="#cb60-27"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
-<span id="cb60-28"><a href="#cb60-28"></a></span>
-<span id="cb60-29"><a href="#cb60-29"></a></span>
-<span id="cb60-30"><a href="#cb60-30"></a><span class="st">## latent variable intercepts</span></span>
-<span id="cb60-31"><a href="#cb60-31"></a><span class="st">Pos1 ~ 0*1</span></span>
-<span id="cb60-32"><a href="#cb60-32"></a><span class="st">Pos2  ~ 0*1</span></span>
-<span id="cb60-33"><a href="#cb60-33"></a><span class="st">Pos3  ~ 0*1</span></span>
-<span id="cb60-34"><a href="#cb60-34"></a></span>
-<span id="cb60-35"><a href="#cb60-35"></a><span class="st">#model constraints for effect coding</span></span>
-<span id="cb60-36"><a href="#cb60-36"></a><span class="st">## loadings must average to 1</span></span>
-<span id="cb60-37"><a href="#cb60-37"></a><span class="st">L1 == 3 - L2 - L3</span></span>
-<span id="cb60-38"><a href="#cb60-38"></a><span class="st">## means must average to 0</span></span>
-<span id="cb60-39"><a href="#cb60-39"></a><span class="st">t1 == 0 - t2 - t3</span></span>
-<span id="cb60-40"><a href="#cb60-40"></a></span>
-<span id="cb60-41"><a href="#cb60-41"></a><span class="st">i =~ 1*Pos1 + 1*Pos2 + 1*Pos3 </span></span>
-<span id="cb60-42"><a href="#cb60-42"></a><span class="st">s =~ 0*Pos1 + 1*Pos2 + 2*Pos3 '</span></span>
-<span id="cb60-43"><a href="#cb60-43"></a></span>
-<span id="cb60-44"><a href="#cb60-44"></a></span>
-<span id="cb60-45"><a href="#cb60-45"></a>fit.sec.order <span class="ot">&lt;-</span> <span class="fu">growth</span>(sec.order, <span class="at">data=</span>wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>sec.order <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a><span class="st">## define latent variables</span></span>
+<span id="cb61-3"><a href="#cb61-3"></a><span class="st">Pos1 =~ NA*PosAFF11 + L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
+<span id="cb61-4"><a href="#cb61-4"></a><span class="st">Pos2 =~ NA*PosAFF12 + L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32</span></span>
+<span id="cb61-5"><a href="#cb61-5"></a><span class="st">Pos3 =~ NA*PosAFF13 + L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33</span></span>
+<span id="cb61-6"><a href="#cb61-6"></a></span>
+<span id="cb61-7"><a href="#cb61-7"></a><span class="st">## intercepts</span></span>
+<span id="cb61-8"><a href="#cb61-8"></a><span class="st">PosAFF11 ~ t1*1</span></span>
+<span id="cb61-9"><a href="#cb61-9"></a><span class="st">PosAFF21 ~ t2*1</span></span>
+<span id="cb61-10"><a href="#cb61-10"></a><span class="st">PosAFF31 ~ t3*1</span></span>
+<span id="cb61-11"><a href="#cb61-11"></a></span>
+<span id="cb61-12"><a href="#cb61-12"></a><span class="st">PosAFF12 ~ t1*1</span></span>
+<span id="cb61-13"><a href="#cb61-13"></a><span class="st">PosAFF22 ~ t2*1</span></span>
+<span id="cb61-14"><a href="#cb61-14"></a><span class="st">PosAFF32 ~ t3*1</span></span>
+<span id="cb61-15"><a href="#cb61-15"></a></span>
+<span id="cb61-16"><a href="#cb61-16"></a><span class="st">PosAFF13 ~ t1*1</span></span>
+<span id="cb61-17"><a href="#cb61-17"></a><span class="st">PosAFF23 ~ t2*1</span></span>
+<span id="cb61-18"><a href="#cb61-18"></a><span class="st">PosAFF33 ~ t3*1</span></span>
+<span id="cb61-19"><a href="#cb61-19"></a></span>
+<span id="cb61-20"><a href="#cb61-20"></a></span>
+<span id="cb61-21"><a href="#cb61-21"></a><span class="st">## correlated residuals across time</span></span>
+<span id="cb61-22"><a href="#cb61-22"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
+<span id="cb61-23"><a href="#cb61-23"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
+<span id="cb61-24"><a href="#cb61-24"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
+<span id="cb61-25"><a href="#cb61-25"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
+<span id="cb61-26"><a href="#cb61-26"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
+<span id="cb61-27"><a href="#cb61-27"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
+<span id="cb61-28"><a href="#cb61-28"></a></span>
+<span id="cb61-29"><a href="#cb61-29"></a></span>
+<span id="cb61-30"><a href="#cb61-30"></a><span class="st">## latent variable intercepts</span></span>
+<span id="cb61-31"><a href="#cb61-31"></a><span class="st">Pos1 ~ 0*1</span></span>
+<span id="cb61-32"><a href="#cb61-32"></a><span class="st">Pos2  ~ 0*1</span></span>
+<span id="cb61-33"><a href="#cb61-33"></a><span class="st">Pos3  ~ 0*1</span></span>
+<span id="cb61-34"><a href="#cb61-34"></a></span>
+<span id="cb61-35"><a href="#cb61-35"></a><span class="st">#model constraints for effect coding</span></span>
+<span id="cb61-36"><a href="#cb61-36"></a><span class="st">## loadings must average to 1</span></span>
+<span id="cb61-37"><a href="#cb61-37"></a><span class="st">L1 == 3 - L2 - L3</span></span>
+<span id="cb61-38"><a href="#cb61-38"></a><span class="st">## means must average to 0</span></span>
+<span id="cb61-39"><a href="#cb61-39"></a><span class="st">t1 == 0 - t2 - t3</span></span>
+<span id="cb61-40"><a href="#cb61-40"></a></span>
+<span id="cb61-41"><a href="#cb61-41"></a><span class="st">i =~ 1*Pos1 + 1*Pos2 + 1*Pos3 </span></span>
+<span id="cb61-42"><a href="#cb61-42"></a><span class="st">s =~ 0*Pos1 + 1*Pos2 + 2*Pos3 '</span></span>
+<span id="cb61-43"><a href="#cb61-43"></a></span>
+<span id="cb61-44"><a href="#cb61-44"></a></span>
+<span id="cb61-45"><a href="#cb61-45"></a>fit.sec.order <span class="ot">&lt;-</span> <span class="fu">growth</span>(sec.order, <span class="at">data=</span>wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="fu">semPaths</span>(fit.sec.order)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="fu">semPaths</span>(fit.sec.order)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="sem-3_files/figure-revealjs/unnamed-chunk-36-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="fu">summary</span>(fit.sec.order, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="fu">summary</span>(fit.sec.order, <span class="at">fit.measures=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 99 iterations
 

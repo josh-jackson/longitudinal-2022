@@ -1062,5 +1062,54 @@
     "title": "sem",
     "section": "Plotting",
     "text": "Plotting\n\nlavPredict(fit.1,type=\"lv\")\n\n          i      s\n [1,] 1.673  0.151\n [2,] 0.016  0.420\n [3,] 1.037  0.892\n [4,] 0.155  0.808\n [5,] 0.012  0.096\n [6,] 2.857  0.058\n [7,] 1.700 -0.140\n [8,] 0.012  0.096\n [9,] 0.094  1.294\n[10,] 0.960  0.066\n[11,] 0.024  1.120\n[12,] 0.895  0.228\n[13,] 0.020  0.744\n[14,] 2.747  0.069\n[15,] 1.691  0.314\n[16,] 0.990  0.231\n[17,] 0.080  0.171\n[18,] 1.886 -0.309\n[19,] 0.012  0.096\n[20,] 3.167 -0.733\n[21,] 1.013  0.358\n[22,] 2.686 -0.582\n[23,] 0.963  0.303\n[24,] 0.080  0.171\n[25,] 2.719 -0.260\n[26,] 0.085  0.629\n[27,] 2.647 -0.631\n[28,] 0.012  0.096\n[29,] 0.016  0.420\n[30,] 1.031  0.378\n[31,] 1.776  0.529\n[32,] 1.630 -0.217\n[33,] 0.085  0.629\n[34,] 0.084  0.495\n[35,] 0.956 -0.258\n[36,] 0.964  0.390\n[37,] 1.093  0.904\n[38,] 0.138  0.874\n[39,] 0.012  0.096\n[40,] 0.012  0.096\n[41,] 1.259  0.137\n[42,] 0.012  0.096\n[43,] 0.012  0.096\n[44,] 0.120  1.174\n[45,] 2.135  0.276\n[46,] 0.017  0.554\n[47,] 0.080  0.171\n[48,] 0.012  0.096\n[49,] 0.012  0.096\n[50,] 0.012  0.096\n[51,] 0.012  0.096\n[52,] 0.080  0.171\n[53,] 0.012  0.096\n[54,] 0.016  0.420\n[55,] 0.012  0.096\n[56,] 0.118  1.060\n[57,] 0.012  0.096\n[58,] 0.994  0.567\n[59,] 0.022  0.953\n[60,] 0.085  0.629\n[61,] 1.924  0.053\n[62,] 0.012  0.096\n[63,] 0.012  0.096\n[64,] 0.157  0.971\n[65,] 0.085  0.629\n[66,] 1.498  0.721\n[67,] 0.888 -0.334\n[68,] 0.080  0.171\n[69,] 0.012  0.096\n[70,] 1.832 -0.688\n[71,] 0.012  0.096\n[72,] 0.012  0.096\n[73,] 0.012  0.096\n[74,] 0.138  0.951\n[75,] 0.012  0.096\n[76,] 0.012  0.096\n[77,] 0.119  1.119\n[78,] 0.012  0.096\n[79,] 1.046  0.293\n[80,] 0.963  0.303\n[81,] 0.012  0.096\n[82,] 0.112  0.526"
+  },
+  {
+    "objectID": "bends-4.html#trajectories-that-bend",
+    "href": "bends-4.html#trajectories-that-bend",
+    "title": "bends",
+    "section": "Trajectories that bend",
+    "text": "Trajectories that bend\n\n\n\n\nThus far we have been sticking with monotonically increasing trajectories. This is a good assumption given the amount of data often found, along with the simplicity.\nOften we want to see if trajectories are not straight. Development is not simple so our lines should not be.\nNeed effective strategies for line that bend that also balance tradeoffs with interprettability and overfitting"
+  },
+  {
+    "objectID": "bends-4.html#polynomial-and-splines",
+    "href": "bends-4.html#polynomial-and-splines",
+    "title": "bends",
+    "section": "Polynomial and Splines",
+    "text": "Polynomial and Splines\nPolynomials (quadratic) level 1:\n\\[{Y}_{ij} = \\beta_{0j}  + \\beta_{1j}(Time_{ij} - \\bar{X)} + \\beta_{2j}(Time_{ij} - \\bar{X)}^2 + \\varepsilon_{ij}\\]\nLevel 2:\n\\[{\\beta}_{0j} = \\gamma_{00} +   U_{0j}\\]\n\\[{\\beta}_{1j} = \\gamma_{10} +  U_{1j}\\]\n\\[{\\beta}_{2j} = \\gamma_{20} +  U_{2j}\\]"
+  },
+  {
+    "objectID": "bends-4.html#mlm-poly-example",
+    "href": "bends-4.html#mlm-poly-example",
+    "title": "bends",
+    "section": "MLM poly example",
+    "text": "MLM poly example\n\n\nCode\npersonality <- read.csv(\"https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/Subject_personality.csv\")\n\nggplot(personality,\n   aes(x = neodate, y = neuroticism, group = mapid)) + geom_line()"
+  },
+  {
+    "objectID": "bends-4.html#sem-poly-example",
+    "href": "bends-4.html#sem-poly-example",
+    "title": "bends",
+    "section": "SEM poly example",
+    "text": "SEM poly example\n\n\nCode\nalcohol <- read.csv(\"https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/alcohol1_pp.csv\")\n\nalcohol.wide <- alcohol %>% \n  dplyr::select(-X, -age_14, -ccoa) %>% \n  pivot_wider(names_from = \"age\", \n              names_prefix = \"alcuse_\",\n              values_from  = alcuse) \n\n\n\n\nCode\nmodel.4 <- '  \n\ni =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 \ns =~ 0*alcuse_14 + 2*alcuse_15 + 4*alcuse_16\nq =~ 0*alcuse_14 + 4*alcuse_15 + 16*alcuse_16  \n\nq~~0*q\n\nalcuse_14~~a*alcuse_14\nalcuse_15~~a*alcuse_15\nalcuse_16~~a*alcuse_16\n'\n\np4 <- growth(model.4, data = alcohol.wide, missing = \"ML\")"
+  },
+  {
+    "objectID": "bends-4.html#sem-latent-basis",
+    "href": "bends-4.html#sem-latent-basis",
+    "title": "bends",
+    "section": "SEM latent basis",
+    "text": "SEM latent basis\n\n#| code-fold: true\nmodel.7 <- '  \n\ni =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 \ns =~ 0*extra_1 + extra_2 + extra_3 + extra_4 + 4*extra_5 \n\n'\n\np7 <- growth(model.7, data = p.wide, missing = \"ML\")"
+  },
+  {
+    "objectID": "bends-4.html#piecewise",
+    "href": "bends-4.html#piecewise",
+    "title": "bends",
+    "section": "Piecewise",
+    "text": "Piecewise\n\nFit more than 1 trajectory\nBest to use when we have a reason for a qualitative difference at a time point. For example, before your health event you may have a different trajectory than after\nTime modeled as dummy variables that represent different segments\nThe point of separation is called a knot. You can have as many as you want and these can be pre-specified or let the data specify"
+  },
+  {
+    "objectID": "bends-4.html#splines-polynomial-polynomial-piecewise",
+    "href": "bends-4.html#splines-polynomial-polynomial-piecewise",
+    "title": "bends",
+    "section": "splines + polynomial = polynomial piecewise",
+    "text": "splines + polynomial = polynomial piecewise\n\\[{Y}_{ij} = \\beta_{0j}  + \\beta_{1j}Time1_{ij} +  \\beta_{2j}Time1_{ij}^2 + \\beta_{3j}Time2_{ij} + \\varepsilon_{ij}\\]\nLevel 2:\n\\[{\\beta}_{0j} = \\gamma_{00} +  U_{0j}\\]\n\\[{\\beta}_{1j} = \\gamma_{10} +  U_{1j}\\]\n\\[{\\beta}_{2j} = \\gamma_{20} +  U_{2j}\\]\n\\[{\\beta}_{3j} = \\gamma_{30} +  U_{3j}\\]"
   }
 ]

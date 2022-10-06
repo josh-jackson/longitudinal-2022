@@ -451,7 +451,8 @@ ggplot(aes(x = wave, y = alcuse, group = ID, color = factor(ID))) +
 ```
 
 
-----
+-------
+
 Plotting the constrained slope variance model
 
 ```{r}
