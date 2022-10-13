@@ -20,7 +20,7 @@ Your first task is to combine the datasets to create a longitudinal dataset. The
 
 5. Plot the growth curve from an SEM model of your choosing
 
-6. Test whether Measurement Invariance (MI) holds for a construct of your choosing.
+6. Test whether Measurement Invariance (MI) holds for a construct of your choosing. First try each item as an indicator. Then try parcels. Do the parcels improve the fit? 
 
 7. Impose MI and run a second order growth curve model. How does this model differ from models where the repeated measure is manifest (estimates, fit statistics, etcetera)? 
 

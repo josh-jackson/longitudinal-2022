@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Applied Longitudinal Data Analyses",
     "section": "",
-    "text": "8/30: Welcome to the first day of class! If you want to follow along with examples, head over to github for all of the code and data. https://github.com/josh-jackson/longitudinal-2022\nPlease check the homepage regularly for class updates and announcements."
+    "text": "9/13: Homework #1 is posted! Due by 9/26\n8/30: Welcome to the first day of class! If you want to follow along with examples, head over to github for all of the code and data. https://github.com/josh-jackson/longitudinal-2022\nPlease check the homepage regularly for class updates and announcements."
   },
   {
     "objectID": "about.html",
@@ -389,7 +389,7 @@
     "href": "homeworks.html",
     "title": "homeworks",
     "section": "",
-    "text": "Longitudinal MLM homework"
+    "text": "Longitudinal MLM homework\nLongitudinal SEM homework"
   },
   {
     "objectID": "mlm-2.html#standard-regression",
@@ -1139,5 +1139,12 @@
     "title": "bends",
     "section": "SEM example",
     "text": "SEM example\n0 1 2 2 2\n0 0 0 1 2\n\ntwo.rate <- 'i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 \ns1 =~ 0*extra_1 + 1*extra_2 + 2*extra_3 + 2*extra_4 + 2*extra_5 \ns2 =~ 0*extra_1 + 0*extra_2 + 0*extra_3 + 1*extra_4 + 2*extra_5  \n'\n\np8 <- growth(two.rate, data = p.wide, missing = \"ML\")"
+  },
+  {
+    "objectID": "hw2.html",
+    "href": "hw2.html",
+    "title": "hw2",
+    "section": "",
+    "text": "There are 7 waves of data, each with a different file (hw2-t1, hw2-t2, etc). There are five different types of repeated measures variables, all from “the Big Five” of personality. Each of these five constructs have 9 items associated with them. See codebook for more details.\nYour first task is to combine the datasets to create a longitudinal dataset. Then create composites of each of the 5 constructs (extraversion, agreeableness, conscientiousness, neuroticism and openness). Be sure to be on the lookout for reverse scored items.\n\nChoose one of the Big Five traits and run a growth model in SEM where the indicators are manifest. Interpret the intercept and the variance terms\nTry a new time coding: Use a time coding that defines the intercept as the final time point. How does this differ form the previous model – what is the same/different?\nRun a latent basis coding where you allow the data to inform how time should be coded. Describe how this differs from the initial latent growth curve model.\nRun an MLM growth curve. How are the SEM and the MLM different? The same? What constraints could you put on the SEM model to more closely mimic the MLM model?\nPlot the growth curve from an SEM model of your choosing\nTest whether Measurement Invariance (MI) holds for a construct of your choosing. First try each item as an indicator. Then try parcels. Do the parcels improve the fit?\nImpose MI and run a second order growth curve model. How does this model differ from models where the repeated measure is manifest (estimates, fit statistics, etcetera)?"
   }
 ]
