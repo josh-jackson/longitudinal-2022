@@ -681,4 +681,9 @@ ggplot(aes(x = wave, y = extra, group = ID, color = factor(ID))) +
 ```
 
 
+## GAMs
+
+- standard longitudinal models are simple to understand (lines!), but fail to 
+
+GAMs offer a middle ground: they can be fit to complex, nonlinear relationships and make good predictions in these cases, but we are still able to do inferential statistics and understand and explain the underlying structure of our models and why they make predictions that they do
 

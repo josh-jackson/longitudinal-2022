@@ -8,3 +8,5 @@ editor: visual
 2.  [Longitudinal MLM](mlm-2.qmd)
 
 3.  [Longitudinal SEM](sem-3.qmd)
+
+4.  [Lines that Bend](bends-4.qmd)
