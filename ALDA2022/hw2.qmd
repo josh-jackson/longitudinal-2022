@@ -1,0 +1,26 @@
+---
+title: "hw2"
+editor: visual
+---
+
+
+Answer the questions below using the HW2 dataset from github.
+
+There are 7 waves of data, each with a different file (hw2-t1, hw2-t2, etc). There are five different types of repeated measures variables, all from “the Big Five” of personality. Each of these five constructs have 9 items associated with them. See codebook for more details.
+
+Your first task is to combine the datasets to create a longitudinal dataset. Then create composites of each of the 5 constructs (extraversion, agreeableness, conscientiousness, neuroticism and openness). Be sure to be on the lookout for reverse scored items. 
+
+1. Choose one of the Big Five traits and run a growth model in SEM where the indicators are manifest. Interpret the intercept and the variance terms
+
+2. Try a new time coding: Use a time coding that defines the intercept as the final time point. How does this differ form the previous model -- what is the same/different?
+
+3. Run a latent basis coding where you allow the data to inform how time should be coded. Describe how this differs from the initial latent growth curve model.
+
+4. Run an MLM growth curve. How are the SEM and the MLM different? The same? What constraints could you put on the SEM model to more closely mimic the MLM model? 
+
+5. Plot the growth curve from an SEM model of your choosing
+
+6. Test whether Measurement Invariance (MI) holds for a construct of your choosing.
+
+7. Impose MI and run a second order growth curve model. How does this model differ from models where the repeated measure is manifest (estimates, fit statistics, etcetera)? 
+

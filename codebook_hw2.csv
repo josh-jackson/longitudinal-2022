@@ -1,0 +1,52 @@
+﻿old_name,item_text,scale,new_name,rev_code,type,var,wave
+SID,ID number of target,,SID,0,Trait,Proc,All
+Dem_Sex,Your sex,1 = Male; 2 = Female,Dem_Sex,0,Trait,Dem,1
+Dem_Age,Your age,numeric variable,Dem_Age,0,Trait,Dem,1
+Dem_SexOr,Your sexual orientation,1 = Heterosexual; 2 = Homosexual; 3 = Bisexual; 4 = other (see t.DEM04.w1),Dem_SexOr,0,Trait,Dem,1
+Dem_YrSchl,Your year in school,1  = I am not a student; 2 = Freshman; 3 = Sophomore; 4 = Junior; 5 = Senior; 6 = 1st year graduate student; 7 = 2nd year graduate student; 8 = 3rd  year graduate student; 9 = 4th year graduate student; 10 = 5th year graduate student; 11 = 6th year graduate student; 12 = 7th year graduate student; 14 = Other,Dem_YrSchl,0,Trait,Dem,1
+Dem_Ethn,Your ethnicity,1 = hispanic or latino; 2 = not hispanic or latino,Dem_Ethn,0,Trait,Dem,1
+Dem_Race,Your race (choose all that apply),"0 = none; 1 = American Indian or Alaska Native; 2 = Asian or Asian-American; 3 = Black or African American; 4 = Native Hawaiian or Other Pacific Islander; 5 = White; 6= Other; 7= White AND Black or African American; 8 =Black or African American AND other, 9 = Black or African American AND Asian or Asian American; 10 = White AND Other, 11 = Black or African American AND ????; 12 = ; 13 = ; 14 = ; 15 = ; 16 = ",Dem_Race,0,Trait,Dem,1
+talkative,,,E_1,0,Trait,BFI,All
+find fault,,,A_1,1,Trait,BFI,All
+thorough,,,C_1,0,Trait,BFI,All
+depressed,,,N_1,0,Trait,BFI,All
+original,,,O_1,0,Trait,BFI,All
+reserved,,,E_2,1,Trait,BFI,All
+helpful,,,A_2,0,Trait,BFI,All
+careless,,,C_2,1,Trait,BFI,All
+relaxed,,,N_2,1,Trait,BFI,All
+curious,,,O_2,0,Trait,BFI,All
+energy,,,E_3,0,Trait,BFI,All
+quarrels,,,A_3,1,Trait,BFI,All
+reliable,,,C_3,0,Trait,BFI,All
+tense,,,N_3,0,Trait,BFI,All
+ingenious,,,O_3,0,Trait,BFI,All
+enthusiasm,,,E_4,0,Trait,BFI,All
+forgiving,,,A_4,0,Trait,BFI,All
+disorganized,,,C_4,1,Trait,BFI,All
+worries,,,N_4,0,Trait,BFI,All
+imagination,,,O_4,0,Trait,BFI,All
+quiet,,,E_5,1,Trait,BFI,All
+trusting,,,A_5,0,Trait,BFI,All
+lazy,,,C_5,1,Trait,BFI,All
+emotionally stable,,,N_5,1,Trait,BFI,All
+inventive,,,O_5,0,Trait,BFI,All
+assertive,,,E_6,0,Trait,BFI,All
+cold,,,A_6,1,Trait,BFI,All
+perseveres,,,C_6,0,Trait,BFI,All
+moody,,,N_6,0,Trait,BFI,All
+artistic,,,O_6,0,Trait,BFI,All
+shy,,,E_7,1,Trait,BFI,All
+considerate,,,A_7,0,Trait,BFI,All
+efficient,,,C_7,0,Trait,BFI,All
+calm,,,N_7,1,Trait,BFI,All
+routine,,,O_7,1,Trait,BFI,All
+outgoing,,,E_8,0,Trait,BFI,All
+rude,,,A_8,1,Trait,BFI,All
+plans,,,C_8,0,Trait,BFI,All
+nervous,,,N_8,0,Trait,BFI,All
+reflect,,,O_8,0,Trait,BFI,All
+unartistic,,,O_9,1,Trait,BFI,All
+cooperate,,,A_9,0,Trait,BFI,All
+distracted,,,C_9,1,Trait,BFI,All
+sophisticated,,,O_10,0,Trait,BFI,All

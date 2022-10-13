@@ -855,7 +855,7 @@ Variances:
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">summary</span>(p5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">summary</span>(p5, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardize =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 135 iterations
 
@@ -872,6 +872,37 @@ Model Test User Model:
   Degrees of freedom                                 6
   P-value (Chi-square)                           0.712
 
+Model Test Baseline Model:
+
+  Test statistic                               939.752
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    1.000
+  Tucker-Lewis Index (TLI)                       1.004
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -6459.688
+  Loglikelihood unrestricted model (H1)      -6457.817
+                                                      
+  Akaike (AIC)                               12947.377
+  Bayesian (BIC)                             13017.292
+  Sample-size adjusted Bayesian (BIC)        12972.825
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.029
+  P-value RMSEA &lt;= 0.05                          0.999
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.024
+
 Parameter Estimates:
 
   Standard errors                             Standard
@@ -879,55 +910,55 @@ Parameter Estimates:
   Observed information based on                Hessian
 
 Latent Variables:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-  i =~                                                
-    extra_1           1.000                           
-    extra_2           1.000                           
-    extra_3           1.000                           
-    extra_4           1.000                           
-    extra_5           1.000                           
-  s =~                                                
-    extra_1           0.000                           
-    extra_2           1.000                           
-    extra_3           2.000                           
-    extra_4           3.000                           
-    extra_5           4.000                           
-  q =~                                                
-    extra_1           0.000                           
-    extra_2           1.000                           
-    extra_3           4.000                           
-    extra_4           9.000                           
-    extra_5          16.000                           
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i =~                                                                  
+    extra_1           1.000                               5.180    0.820
+    extra_2           1.000                               5.180    0.780
+    extra_3           1.000                               5.180    0.759
+    extra_4           1.000                               5.180    0.734
+    extra_5           1.000                               5.180    0.752
+  s =~                                                                  
+    extra_1           0.000                                  NA       NA
+    extra_2           1.000                                  NA       NA
+    extra_3           2.000                                  NA       NA
+    extra_4           3.000                                  NA       NA
+    extra_5           4.000                                  NA       NA
+  q =~                                                                  
+    extra_1           0.000                               0.000    0.000
+    extra_2           1.000                               0.261    0.039
+    extra_3           4.000                               1.045    0.153
+    extra_4           9.000                               2.351    0.333
+    extra_5          16.000                               4.179    0.607
 
 Covariances:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-  i ~~                                                
-    s                 4.817    3.225    1.494    0.135
-    q                -0.904    0.827   -1.093    0.274
-  s ~~                                                
-    q                -0.051    0.972   -0.053    0.958
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i ~~                                                                  
+    s                 4.817    3.225    1.494    0.135    1.377    1.377
+    q                -0.904    0.827   -1.093    0.274   -0.668   -0.668
+  s ~~                                                                  
+    q                -0.051    0.972   -0.053    0.958   -0.290   -0.290
 
 Intercepts:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-   .extra_1           0.000                           
-   .extra_2           0.000                           
-   .extra_3           0.000                           
-   .extra_4           0.000                           
-   .extra_5           0.000                           
-    i                29.405    0.190  154.581    0.000
-    s                -0.781    0.225   -3.476    0.001
-    q                 0.128    0.080    1.590    0.112
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .extra_1           0.000                               0.000    0.000
+   .extra_2           0.000                               0.000    0.000
+   .extra_3           0.000                               0.000    0.000
+   .extra_4           0.000                               0.000    0.000
+   .extra_5           0.000                               0.000    0.000
+    i                29.405    0.190  154.581    0.000    5.677    5.677
+    s                -0.781    0.225   -3.476    0.001       NA       NA
+    q                 0.128    0.080    1.590    0.112    0.489    0.489
 
 Variances:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-   .extra_1          13.055    2.799    4.663    0.000
-   .extra_2           9.982    1.243    8.033    0.000
-   .extra_3           9.300    1.583    5.875    0.000
-   .extra_4          11.696    2.320    5.040    0.000
-   .extra_5           7.360    6.898    1.067    0.286
-    i                26.829    3.095    8.669    0.000
-    s                -0.456    3.746   -0.122    0.903
-    q                 0.068    0.277    0.246    0.806</code></pre>
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .extra_1          13.055    2.799    4.663    0.000   13.055    0.327
+   .extra_2           9.982    1.243    8.033    0.000    9.982    0.226
+   .extra_3           9.300    1.583    5.875    0.000    9.300    0.200
+   .extra_4          11.696    2.320    5.040    0.000   11.696    0.235
+   .extra_5           7.360    6.898    1.067    0.286    7.360    0.155
+    i                26.829    3.095    8.669    0.000    1.000    1.000
+    s                -0.456    3.746   -0.122    0.903       NA       NA
+    q                 0.068    0.277    0.246    0.806    1.000    1.000</code></pre>
 </div>
 </div>
 </section>
@@ -954,7 +985,7 @@ Variances:
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">summary</span>(p6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">summary</span>(p6, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardize =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 117 iterations
 
@@ -972,6 +1003,37 @@ Model Test User Model:
   Degrees of freedom                                10
   P-value (Chi-square)                           0.725
 
+Model Test Baseline Model:
+
+  Test statistic                               939.752
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    1.000
+  Tucker-Lewis Index (TLI)                       1.003
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -6461.318
+  Loglikelihood unrestricted model (H1)      -6457.817
+                                                      
+  Akaike (AIC)                               12942.636
+  Bayesian (BIC)                             12992.575
+  Sample-size adjusted Bayesian (BIC)        12960.813
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.024
+  P-value RMSEA &lt;= 0.05                          1.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.021
+
 Parameter Estimates:
 
   Standard errors                             Standard
@@ -979,55 +1041,55 @@ Parameter Estimates:
   Observed information based on                Hessian
 
 Latent Variables:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-  i =~                                                
-    extra_1           1.000                           
-    extra_2           1.000                           
-    extra_3           1.000                           
-    extra_4           1.000                           
-    extra_5           1.000                           
-  s =~                                                
-    extra_1           0.000                           
-    extra_2           1.000                           
-    extra_3           2.000                           
-    extra_4           3.000                           
-    extra_5           4.000                           
-  q =~                                                
-    extra_1           0.000                           
-    extra_2           1.000                           
-    extra_3           4.000                           
-    extra_4           9.000                           
-    extra_5          16.000                           
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i =~                                                                  
+    extra_1           1.000                               5.407    0.858
+    extra_2           1.000                               5.407    0.812
+    extra_3           1.000                               5.407    0.787
+    extra_4           1.000                               5.407    0.779
+    extra_5           1.000                               5.407    0.766
+  s =~                                                                  
+    extra_1           0.000                               0.000    0.000
+    extra_2           1.000                               1.144    0.172
+    extra_3           2.000                               2.288    0.333
+    extra_4           3.000                               3.432    0.495
+    extra_5           4.000                               4.576    0.648
+  q =~                                                                  
+    extra_1           0.000                               0.000    0.000
+    extra_2           1.000                               0.347    0.052
+    extra_3           4.000                               1.387    0.202
+    extra_4           9.000                               3.121    0.450
+    extra_5          16.000                               5.549    0.786
 
 Covariances:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-  i ~~                                                
-    s                 2.316    1.646    1.407    0.159
-    q                -0.357    0.516   -0.693    0.489
-  s ~~                                                
-    q                -0.381    0.735   -0.518    0.605
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i ~~                                                                  
+    s                 2.316    1.646    1.407    0.159    0.374    0.374
+    q                -0.357    0.516   -0.693    0.489   -0.191   -0.191
+  s ~~                                                                  
+    q                -0.381    0.735   -0.518    0.605   -0.959   -0.959
 
 Intercepts:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-   .extra_1           0.000                           
-   .extra_2           0.000                           
-   .extra_3           0.000                           
-   .extra_4           0.000                           
-   .extra_5           0.000                           
-    i                29.409    0.190  154.572    0.000
-    s                -0.794    0.225   -3.537    0.000
-    q                 0.132    0.080    1.648    0.099
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .extra_1           0.000                               0.000    0.000
+   .extra_2           0.000                               0.000    0.000
+   .extra_3           0.000                               0.000    0.000
+   .extra_4           0.000                               0.000    0.000
+   .extra_5           0.000                               0.000    0.000
+    i                29.409    0.190  154.572    0.000    5.439    5.439
+    s                -0.794    0.225   -3.537    0.000   -0.694   -0.694
+    q                 0.132    0.080    1.648    0.099    0.381    0.381
 
 Variances:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-   .extra_1    (Q)   10.482    0.823   12.730    0.000
-   .extra_2    (Q)   10.482    0.823   12.730    0.000
-   .extra_3    (Q)   10.482    0.823   12.730    0.000
-   .extra_4    (Q)   10.482    0.823   12.730    0.000
-   .extra_5    (Q)   10.482    0.823   12.730    0.000
-    i                29.237    1.870   15.635    0.000
-    s                 1.309    2.633    0.497    0.619
-    q                 0.120    0.216    0.558    0.577</code></pre>
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .extra_1    (Q)   10.482    0.823   12.730    0.000   10.482    0.264
+   .extra_2    (Q)   10.482    0.823   12.730    0.000   10.482    0.237
+   .extra_3    (Q)   10.482    0.823   12.730    0.000   10.482    0.222
+   .extra_4    (Q)   10.482    0.823   12.730    0.000   10.482    0.218
+   .extra_5    (Q)   10.482    0.823   12.730    0.000   10.482    0.210
+    i                29.237    1.870   15.635    0.000    1.000    1.000
+    s                 1.309    2.633    0.497    0.619    1.000    1.000
+    q                 0.120    0.216    0.558    0.577    1.000    1.000</code></pre>
 </div>
 </div>
 </section>
@@ -1093,7 +1155,7 @@ Variances:
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">summary</span>(p7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">summary</span>(p7, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardize =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6-11 ended normally after 178 iterations
 
@@ -1110,6 +1172,37 @@ Model Test User Model:
   Degrees of freedom                                 7
   P-value (Chi-square)                           0.815
 
+Model Test Baseline Model:
+
+  Test statistic                               939.752
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    1.000
+  Tucker-Lewis Index (TLI)                       1.005
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -6459.661
+  Loglikelihood unrestricted model (H1)      -6457.817
+                                                      
+  Akaike (AIC)                               12945.323
+  Bayesian (BIC)                             13010.244
+  Sample-size adjusted Bayesian (BIC)        12968.953
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.023
+  P-value RMSEA &lt;= 0.05                          1.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.033
+
 Parameter Estimates:
 
   Standard errors                             Standard
@@ -1117,44 +1210,44 @@ Parameter Estimates:
   Observed information based on                Hessian
 
 Latent Variables:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-  i =~                                                
-    extra_1           1.000                           
-    extra_2           1.000                           
-    extra_3           1.000                           
-    extra_4           1.000                           
-    extra_5           1.000                           
-  s =~                                                
-    extra_1           0.000                           
-    extra_2           1.893    0.989    1.914    0.056
-    extra_3           2.670    1.372    1.946    0.052
-    extra_4           2.745    1.710    1.605    0.108
-    extra_5           4.000                           
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i =~                                                                  
+    extra_1           1.000                               5.281    0.837
+    extra_2           1.000                               5.281    0.792
+    extra_3           1.000                               5.281    0.781
+    extra_4           1.000                               5.281    0.753
+    extra_5           1.000                               5.281    0.726
+  s =~                                                                  
+    extra_1           0.000                               0.000    0.000
+    extra_2           1.893    0.989    1.914    0.056    0.366    0.055
+    extra_3           2.670    1.372    1.946    0.052    0.516    0.076
+    extra_4           2.745    1.710    1.605    0.108    0.531    0.076
+    extra_5           4.000                               0.773    0.106
 
 Covariances:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-  i ~~                                                
-    s                 1.629    1.070    1.522    0.128
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i ~~                                                                  
+    s                 1.629    1.070    1.522    0.128    1.596    1.596
 
 Intercepts:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-   .extra_1           0.000                           
-   .extra_2           0.000                           
-   .extra_3           0.000                           
-   .extra_4           0.000                           
-   .extra_5           0.000                           
-    i                29.423    0.191  154.034    0.000
-    s                -0.386    0.197   -1.960    0.050
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .extra_1           0.000                               0.000    0.000
+   .extra_2           0.000                               0.000    0.000
+   .extra_3           0.000                               0.000    0.000
+   .extra_4           0.000                               0.000    0.000
+   .extra_5           0.000                               0.000    0.000
+    i                29.423    0.191  154.034    0.000    5.571    5.571
+    s                -0.386    0.197   -1.960    0.050   -1.995   -1.995
 
 Variances:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-   .extra_1          11.965    2.674    4.474    0.000
-   .extra_2          10.299    1.219    8.447    0.000
-   .extra_3           8.893    1.334    6.667    0.000
-   .extra_4          12.090    2.246    5.384    0.000
-   .extra_5          11.454    4.373    2.619    0.009
-    i                27.891    3.054    9.134    0.000
-    s                 0.037    0.503    0.074    0.941</code></pre>
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .extra_1          11.965    2.674    4.474    0.000   11.965    0.300
+   .extra_2          10.299    1.219    8.447    0.000   10.299    0.231
+   .extra_3           8.893    1.334    6.667    0.000    8.893    0.194
+   .extra_4          12.090    2.246    5.384    0.000   12.090    0.246
+   .extra_5          11.454    4.373    2.619    0.009   11.454    0.216
+    i                27.891    3.054    9.134    0.000    1.000    1.000
+    s                 0.037    0.503    0.074    0.941    1.000    1.000</code></pre>
 </div>
 </div>
 </section>
@@ -1228,15 +1321,17 @@ Variances:
 2 time 2     0     0     0     1     2     3</code></pre>
 </div>
 </div>
+</section>
+<section class="slide level2">
+
 <ul>
 <li>The two coding schemes propose the same type of trajectory, the difference is in interpretation.</li>
 <li>In the first, the two slope coefficients represent the actual slope in the respective time period.</li>
 <li>In the second, the coefficient for time 2 represents the deviation from the slope in period 1.</li>
 </ul>
 </section>
-<section class="slide level2">
-
-<h5 id="mlm-example">mlm example</h5>
+<section id="mlm-example" class="slide level2">
+<h2>mlm example</h2>
 <p>level 1:</p>
 <p><span class="math display">\[{Y}_{ij} = \beta_{0j}  + \beta_{1j}Time1_{ij} + \beta_{2j}Time2_{ij} + \varepsilon_{ij}\]</span></p>
 <p>Level 2:</p>
@@ -1256,82 +1351,354 @@ Variances:
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>p7 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(extraversion <span class="sc">~</span> time1 <span class="sc">+</span> time2 <span class="sc">+</span> (time1 <span class="sc">|</span> mapid) , <span class="at">data=</span>personality)</span>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>p7 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(extraversion <span class="sc">~</span> time1 <span class="sc">+</span> time2 <span class="sc">+</span> (time2 <span class="sc">|</span> mapid) , <span class="at">data=</span>personality)</span>
 <span id="cb47-2"><a href="#cb47-2"></a><span class="fu">summary</span>(p7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
-Formula: extraversion ~ time1 + time2 + (time1 | mapid)
+Formula: extraversion ~ time1 + time2 + (time2 | mapid)
    Data: personality
 
-REML criterion at convergence: 9862.2
+REML criterion at convergence: 9869.9
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--5.1925 -0.4375  0.0010  0.4925  4.4629 
+-5.4177 -0.4572  0.0143  0.4976  4.4418 
 
 Random effects:
  Groups   Name        Variance Std.Dev. Corr
- mapid    (Intercept) 28.9767  5.3830       
-          time1        0.1359  0.3687   1.00
- Residual             10.8042  3.2870       
+ mapid    (Intercept) 31.9783  5.6549       
+          time2        0.7177  0.8472   0.26
+ Residual             10.8065  3.2873       
 Number of obs: 1635, groups:  mapid, 620
 
 Fixed effects:
             Estimate Std. Error t value
-(Intercept)  29.8977     0.2489 120.123
-time1        -0.6075     0.1229  -4.944
-time2        -0.1020     0.2854  -0.357
+(Intercept) 29.89139    0.25838 115.687
+time1       -0.58856    0.12085  -4.870
+time2       -0.07393    0.30424  -0.243
 
 Correlation of Fixed Effects:
       (Intr) time1 
-time1 -0.247       
-time2  0.049 -0.297
-optimizer (nloptwrap) convergence code: 0 (OK)
-boundary (singular) fit: see help('isSingular')</code></pre>
+time1 -0.342       
+time2  0.070 -0.290</code></pre>
 </div>
 </div>
 </section>
 <section class="slide level2">
 
-<p>0 1 3 4 5 (Wave) 0 0 0 1 2 (same as time 2 previously)</p>
+<p>0 1 3 4 5 (Wave)<br>
+0 0 0 1 2 (same as time 2 previously)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>p8 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(extraversion <span class="sc">~</span> wave <span class="sc">+</span> time2 <span class="sc">+</span> (wave  <span class="sc">|</span> mapid) , <span class="at">data=</span>personality)</span>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>p8 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(extraversion <span class="sc">~</span> wave <span class="sc">+</span> time2 <span class="sc">+</span> (time2  <span class="sc">|</span> mapid) , <span class="at">data=</span>personality)</span>
 <span id="cb49-2"><a href="#cb49-2"></a><span class="fu">summary</span>(p8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
-Formula: extraversion ~ wave + time2 + (wave | mapid)
+Formula: extraversion ~ wave + time2 + (time2 | mapid)
    Data: personality
 
-REML criterion at convergence: 9863.1
+REML criterion at convergence: 9869.9
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--5.2416 -0.4507  0.0019  0.4924  4.4572 
+-5.4177 -0.4572  0.0143  0.4976  4.4418 
 
 Random effects:
  Groups   Name        Variance Std.Dev. Corr
- mapid    (Intercept) 26.5530  5.1530       
-          wave         0.1343  0.3665   0.74
- Residual             10.7591  3.2801       
+ mapid    (Intercept) 31.9783  5.6549       
+          time2        0.7177  0.8472   0.26
+ Residual             10.8065  3.2873       
 Number of obs: 1635, groups:  mapid, 620
 
 Fixed effects:
             Estimate Std. Error t value
-(Intercept)  30.5003     0.3069  99.378
-wave         -0.6038     0.1225  -4.929
-time2         0.4480     0.3471   1.291
+(Intercept)  30.4799     0.3205  95.099
+wave         -0.5886     0.1209  -4.870
+time2         0.5146     0.3584   1.436
 
 Correlation of Fixed Effects:
       (Intr) wave  
-wave  -0.618       
-time2  0.367 -0.587</code></pre>
+wave  -0.653       
+time2  0.361 -0.583</code></pre>
+</div>
+</div>
+</section>
+<section id="sem-example" class="slide level2">
+<h2>SEM example</h2>
+<p>0 1 2 2 2<br>
+0 0 0 1 2</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>two.rate <span class="ot">&lt;-</span> <span class="st">'i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 </span></span>
+<span id="cb51-2"><a href="#cb51-2"></a><span class="st">s1 =~ 0*extra_1 + 1*extra_2 + 2*extra_3 + 2*extra_4 + 2*extra_5 </span></span>
+<span id="cb51-3"><a href="#cb51-3"></a><span class="st">s2 =~ 0*extra_1 + 0*extra_2 + 0*extra_3 + 1*extra_4 + 2*extra_5  </span></span>
+<span id="cb51-4"><a href="#cb51-4"></a><span class="st">'</span></span>
+<span id="cb51-5"><a href="#cb51-5"></a></span>
+<span id="cb51-6"><a href="#cb51-6"></a>p8 <span class="ot">&lt;-</span> <span class="fu">growth</span>(two.rate, <span class="at">data =</span> p.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">summary</span>(p8, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardize =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 141 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        14
+                                                      
+  Number of observations                          1090
+  Number of missing patterns                         6
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 4.756
+  Degrees of freedom                                 6
+  P-value (Chi-square)                           0.575
+
+Model Test Baseline Model:
+
+  Test statistic                               939.752
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    1.000
+  Tucker-Lewis Index (TLI)                       1.002
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -6460.195
+  Loglikelihood unrestricted model (H1)      -6457.817
+                                                      
+  Akaike (AIC)                               12948.391
+  Bayesian (BIC)                             13018.306
+  Sample-size adjusted Bayesian (BIC)        12973.839
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.034
+  P-value RMSEA &lt;= 0.05                          0.997
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.021
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i =~                                                                  
+    extra_1           1.000                               5.328    0.844
+    extra_2           1.000                               5.328    0.803
+    extra_3           1.000                               5.328    0.777
+    extra_4           1.000                               5.328    0.760
+    extra_5           1.000                               5.328    0.768
+  s1 =~                                                                 
+    extra_1           0.000                               0.000    0.000
+    extra_2           1.000                               0.616    0.093
+    extra_3           2.000                               1.231    0.180
+    extra_4           2.000                               1.231    0.176
+    extra_5           2.000                               1.231    0.177
+  s2 =~                                                                 
+    extra_1           0.000                               0.000    0.000
+    extra_2           0.000                               0.000    0.000
+    extra_3           0.000                               0.000    0.000
+    extra_4           1.000                               1.396    0.199
+    extra_5           2.000                               2.793    0.402
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i ~~                                                                  
+    s1                2.278    1.301    1.750    0.080    0.694    0.694
+    s2               -0.202    1.952   -0.103    0.918   -0.027   -0.027
+  s1 ~~                                                                 
+    s2               -0.686    1.175   -0.584    0.559   -0.798   -0.798
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .extra_1           0.000                               0.000    0.000
+   .extra_2           0.000                               0.000    0.000
+   .extra_3           0.000                               0.000    0.000
+   .extra_4           0.000                               0.000    0.000
+   .extra_5           0.000                               0.000    0.000
+    i                29.381    0.189  155.420    0.000    5.514    5.514
+    s1               -0.536    0.121   -4.443    0.000   -0.871   -0.871
+    s2               -0.087    0.332   -0.262    0.793   -0.062   -0.062
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .extra_1          11.486    1.886    6.090    0.000   11.486    0.288
+   .extra_2          10.735    1.145    9.379    0.000   10.735    0.244
+   .extra_3           7.957    2.241    3.551    0.000    7.957    0.169
+   .extra_4          11.353    2.344    4.844    0.000   11.353    0.231
+   .extra_5           7.633    5.576    1.369    0.171    7.633    0.159
+    i                28.390    2.293   12.382    0.000    1.000    1.000
+    s1                0.379    1.057    0.359    0.720    1.000    1.000
+    s2                1.950    2.305    0.846    0.398    1.000    1.000</code></pre>
 </div>
 </div>
 </section>
 <section class="slide level2">
 
-<h5 id="sem-example">Sem example</h5>
+<p>0 1 2 3 4<br>
+0 0 0 1 2</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>incremental <span class="ot">&lt;-</span> <span class="st">'i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 </span></span>
+<span id="cb54-2"><a href="#cb54-2"></a><span class="st">s1 =~ 0*extra_1 + 1*extra_2 + 2*extra_3 + 3*extra_4 + 4*extra_5 </span></span>
+<span id="cb54-3"><a href="#cb54-3"></a><span class="st">s2 =~ 0*extra_1 + 0*extra_2 + 0*extra_3 + 1*extra_4 + 2*extra_5  </span></span>
+<span id="cb54-4"><a href="#cb54-4"></a><span class="st">'</span></span>
+<span id="cb54-5"><a href="#cb54-5"></a></span>
+<span id="cb54-6"><a href="#cb54-6"></a>p9 <span class="ot">&lt;-</span> <span class="fu">growth</span>(incremental, <span class="at">data =</span> p.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">summary</span>(p9, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardize =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 152 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        14
+                                                      
+  Number of observations                          1090
+  Number of missing patterns                         6
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 4.756
+  Degrees of freedom                                 6
+  P-value (Chi-square)                           0.575
+
+Model Test Baseline Model:
+
+  Test statistic                               939.752
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    1.000
+  Tucker-Lewis Index (TLI)                       1.002
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -6460.195
+  Loglikelihood unrestricted model (H1)      -6457.817
+                                                      
+  Akaike (AIC)                               12948.391
+  Bayesian (BIC)                             13018.306
+  Sample-size adjusted Bayesian (BIC)        12973.839
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.034
+  P-value RMSEA &lt;= 0.05                          0.997
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.021
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i =~                                                                  
+    extra_1           1.000                               5.328    0.844
+    extra_2           1.000                               5.328    0.803
+    extra_3           1.000                               5.328    0.777
+    extra_4           1.000                               5.328    0.760
+    extra_5           1.000                               5.328    0.768
+  s1 =~                                                                 
+    extra_1           0.000                               0.000    0.000
+    extra_2           1.000                               0.616    0.093
+    extra_3           2.000                               1.231    0.180
+    extra_4           3.000                               1.847    0.263
+    extra_5           4.000                               2.463    0.355
+  s2 =~                                                                 
+    extra_1           0.000                               0.000    0.000
+    extra_2           0.000                               0.000    0.000
+    extra_3           0.000                               0.000    0.000
+    extra_4           1.000                               1.924    0.274
+    extra_5           2.000                               3.848    0.555
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i ~~                                                                  
+    s1                2.278    1.301    1.750    0.080    0.694    0.694
+    s2               -2.479    2.723   -0.911    0.363   -0.242   -0.242
+  s1 ~~                                                                 
+    s2               -1.065    2.080   -0.512    0.609   -0.899   -0.899
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .extra_1           0.000                               0.000    0.000
+   .extra_2           0.000                               0.000    0.000
+   .extra_3           0.000                               0.000    0.000
+   .extra_4           0.000                               0.000    0.000
+   .extra_5           0.000                               0.000    0.000
+    i                29.381    0.189  155.420    0.000    5.514    5.514
+    s1               -0.536    0.121   -4.443    0.000   -0.871   -0.871
+    s2                0.449    0.383    1.173    0.241    0.233    0.233
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .extra_1          11.486    1.886    6.090    0.000   11.486    0.288
+   .extra_2          10.735    1.145    9.379    0.000   10.735    0.244
+   .extra_3           7.957    2.241    3.551    0.000    7.957    0.169
+   .extra_4          11.353    2.344    4.844    0.000   11.353    0.231
+   .extra_5           7.633    5.576    1.369    0.171    7.633    0.159
+    i                28.390    2.293   12.382    0.000    1.000    1.000
+    s1                0.379    1.057    0.359    0.720    1.000    1.000
+    s2                3.702    5.088    0.728    0.467    1.000    1.000</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="fu">as_tibble</span>(<span class="fu">lavPredict</span>(p9,<span class="at">type=</span><span class="st">"ov"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="#cb57-2"></a>  <span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-3"><a href="#cb57-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"extra"</span>), <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"wave"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb57-4"><a href="#cb57-4"></a>dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wave =</span> <span class="fu">as.numeric</span>(wave)) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-5"><a href="#cb57-5"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wave, <span class="at">y =</span> extra, <span class="at">group =</span> ID, <span class="at">color =</span> <span class="fu">factor</span>(ID))) <span class="sc">+</span></span>
+<span id="cb57-6"><a href="#cb57-6"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="bends-4_files/figure-revealjs/unnamed-chunk-40-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>different model, same figure?</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="fu">as_tibble</span>(<span class="fu">lavPredict</span>(p8,<span class="at">type=</span><span class="st">"ov"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="#cb58-2"></a>  <span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="#cb58-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"extra"</span>), <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"wave"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb58-4"><a href="#cb58-4"></a>dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wave =</span> <span class="fu">as.numeric</span>(wave)) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-5"><a href="#cb58-5"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wave, <span class="at">y =</span> extra, <span class="at">group =</span> ID, <span class="at">color =</span> <span class="fu">factor</span>(ID))) <span class="sc">+</span></span>
+<span id="cb58-6"><a href="#cb58-6"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="bends-4_files/figure-revealjs/unnamed-chunk-41-1.png" width="960" class="r-stretch"></section>
 <section id="splines-polynomial-polynomial-piecewise" class="slide level2">
 <h2>splines + polynomial = polynomial piecewise</h2>
 <p><span class="math display">\[{Y}_{ij} = \beta_{0j}  + \beta_{1j}Time1_{ij} +  \beta_{2j}Time1_{ij}^2 + \beta_{3j}Time2_{ij} + \varepsilon_{ij}\]</span></p>
@@ -1340,8 +1707,137 @@ time2  0.367 -0.587</code></pre>
 <p><span class="math display">\[{\beta}_{1j} = \gamma_{10} +  U_{1j}\]</span></p>
 <p><span class="math display">\[{\beta}_{2j} = \gamma_{20} +  U_{2j}\]</span></p>
 <p><span class="math display">\[{\beta}_{3j} = \gamma_{30} +  U_{3j}\]</span></p>
+</section>
+<section class="slide level2">
 
-<div class="footer footer-default">
+<p>you really should have more waves per piece to model piecewise polynomial, but hey lets try it:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>two.rate.poly <span class="ot">&lt;-</span> <span class="st">'i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 </span></span>
+<span id="cb59-2"><a href="#cb59-2"></a><span class="st">s1 =~ -2*extra_1 + -1*extra_2 + 0*extra_3 + 0*extra_4 + 0*extra_5 </span></span>
+<span id="cb59-3"><a href="#cb59-3"></a><span class="st">s2 =~ 0*extra_1 + 0*extra_2 + 0*extra_3 + 1*extra_4 + 2*extra_5  </span></span>
+<span id="cb59-4"><a href="#cb59-4"></a><span class="st">s2poly =~ 0*extra_1 + 0*extra_2 + 0*extra_3 + 1*extra_4 + 4*extra_5 </span></span>
+<span id="cb59-5"><a href="#cb59-5"></a></span>
+<span id="cb59-6"><a href="#cb59-6"></a><span class="st">extra_1 ~~ Q*extra_1</span></span>
+<span id="cb59-7"><a href="#cb59-7"></a><span class="st">extra_2 ~~ Q*extra_2</span></span>
+<span id="cb59-8"><a href="#cb59-8"></a><span class="st">extra_3 ~~ Q*extra_3</span></span>
+<span id="cb59-9"><a href="#cb59-9"></a><span class="st">extra_4 ~~ Q*extra_4</span></span>
+<span id="cb59-10"><a href="#cb59-10"></a><span class="st">extra_5 ~~ Q*extra_5</span></span>
+<span id="cb59-11"><a href="#cb59-11"></a></span>
+<span id="cb59-12"><a href="#cb59-12"></a><span class="st">s2poly~~0*s2poly</span></span>
+<span id="cb59-13"><a href="#cb59-13"></a></span>
+<span id="cb59-14"><a href="#cb59-14"></a><span class="st">'</span></span>
+<span id="cb59-15"><a href="#cb59-15"></a></span>
+<span id="cb59-16"><a href="#cb59-16"></a>p9 <span class="ot">&lt;-</span> <span class="fu">growth</span>(two.rate.poly, <span class="at">data =</span> p.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="fu">summary</span>(p9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 150 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        18
+  Number of equality constraints                     4
+                                                      
+  Number of observations                          1090
+  Number of missing patterns                         6
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 7.609
+  Degrees of freedom                                 6
+  P-value (Chi-square)                           0.268
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i =~                                                
+    extra_1           1.000                           
+    extra_2           1.000                           
+    extra_3           1.000                           
+    extra_4           1.000                           
+    extra_5           1.000                           
+  s1 =~                                               
+    extra_1          -2.000                           
+    extra_2          -1.000                           
+    extra_3           0.000                           
+    extra_4           0.000                           
+    extra_5           0.000                           
+  s2 =~                                               
+    extra_1           0.000                           
+    extra_2           0.000                           
+    extra_3           0.000                           
+    extra_4           1.000                           
+    extra_5           2.000                           
+  s2poly =~                                           
+    extra_1           0.000                           
+    extra_2           0.000                           
+    extra_3           0.000                           
+    extra_4           1.000                           
+    extra_5           4.000                           
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i ~~                                                
+    s1                1.865    1.128    1.654    0.098
+    s2               -1.827    5.897   -0.310    0.757
+    s2poly            1.135    3.266    0.347    0.728
+  s1 ~~                                               
+    s2               -0.449    2.026   -0.222    0.825
+    s2poly            0.390    1.061    0.367    0.713
+  s2 ~~                                               
+    s2poly           -0.599    1.278   -0.469    0.639
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .extra_1           0.000                           
+   .extra_2           0.000                           
+   .extra_3           0.000                           
+   .extra_4           0.000                           
+   .extra_5           0.000                           
+    i                28.285    0.279  101.525    0.000
+    s1               -0.550    0.121   -4.528    0.000
+    s2                0.282    0.876    0.322    0.747
+    s2poly           -0.240    0.512   -0.468    0.640
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .extra_1    (Q)   10.938    0.725   15.087    0.000
+   .extra_2    (Q)   10.938    0.725   15.087    0.000
+   .extra_3    (Q)   10.938    0.725   15.087    0.000
+   .extra_4    (Q)   10.938    0.725   15.087    0.000
+   .extra_5    (Q)   10.938    0.725   15.087    0.000
+    s2poly            0.000                           
+    i                36.953    3.207   11.521    0.000
+    s1               -0.171    0.659   -0.260    0.795
+    s2                2.396    5.275    0.454    0.650</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="fu">as_tibble</span>(<span class="fu">lavPredict</span>(p9,<span class="at">type=</span><span class="st">"ov"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-2"><a href="#cb62-2"></a>  <span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-3"><a href="#cb62-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"extra"</span>), <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"wave"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-4"><a href="#cb62-4"></a>dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">wave =</span> <span class="fu">as.numeric</span>(wave)) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-5"><a href="#cb62-5"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> wave, <span class="at">y =</span> extra, <span class="at">group =</span> ID, <span class="at">color =</span> <span class="fu">factor</span>(ID))) <span class="sc">+</span></span>
+<span id="cb62-6"><a href="#cb62-6"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+
+<img data-src="bends-4_files/figure-revealjs/unnamed-chunk-44-1.png" width="960" class="r-stretch"><div class="footer footer-default">
 
 </div>
 </section>

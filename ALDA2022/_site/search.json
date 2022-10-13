@@ -1125,5 +1125,19 @@
     "title": "sem",
     "section": "effect coding",
     "text": "effect coding\n\n\nCode\nsec.order <- '\n## define latent variables\nPos1 =~ NA*PosAFF11 + L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31\nPos2 =~ NA*PosAFF12 + L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32\nPos3 =~ NA*PosAFF13 + L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33\n\n## intercepts\nPosAFF11 ~ t1*1\nPosAFF21 ~ t2*1\nPosAFF31 ~ t3*1\n\nPosAFF12 ~ t1*1\nPosAFF22 ~ t2*1\nPosAFF32 ~ t3*1\n\nPosAFF13 ~ t1*1\nPosAFF23 ~ t2*1\nPosAFF33 ~ t3*1\n\n\n## correlated residuals across time\nPosAFF11 ~~ PosAFF12 + PosAFF13\nPosAFF12 ~~ PosAFF13\nPosAFF21 ~~ PosAFF22 + PosAFF23\nPosAFF22 ~~ PosAFF23\nPosAFF31 ~~ PosAFF32 + PosAFF33\nPosAFF32 ~~ PosAFF33\n\n\n## latent variable intercepts\nPos1 ~ 0*1\nPos2  ~ 0*1\nPos3  ~ 0*1\n\n#model constraints for effect coding\n## loadings must average to 1\nL1 == 3 - L2 - L3\n## means must average to 0\nt1 == 0 - t2 - t3\n\ni =~ 1*Pos1 + 1*Pos2 + 1*Pos3 \ns =~ 0*Pos1 + 1*Pos2 + 2*Pos3 '\n\n\nfit.sec.order <- growth(sec.order, data=wide, missing = \"ML\")"
+  },
+  {
+    "objectID": "bends-4.html#mlm-example",
+    "href": "bends-4.html#mlm-example",
+    "title": "bends",
+    "section": "mlm example",
+    "text": "mlm example\nlevel 1:\n\\[{Y}_{ij} = \\beta_{0j}  + \\beta_{1j}Time1_{ij} + \\beta_{2j}Time2_{ij} + \\varepsilon_{ij}\\]\nLevel 2:\n\\[{\\beta}_{0j} = \\gamma_{00} +  U_{0j}\\]\n\\[{\\beta}_{1j} = \\gamma_{10} +  U_{1j}\\]\n\\[{\\beta}_{2j} = \\gamma_{20} +  U_{2j}\\]"
+  },
+  {
+    "objectID": "bends-4.html#sem-example",
+    "href": "bends-4.html#sem-example",
+    "title": "bends",
+    "section": "SEM example",
+    "text": "SEM example\n0 1 2 2 2\n0 0 0 1 2\n\ntwo.rate <- 'i =~ 1*extra_1 + 1*extra_2 + 1*extra_3 + 1*extra_4 + 1*extra_5 \ns1 =~ 0*extra_1 + 1*extra_2 + 2*extra_3 + 2*extra_4 + 2*extra_5 \ns2 =~ 0*extra_1 + 0*extra_2 + 0*extra_3 + 1*extra_4 + 2*extra_5  \n'\n\np8 <- growth(two.rate, data = p.wide, missing = \"ML\")"
   }
 ]
