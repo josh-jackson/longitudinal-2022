@@ -512,13 +512,6 @@ Pos2 =~ PosAFF12 + PosAFF22 + PosAFF32
 Pos3 =~ PosAFF13 + PosAFF23 + PosAFF33
 
 
-## correlated residuals across time
-PosAFF11 ~~ PosAFF12 + PosAFF13
-PosAFF12 ~~ PosAFF13
-PosAFF21 ~~ PosAFF22 + PosAFF23
-PosAFF22 ~~ PosAFF23
-PosAFF31 ~~ PosAFF32 + PosAFF33
-PosAFF32 ~~ PosAFF33
 
 
 '
@@ -550,18 +543,6 @@ Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31
 Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32
 Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33
 
-## free latent variances at later times (only set the scale once)
-Pos2 ~~ NA*Pos2
-Pos3 ~~ NA*Pos3
-
-## correlated residuals across time
-PosAFF11 ~~ PosAFF12 + PosAFF13
-PosAFF12 ~~ PosAFF13
-PosAFF21 ~~ PosAFF22 + PosAFF23
-PosAFF22 ~~ PosAFF23
-PosAFF31 ~~ PosAFF32 + PosAFF33
-PosAFF32 ~~ PosAFF33
-
 
 '
 
@@ -588,20 +569,6 @@ Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32
 Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33
 
 
-## free latent variances at later times (only set the scale once)
-Pos2 ~~ NA*Pos2
-Pos3 ~~ NA*Pos3
-
-
-## correlated residuals across time
-PosAFF11 ~~ PosAFF12 + PosAFF13
-PosAFF12 ~~ PosAFF13
-PosAFF21 ~~ PosAFF22 + PosAFF23
-PosAFF22 ~~ PosAFF23
-PosAFF31 ~~ PosAFF32 + PosAFF33
-PosAFF32 ~~ PosAFF33
-
-
 ## constrain intercepts across time
 PosAFF11 ~ t1*1
 PosAFF21 ~ t2*1
@@ -617,10 +584,7 @@ PosAFF13 ~ t1*1
 PosAFF23 ~ t2*1
 PosAFF33 ~ t3*1
 
-
-## free latent means at later times (only set the scale once)
-Pos2 ~ NA*1
-Pos3 ~ NA*1'
+'
 
 strong <- cfa(strong, data=wide, meanstructure=TRUE, std.lv=TRUE)
 
@@ -640,19 +604,6 @@ Pos1 =~ L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31
 Pos2 =~ L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32
 Pos3 =~ L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33
 
-
-## free latent variances at later times (only set the scale once)
-Pos2 ~~ NA*Pos2
-Pos3 ~~ NA*Pos3
-
-
-## correlated residuals across time
-PosAFF11 ~~ PosAFF12 + PosAFF13
-PosAFF12 ~~ PosAFF13
-PosAFF21 ~~ PosAFF22 + PosAFF23
-PosAFF22 ~~ PosAFF23
-PosAFF31 ~~ PosAFF32 + PosAFF33
-PosAFF32 ~~ PosAFF33
 
 ## equality of residuals 
 PosAFF11 ~~ r*PosAFF11 
@@ -683,10 +634,7 @@ PosAFF13 ~ t1*1
 PosAFF23 ~ t2*1
 PosAFF33 ~ t3*1
 
-
-## free latent means at later times (only set the scale once)
-Pos2 ~ NA*1
-Pos3 ~ NA*1'
+'
 
 strict <- cfa(strict, data=wide, meanstructure=TRUE, std.lv=TRUE)
 
