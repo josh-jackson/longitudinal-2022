@@ -254,7 +254,7 @@ semPaths(fit.2)
 
 4.  Longitudinal mediation
 
-5.  Growth models + cross lags  
+5.  Growth models + cross lags
 
 6.  Latent change/difference score models
 
@@ -410,6 +410,7 @@ summary(fit.3)
 ## modeling residuals
 
 Constrain to be equal. Compare with mlm residual
+
 ```{r}
 #| code-fold: true
 model.4 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
@@ -423,23 +424,19 @@ fit.4 <- growth(model.4, data=alcohol.wide)
 summary(fit.4)
 ```
 
-
 ## Plotting
 
 ```{r}
 lavPredict(fit.1,type="lv")
 ```
 
-
-
------
+------------------------------------------------------------------------
 
 ```{r}
 lavPredict(fit.1,type="ov")
 ```
 
-
-------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -452,8 +449,7 @@ ggplot(aes(x = wave, y = alcuse, group = ID, color = factor(ID))) +
 
 ```
 
-
--------
+------------------------------------------------------------------------
 
 Plotting the constrained slope variance model
 
@@ -467,7 +463,6 @@ ggplot(aes(x = wave, y = alcuse, group = ID, color = factor(ID))) +
   geom_line() +  theme(legend.position = "none") 
 
 ```
-
 
 ## What is measurement invariance?
 
@@ -525,14 +520,13 @@ Notice that we didnt do anything different here except for fitting a mean struct
 
 ## Weak (constrain loadings)
 
-- If the values are numbers, constraints will force the parameters to be that number. If they are letter, then it names the parameter and forces all of those with the same naming scheme to be equivalent. 
+-   If the values are numbers, constraints will force the parameters to be that number. If they are letter, then it names the parameter and forces all of those with the same naming scheme to be equivalent.
 
-- Weak measurement invariance test is to constrain the item loadings to be equivalent across waves.
+-   Weak measurement invariance test is to constrain the item loadings to be equivalent across waves.
 
--  Here NA is used to allow the latent variance at time 2 and 3 to be estimated, rather than to be automatically constrained to 1 (bc we used a fixed factor approach)
+-   Here NA is used to allow the latent variance at time 2 and 3 to be estimated, rather than to be automatically constrained to 1 (bc we used a fixed factor approach)
 
--------
-
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -555,9 +549,9 @@ summary(weak, standardized=TRUE, fit.measures=TRUE)
 
 ## Strong (constrain loadings and intercepts)
 
-- Strong introduces means to the equation.They were there before but now we constrain the means of each item to be the same across time
+-   Strong introduces means to the equation.They were there before but now we constrain the means of each item to be the same across time
 
-- Why are we doing that if we want to test whether people change? Change will be reflected latently. 
+-   Why are we doing that if we want to test whether people change? Change will be reflected latently.
 
 ```{r}
 #| code-fold: true
@@ -593,7 +587,7 @@ summary(strong, standardized=TRUE, fit.measures=TRUE)
 
 ## Strict (loadings, intercept, residual variances)
 
-The next step is to constrain residual variances to be the same. This step isn't necessary to for correctly interpretting growth models. 
+The next step is to constrain residual variances to be the same. This step isn't necessary to for correctly interpretting growth models.
 
 ```{r}
 #| code-fold: true
@@ -654,8 +648,7 @@ Usually done through chi-square difference test. You want NS, i.e. the constrain
 anova(config, weak)
 ```
 
---------
-
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -679,31 +672,27 @@ fitmeasures(strict)['cfi']
 
 4.  Longitudinal mediation
 
-5.  Growth models + cross lags  
+5.  Growth models + cross lags
 
 6.  Latent change/difference score models
 
 7.  Mixture or class based longitudinal models
 
-
 ## Longitudinal CFA
 
-- Can be simply thought of as does this construct relate to itself across time? And, to the extent that it does not, is that due to changes in how the construct is measured over time?
+-   Can be simply thought of as does this construct relate to itself across time? And, to the extent that it does not, is that due to changes in how the construct is measured over time?
 
-- Substantively, these analyses get at the relative rank order of people across assessment points. What is nice is that unlike using composites, this looks at latent correlations across time. 
+-   Substantively, these analyses get at the relative rank order of people across assessment points. What is nice is that unlike using composites, this looks at latent correlations across time.
 
 -Also nice is that different measures can be used eg a cognitive ability exam for children which naturally differs in content across age groups.
 
-------
+------------------------------------------------------------------------
 
-key questions for longitudinal CFA: 
-1. Should the correlations be the same across time? Should we set them (constrain) to be equal?  
-2. Should the error variances be correlated?  
-3. Are the loadings the same across time? 
+key questions for longitudinal CFA: 1. Should the correlations be the same across time? Should we set them (constrain) to be equal?\
+2. Should the error variances be correlated?\
+3. Are the loadings the same across time?
 
-
-------
-
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -738,21 +727,18 @@ fit.long.cfa <- cfa(long.cfa, data=wide, std.lv=TRUE)
 
 ```
 
-
-----
+------------------------------------------------------------------------
 
 ```{r}
 library(semPlot)
 semPaths(fit.long.cfa)
 ```
 
-
-----
+------------------------------------------------------------------------
 
 ```{r}
 summary(fit.long.cfa)
 ```
-
 
 ## unstandardized estimates
 
@@ -766,7 +752,7 @@ fit.long.cfa.us <- cfa(long.cfa, data=wide, std.lv=FALSE)
 summary(fit.long.cfa.us)
 ```
 
------
+------------------------------------------------------------------------
 
 We can also get standardized estimates in the the summary step, even when using the fixed factor approach.
 
@@ -774,17 +760,14 @@ We can also get standardized estimates in the the summary step, even when using 
 summary(fit.long.cfa.us, standardized = TRUE)
 ```
 
-
 ## introducing means.
 
-- Notice how we can also estimate means of the variables, though we don't necessarily need to. These are now under the "intercepts" heading.
+-   Notice how we can also estimate means of the variables, though we don't necessarily need to. These are now under the "intercepts" heading.
 
 ```{r}
 fit.long.cfa.us.mean <- cfa(long.cfa, meanstructure=TRUE, data=wide, std.lv=FALSE)
 summary(fit.long.cfa.us.mean)
 ```
-
-
 
 ## Second order growth model
 
@@ -843,20 +826,18 @@ fit.sec.order <- growth(sec.order, data=wide, missing = "ML")
 
 ```
 
-----------------
+------------------------------------------------------------------------
 
 ```{r}
 semPaths(fit.sec.order)
 ```
 
-
-------------
+------------------------------------------------------------------------
 
 ```{r}
 summary(fit.sec.order, fit.measures=TRUE)
 
 ```
-
 
 ## effect coding
 
@@ -912,9 +893,8 @@ fit.sec.order <- growth(sec.order, data=wide, missing = "ML")
 
 ```
 
-----
+------------------------------------------------------------------------
 
 ```{r}
 summary(fit.sec.order)
 ```
-

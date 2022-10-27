@@ -74,7 +74,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Motivation and handling data\nLongitudinal MLM\nLongitudinal SEM\nLines that Bend"
+    "text": "Motivation and handling data\nLongitudinal MLM\nLongitudinal SEM\nLines that Bend\nPredictors"
   },
   {
     "objectID": "intro-1.html#individual-level",
@@ -1153,5 +1153,159 @@
     "title": "bends",
     "section": "GAMs",
     "text": "GAMs\n\nstandard longitudinal models are simple to understand (lines!), but fail to\n\nGAMs offer a middle ground: they can be fit to complex, nonlinear relationships and make good predictions in these cases, but we are still able to do inferential statistics and understand and explain the underlying structure of our models and why they make predictions that they do"
+  },
+  {
+    "objectID": "conditional-5.html#conditional-models",
+    "href": "conditional-5.html#conditional-models",
+    "title": "conditional",
+    "section": "Conditional models",
+    "text": "Conditional models\n\nWe are now going to introduce predictors to our growth models beyond time. These predictors are similar to predictors in standard regression – dummy for nominal, interactions change lower order terms, etcetera.\nThis is all just regression, so the same interpretation is the same. It is now only harder because we have multiple levels and lots of potential for interactions"
+  },
+  {
+    "objectID": "conditional-5.html#level-2-group-predictors",
+    "href": "conditional-5.html#level-2-group-predictors",
+    "title": "conditional",
+    "section": "Level 2 group predictors",
+    "text": "Level 2 group predictors\n\nDo groups differ in their initial status? Level 2, person variable that is dummy coded. Note that group here only is measured once, it is a between person variable.\n\nlevel 1:\n\\[{Y}_{ti} = \\beta_{0i}  + \\beta_{1i}Time_{ti} + \\varepsilon_{ti}\\]\nLevel 2:\n\\[{\\beta}_{0i} = \\gamma_{00} + \\gamma_{01}G_{i} +   U_{0i}\\]\n\\[{\\beta}_{1i} = \\gamma_{10} + U_{1i}\\]"
+  },
+  {
+    "objectID": "conditional-5.html#interpretation-of-conditional-fixed-effects",
+    "href": "conditional-5.html#interpretation-of-conditional-fixed-effects",
+    "title": "conditional",
+    "section": "Interpretation of conditional fixed effects",
+    "text": "Interpretation of conditional fixed effects\nNotice we have a new gamma term, \\(\\gamma_{01}\\). How do we interpret this new fixed effect, especially in the presence of other fixed effects?\n\\(\\gamma_{00}\\) is the intercept and can be considered the value when G = 0 and time = 0, whereas the \\(\\gamma_{01}\\) is the difference in initial values between groups.\nThe value for group = 1? \\(\\gamma_{00} + \\gamma_{01}\\)"
+  },
+  {
+    "objectID": "conditional-5.html#interpretation-of-random-effects",
+    "href": "conditional-5.html#interpretation-of-random-effects",
+    "title": "conditional",
+    "section": "Interpretation of random effects",
+    "text": "Interpretation of random effects\n\nOne thing to keep in mind is that we are now changing the meaning of the random effect. Now that we have a predictor in the model, the \\(U_{0j}\\) is the person specific deviation from the group predicted intercept, not the grand mean intercept.\n\nLevel 1:\n\\[{Y}_{ti} = \\beta_{0i}  + \\beta_{1i}Time_{ti} + \\varepsilon_{ti}\\]\nLevel 2:\n\\[{\\beta}_{0i} = \\gamma_{00} + \\gamma_{01}G_{i} +   U_{0i}\\]\n\\[{\\beta}_{1i} = \\gamma_{10} + U_{1i}\\]"
+  },
+  {
+    "objectID": "conditional-5.html#does-your-covariance-structure-change",
+    "href": "conditional-5.html#does-your-covariance-structure-change",
+    "title": "conditional",
+    "section": "Does your covariance structure change?",
+    "text": "Does your covariance structure change?\nLevel 2 covariance matrix\n\\[\\begin{pmatrix} {U}_{0j} \\\\ {U}_{1j} \\end{pmatrix}\n\\sim \\mathcal{N} \\begin{pmatrix}\n  0,     & \\tau_{00}^{2} & \\tau_{01}\\\\\n  0, & \\tau_{01} & \\tau_{10}^{2}\n\\end{pmatrix}\\]\nLevel 1 residual variance will also be different\n\\[ {R}_{ij} \\sim \\mathcal{N}(0, \\sigma^{2})  \\]"
+  },
+  {
+    "objectID": "conditional-5.html#equations-for-each-group",
+    "href": "conditional-5.html#equations-for-each-group",
+    "title": "conditional",
+    "section": "Equations for each group",
+    "text": "Equations for each group\n\\[{Y}_{ti} = (\\gamma_{00} + \\gamma_{01}G_{i} + U_{0i} ) + [(\\gamma_{10}+ U_{1i})(Time_{ti})] + \\varepsilon_{ti}\\]\nUnderstanding how to re-write the equation will help for calculating estimated scores for your predictors in addition to being able to interpret the coefficients.\nEstimated value for an individual in group = 0\n\\[\\hat{Y}_{ti} = (\\gamma_{00} + U_{0i} ) + [(\\gamma_{10}+ U_{1i})(Time_{ti})]\\]\ngroup = 1 individual\n\\[\\hat{Y}_{ti} = (\\gamma_{00} + \\gamma_{01}+ U_{0i} ) + [(\\gamma_{10}+ U_{1i})(Time_{ti})]\\]"
+  },
+  {
+    "objectID": "conditional-5.html#slope-and-intercept-group-predictors",
+    "href": "conditional-5.html#slope-and-intercept-group-predictors",
+    "title": "conditional",
+    "section": "Slope and Intercept Group Predictors",
+    "text": "Slope and Intercept Group Predictors\nPredicting the intercept only can only answer static questions, not about change.\nLevel 1:\n\\[{Y}_{ti} = \\beta_{0i}  + \\beta_{1i}Time_{ti} + \\varepsilon_{ti}\\]\nLevel 2:\n\\[{\\beta}_{0i} = \\gamma_{00} + \\gamma_{01}G_{i} +   U_{0i}\\]\n\\[{\\beta}_{1i} = \\gamma_{10} +  \\gamma_{11}G_{i} +U_{1i}\\]\nSimilar to before, the interpretation of \\(U_{1i}\\) changes. The term is now what is left over after accounting for group differences in the mean slope."
+  },
+  {
+    "objectID": "conditional-5.html#cross-level-interactions",
+    "href": "conditional-5.html#cross-level-interactions",
+    "title": "conditional",
+    "section": "cross level interactions",
+    "text": "cross level interactions\nLevel 1:\n\\[{Y}_{ti} = \\beta_{0i}  + \\beta_{1i}Time_{ti} + \\varepsilon_{ti}\\]\nLevel 2:\n\\[{\\beta}_{0i} = \\gamma_{00} + \\gamma_{01}G_{i} +   U_{0i}\\]\n\\[{\\beta}_{1i} = \\gamma_{10} +  \\gamma_{11}G_{i} +U_{1i}\\]\nCombined:\n\\[{Y}_{ti} = \\gamma_{00} + \\gamma_{01}G_{i}+  \\gamma_{10} (Time_{ti}) + \\gamma_{11}(G_{i}*Time_{ti}) + \\]\n\\[ U_{0i} + U_{1i}(Time_{ti}) + \\varepsilon_{ti}\\]"
+  },
+  {
+    "objectID": "conditional-5.html#interpretation-of-lower-order-terms",
+    "href": "conditional-5.html#interpretation-of-lower-order-terms",
+    "title": "conditional",
+    "section": "interpretation of lower order terms",
+    "text": "interpretation of lower order terms\nCombined:\n\\[{Y}_{ti} = \\gamma_{00} + \\gamma_{01}G_{i}+  \\gamma_{10} (Time_{ti}) + \\gamma_{11}(G_{i}*Time_{ti}) + \\]\n\\[ U_{0i} + U_{1i}(Time_{ti}) + \\varepsilon_{ti}\\]\nAs with regression, the lower order terms are now conditional on the higher order interaction.\n\\(\\gamma_{10}\\), the fixed effect representing our slope is now the simple slope for group = 0\n\\(\\gamma_{01}\\), the fixed effect for group is the difference between groups when time = 0, e.g. the intercept\n\\(\\gamma_{00}\\) is the intercept, it is the value for when our predictors are zero."
+  },
+  {
+    "objectID": "conditional-5.html#residual-structure",
+    "href": "conditional-5.html#residual-structure",
+    "title": "conditional",
+    "section": "residual structure",
+    "text": "residual structure\nLevel 2 covariance matrix\n\\[\\begin{pmatrix} {U}_{0j} \\\\ {U}_{1j} \\end{pmatrix} \\sim\\mathcal{N} \\begin{pmatrix} 0, \\tau_{00}^{2} & \\tau_{01}\\\\  0,  \\tau_{01} & \\tau_{10}^{2} \\end{pmatrix}\\]\nHow does your variance-covariance matrix change?\nLevel 1 residual variance\n\\[{R}_{ij} \\sim \\mathcal{N}(0, \\sigma^{2})\\]\nHow does your residual change relative to a model without group effects? Can you graph conceptually what this now captures?"
+  },
+  {
+    "objectID": "conditional-5.html#predictive-equation",
+    "href": "conditional-5.html#predictive-equation",
+    "title": "conditional",
+    "section": "predictive equation",
+    "text": "predictive equation\nThinking about the equation as a predictive engine will help us later with graphing\nAlternative combined\n\\[{Y}_{ti} = [\\gamma_{00} + U_{0i} +\\gamma_{01}G_{i}] + [(\\gamma_{10}  + \\gamma_{11}G_{i}+  U_{1i})(Time_{ti})] + \\varepsilon_{ti}\\]\nThis is just rearranged so you can see that different groups have different intercepts and slopes\n\\[\\hat{Y}_{ti} = [\\gamma_{00} +\\gamma_{01}G_{i}] + [(\\gamma_{10}  + \\gamma_{11}G_{i})(Time_{ti})]\\]\nNotice how when G = 0, the equation simplifies:\n\\[\\hat{Y}_{ti} = \\gamma_{00} + \\gamma_{10} (Time_{ti})\\]"
+  },
+  {
+    "objectID": "conditional-5.html#l2-continuous-predictors",
+    "href": "conditional-5.html#l2-continuous-predictors",
+    "title": "conditional",
+    "section": "L2 Continuous predictors",
+    "text": "L2 Continuous predictors\nA continuous L2 predictor is similar to the group predictors.\nLevel 1:\n\\[{Y}_{ti} = \\beta_{0i}  + \\beta_{1i}Time_{ti} + \\varepsilon_{ti}\\]\nLevel 2:\n\\[{\\beta}_{0i} = \\gamma_{00} + \\gamma_{01}C_{i} +   U_{0i}\\]\n\\[{\\beta}_{1i} = \\gamma_{10} +  \\gamma_{11}C_{i} +U_{1i}\\]\nCombined:\n\\[{Y}_{ti} = \\gamma_{00} + \\gamma_{01}C_{i}+  \\gamma_{10} (Time_{ti}) + \\gamma_{11}(C_{i}*Time_{ti}) +  \\]\n\\[ U_{0i} + U_{1j}(Time_{ti}) + \\varepsilon_{ti}\\]"
+  },
+  {
+    "objectID": "conditional-5.html#continuous-conditional-interpretation",
+    "href": "conditional-5.html#continuous-conditional-interpretation",
+    "title": "conditional",
+    "section": "Continuous conditional interpretation",
+    "text": "Continuous conditional interpretation\n\\[{Y}_{ti} = \\gamma_{00} + \\gamma_{01}C_{i}+  \\gamma_{10} (Time_{ti}) + \\gamma_{11}(C_{i}*Time_{ti}) +  \\]\n\\[ U_{0i} + U_{1j}(Time_{ti}) + \\varepsilon_{ti}\\]\nThe \\(\\gamma_{11}\\) interaction coefficient indexes the difference in slopes at different levels of C\nThe \\(\\gamma_{10}\\) is now the effect of time when the continuous predictor is zero.\nThe \\(\\gamma_{01}\\) is now the effect of C when time is zero.\n\\(\\gamma_{00}\\) is the intercept, it is the value for when our predictors are zero.\n\\(U_{0i}\\) Is the random effect for intercept after accounting for C.\n\\(U_{1i}\\) Is the random effect for the slope after accounting for C."
+  },
+  {
+    "objectID": "conditional-5.html#equations-for-plotting",
+    "href": "conditional-5.html#equations-for-plotting",
+    "title": "conditional",
+    "section": "Equations for plotting",
+    "text": "Equations for plotting\nThe same logic for plotting continuous variables except this time we have to choose the values for simple slopes\n\\[\\hat{Y}_{ti} = [\\gamma_{00} + \\gamma_{01}C_{i}]+  [\\gamma_{10} + \\gamma_{11}C_{i}]*Time_{ti}\\]\nAssuming C is standardized: -1sd\n\\[\\hat{Y}_{ti} = [\\gamma_{00} +(\\gamma_{01}*-1)] + [\\gamma_{10}  + (\\gamma_{11}*-1)]*Time_{ti}\\]\nMean\n\\[\\hat{Y}_{ti} = \\gamma_{00} + \\gamma_{10} * (Time_{ti})\\]\n+1sd\n\\[\\hat{Y}_{ti} = [\\gamma_{00} +\\gamma_{01}] + [\\gamma_{10}  + \\gamma_{11}]*Time_{ti}\\]"
+  },
+  {
+    "objectID": "conditional-5.html#individual-level-trajectories",
+    "href": "conditional-5.html#individual-level-trajectories",
+    "title": "conditional",
+    "section": "individual level trajectories",
+    "text": "individual level trajectories\nWhat do individual level trajectories look like?\n\\[\\hat{Y}_{ti} = [\\gamma_{00} + \\gamma_{01}C_{i}+  U_{0i}] + \\]\n\\[ [\\gamma_{10}  + (\\gamma_{11}*C_{i}) + U_{1i}]  * Time_{ti}\\]\nIf you know someones random effects, and you know the fixed effects, you can create predicted values for any level of time."
+  },
+  {
+    "objectID": "conditional-5.html#plotting",
+    "href": "conditional-5.html#plotting",
+    "title": "conditional",
+    "section": "Plotting",
+    "text": "Plotting\n\n\nCode\nlibrary(tidyverse)\nalcohol <- read.csv(\"https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/alcohol1_pp.csv\")\nhead(alcohol)\n\n\n  X id age coa male age_14   alcuse      peer      cpeer  ccoa\n1 1  1  14   1    0      0 1.732051 1.2649111  0.2469111 0.549\n2 2  1  15   1    0      1 2.000000 1.2649111  0.2469111 0.549\n3 3  1  16   1    0      2 2.000000 1.2649111  0.2469111 0.549\n4 4  2  14   1    1      0 0.000000 0.8944272 -0.1235728 0.549\n5 5  2  15   1    1      1 0.000000 0.8944272 -0.1235728 0.549\n6 6  2  16   1    1      2 1.000000 0.8944272 -0.1235728 0.549"
+  },
+  {
+    "objectID": "conditional-5.html#plotting-1",
+    "href": "conditional-5.html#plotting-1",
+    "title": "conditional",
+    "section": "Plotting",
+    "text": "Plotting\n\nlibrary(report)\nalcohol %>% \n   report_sample()\n\n# Descriptive Statistics\n\nVariable         |        Summary\n---------------------------------\nMean X (SD)      | 123.50 (71.16)\nMean id (SD)     |  41.50 (23.72)\nMean age (SD)    |   15.00 (0.82)\nMean coa (SD)    |    0.45 (0.50)\nMean male (SD)   |    0.51 (0.50)\nMean age_14 (SD) |    1.00 (0.82)\nMean alcuse (SD) |    0.92 (1.06)\nMean peer (SD)   |    1.02 (0.73)\nMean cpeer (SD)  |   -0.00 (0.73)\nMean ccoa (SD)   |    0.00 (0.50)"
+  },
+  {
+    "objectID": "conditional-5.html#example",
+    "href": "conditional-5.html#example",
+    "title": "conditional",
+    "section": "Example",
+    "text": "Example\n\n\nCode\nfit4 <- lmer(alcuse ~  age_14 + peer + (age_14 | id), data = alcohol)\nsummary(fit4)\n\n\nLinear mixed model fit by REML ['lmerMod']\nFormula: alcuse ~ age_14 + peer + (age_14 | id)\n   Data: alcohol\n\nREML criterion at convergence: 615.4\n\nScaled residuals: \n    Min      1Q  Median      3Q     Max \n-2.5192 -0.3643 -0.1291  0.4198  2.4918 \n\nRandom effects:\n Groups   Name        Variance Std.Dev. Corr \n id       (Intercept) 0.3396   0.5827        \n          age_14      0.1552   0.3939   -0.08\n Residual             0.3373   0.5808        \nNumber of obs: 246, groups:  id, 82\n\nFixed effects:\n            Estimate Std. Error t value\n(Intercept) -0.03236    0.14113  -0.229\nage_14       0.27065    0.06284   4.307\npeer         0.67186    0.10920   6.152\n\nCorrelation of Fixed Effects:\n       (Intr) age_14\nage_14 -0.256       \npeer   -0.787  0.000"
+  },
+  {
+    "objectID": "conditional-5.html#multiple-predictors",
+    "href": "conditional-5.html#multiple-predictors",
+    "title": "conditional",
+    "section": "Multiple predictors",
+    "text": "Multiple predictors\nInterpretations with multiple predictors in regression extend to MLMs. For example, health across time, examining the effects of an intervention, while controlling for initial exercise status?:\nlevel 1:\n\\[{Health}_{ti} = \\beta_{0i}  + \\beta_{1i}Time_{ti} + \\varepsilon_{ti}\\]\nLevel 2:\n\\[{\\beta}_{0i} = \\gamma_{00} + \\gamma_{01}Exercise_{i} +  \\gamma_{02}Intervention_{i} +   U_{0i}\\]\n\\[{\\beta}_{1i} = \\gamma_{10} + \\gamma_{11}Intervention_{i} + U_{1i}\\]"
+  },
+  {
+    "objectID": "conditional-5.html#centering-redux",
+    "href": "conditional-5.html#centering-redux",
+    "title": "conditional",
+    "section": "Centering redux",
+    "text": "Centering redux\nChanging the scale of your predictors changes the interpretation of your model.\n\nOriginal metric (no centering)\nGroup-mean centering (our group/nesting is person so this is also called person centering). This will be more appropriate when we talk about level 1 predictors.\nGroup grand-mean centering (centering around person avg)\nGrand-mean centering (this is taking the average across every obs)\nCentering on a value of theoretical or applied interest"
+  },
+  {
+    "objectID": "conditional-5.html#time-considerations",
+    "href": "conditional-5.html#time-considerations",
+    "title": "conditional",
+    "section": "Time considerations",
+    "text": "Time considerations\n\nWe typically center time around each person’s initial time to make the intercept more interpretable. However, this can cause correlations between an intercept and a slope.\nIf high, the correlation can be problematic in terms of estimation. Often we center time in the middle of the repeated assessments to minimize this association.\nDoing so is especially important if you want to use some variable to predict intercept and slope (or use intercept/slope to predict some variable)."
+  },
+  {
+    "objectID": "conditional-5.html#level-2-centering",
+    "href": "conditional-5.html#level-2-centering",
+    "title": "conditional",
+    "section": "Level 2 centering",
+    "text": "Level 2 centering\n\nBecause level 2 is involved with cross-level interactions, it is always helpful to at least consider centering. For level 2, the centering options are much easier, as one can generally go with grand mean centering.\nAs everyone has only 1 value to contribute to, the calculation and the interpretation is more straightforward. It is thus also equivalent to group grand-mean centering."
   }
 ]
