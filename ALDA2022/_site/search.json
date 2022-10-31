@@ -1307,5 +1307,12 @@
     "title": "conditional",
     "section": "Level 2 centering",
     "text": "Level 2 centering\n\nBecause level 2 is involved with cross-level interactions, it is always helpful to at least consider centering. For level 2, the centering options are much easier, as one can generally go with grand mean centering.\nAs everyone has only 1 value to contribute to, the calculation and the interpretation is more straightforward. It is thus also equivalent to group grand-mean centering."
+  },
+  {
+    "objectID": "conditional-5.html#level-1-predictors",
+    "href": "conditional-5.html#level-1-predictors",
+    "title": "conditional",
+    "section": "Level 1 predictors",
+    "text": "Level 1 predictors\n\nThese are predictors that repeat.\nSome variables that are inherently level 2 (e.g. handedness), some that make sense more as a level 1 (e.g., mood) and some that could be considered either depending on your research question and/or your data (e.g. income).\nThese variables can be treated as another predictor with the effect of “controlling” for some level 1 variable as well as a focal variable."
   }
 ]

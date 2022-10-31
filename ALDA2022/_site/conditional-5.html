@@ -993,7 +993,30 @@ Mean ccoa (SD)   |    0.00 (0.50)</code></pre>
 <p>Level 2:</p>
 <p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}Exercise_{i}  +   U_{0i}\]</span></p>
 <p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  \gamma_{11}Exercise_{i} +  U_{1i}\]</span></p>
-<p><span class="math display">\[\hat{Health}_{ti} = [\gamma_{00} + \gamma_{01}Exercise_{i}+ + U_{0i}] + [\gamma_{10}  + \gamma_{11}Exercise_{i} + U_{1i}]  * Time_{ti}\]</span></p>
+<p>Combined:</p>
+<p><span class="math display">\[\hat{Health}_{ti} = [\gamma_{00} + \gamma_{01}Exercise_{i}+  U_{0i}] + \]</span></p>
+<p><span class="math display">\[ [\gamma_{10}  + \gamma_{11}Exercise_{i} + U_{1i}]  * Time_{ti}\]</span></p>
+</section>
+<section id="level-1-predictors" class="slide level2">
+<h2>Level 1 predictors</h2>
+<ul>
+<li><p>These are predictors that repeat.</p></li>
+<li><p>Some variables that are inherently level 2 (e.g.&nbsp;handedness), some that make sense more as a level 1 (e.g., mood) and some that could be considered either depending on your research question and/or your data (e.g.&nbsp;income).</p></li>
+<li><p>These variables can be treated as another predictor with the effect of “controlling” for some level 1 variable as well as a focal variable.</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>Consider health across time predicted by a level 1 exercise variable (1 = yes, exercised).</p>
+<p>level 1:</p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}Exercise_{ti} + \varepsilon_{ti}\]</span></p>
+<p>Level 2:</p>
+<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} +   U_{0i}\]</span></p>
+<p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></p>
+<p><span class="math display">\[{\beta}_{2i} = \gamma_{20}\]</span></p>
+<p>Combined:</p>
+<p><span class="math display">\[{Health}_{ti} =  [\gamma_{00} +   \gamma_{10}Time_{ti}   + \gamma_{20}Exercise_{ti}] + \]</span></p>
+<p><span class="math display">\[ [ U_{0i}  + U_{1i}Time_{ti}+ \varepsilon_{ti}]\]</span></p>
 
 <div class="footer footer-default">
 
