@@ -6,69 +6,56 @@ format: revealjs
 editor: visual
 ---
 
-
-
 ## Conditional models
 
-- We are now going to introduce predictors to our growth models beyond time. These predictors are similar to predictors in standard regression -- dummy for nominal, interactions change lower order terms, etcetera. 
+-   We are now going to introduce predictors to our growth models beyond time. These predictors are similar to predictors in standard regression -- dummy for nominal, interactions change lower order terms, etcetera.
 
-- This is all just regression, so the same interpretation is the same. It is now only harder because we have multiple levels and lots of potential for interactions
+-   This is all just regression, so the same interpretation is the same. It is now only harder because we have multiple levels and lots of potential for interactions
 
+## Level 2 group predictors
 
-## Level 2 group predictors 
+-   Do groups differ in their initial status? Level 2, person variable that is dummy coded. Note that group here only is measured once, it is a between person variable.
 
-- Do groups differ in their initial status? Level 2, person variable that is dummy coded. Note that group here only is measured once, it is a between person variable. 
+level 1: $${Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}$$
 
-level 1: 
-$${Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}$$
-
-Level 2: 
+Level 2:
 
 $${\beta}_{0i} = \gamma_{00} + \gamma_{01}G_{i} +   U_{0i}$$
 
 $${\beta}_{1i} = \gamma_{10} + U_{1i}$$
 
+## Interpretation of conditional fixed effects
 
+Notice we have a new gamma term, $\gamma_{01}$. How do we interpret this new fixed effect, especially in the presence of other fixed effects?
 
-## Interpretation of conditional fixed effects 
+$\gamma_{00}$ is the intercept and can be considered the value when G = 0 and time = 0, whereas the $\gamma_{01}$ is the difference in initial values between groups.
 
-Notice we have a new gamma term, $\gamma_{01}$. How do we interpret this new fixed effect, especially in the presence of other fixed effects?  
+The value for group = 1? $\gamma_{00} + \gamma_{01}$
 
-$\gamma_{00}$ is the intercept and can be considered the value when G = 0 and time = 0, whereas the $\gamma_{01}$ is the difference in initial values between groups. 
+------------------------------------------------------------------------
 
-The value for  group = 1? $\gamma_{00} + \gamma_{01}$
-
-
--------
-
-Combined: 
- $${Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i} + \gamma_{10} (Time_{ti})+ U_{0i}  + U_{1i}(Time_{ti}) + \varepsilon_{ti}$$
-$${Y}_{ti} = (\gamma_{00} + \gamma_{01}G_{i} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})] + \varepsilon_{ti}$$
-
-
+Combined: $${Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i} + \gamma_{10} (Time_{ti})+ U_{0i}  + U_{1i}(Time_{ti}) + \varepsilon_{ti}$$ $${Y}_{ti} = (\gamma_{00} + \gamma_{01}G_{i} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})] + \varepsilon_{ti}$$
 
 ## Interpretation of random effects
 
-- One thing to keep in mind is that we are now changing the meaning of the random effect. Now that we have a predictor in the model, the $U_{0j}$ is the person specific deviation from the group predicted intercept, not the grand mean intercept. 
+-   One thing to keep in mind is that we are now changing the meaning of the random effect. Now that we have a predictor in the model, the $U_{0j}$ is the person specific deviation from the group predicted intercept, not the grand mean intercept.
 
-Level 1:  
+Level 1:\
 $${Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}$$
 
-Level 2:  
+Level 2:
 
 $${\beta}_{0i} = \gamma_{00} + \gamma_{01}G_{i} +   U_{0i}$$
 
 $${\beta}_{1i} = \gamma_{10} + U_{1i}$$
 
-## Does your covariance structure change? 
+## Does your covariance structure change?
 
-Level 2 covariance matrix
-$$\begin{pmatrix} {U}_{0j} \\ {U}_{1j} \end{pmatrix}
+Level 2 covariance matrix $$\begin{pmatrix} {U}_{0j} \\ {U}_{1j} \end{pmatrix}
 \sim \mathcal{N} \begin{pmatrix} 
   0,     & \tau_{00}^{2} & \tau_{01}\\ 
   0, & \tau_{01} & \tau_{10}^{2}
 \end{pmatrix}$$
-
 
 Level 1 residual variance will also be different
 
@@ -76,81 +63,66 @@ $$ {R}_{ij} \sim \mathcal{N}(0, \sigma^{2})  $$
 
 ## Equations for each group
 
-
 $${Y}_{ti} = (\gamma_{00} + \gamma_{01}G_{i} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})] + \varepsilon_{ti}$$
-  
-Understanding how to re-write the equation will help for calculating estimated scores for your predictors in addition to being able to interpret the coefficients. 
 
-Estimated value for an individual in group = 0  
-$$\hat{Y}_{ti} = (\gamma_{00} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})]$$
-group = 1 individual 
-$$\hat{Y}_{ti} = (\gamma_{00} + \gamma_{01}+ U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})]$$
+Understanding how to re-write the equation will help for calculating estimated scores for your predictors in addition to being able to interpret the coefficients.
 
------------
+Estimated value for an individual in group = 0\
+$$\hat{Y}_{ti} = (\gamma_{00} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})]$$ group = 1 individual $$\hat{Y}_{ti} = (\gamma_{00} + \gamma_{01}+ U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})]$$
+
+------------------------------------------------------------------------
 
 We can also create group mean estimated trajectories
 
 $${Y}_{ti} = (\gamma_{00} + \gamma_{01}G_{i} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})] + \varepsilon_{ti}$$
 
-group = 0 trajectory 
-$$\hat{Y}_{ti} = (\gamma_{00}) + (\gamma_{10})(Time_{ti})$$
+group = 0 trajectory $$\hat{Y}_{ti} = (\gamma_{00}) + (\gamma_{10})(Time_{ti})$$
 
-group = 1 trajectory 
-$$\hat{Y}_{ti} = (\gamma_{00}+ \gamma_{01}) + (\gamma_{10})(Time_{ti})$$
-
-
+group = 1 trajectory $$\hat{Y}_{ti} = (\gamma_{00}+ \gamma_{01}) + (\gamma_{10})(Time_{ti})$$
 
 ## Slope and Intercept Group Predictors
 
-Predicting the intercept only can only answer static questions, not about change. 
+Predicting the intercept only can only answer static questions, not about change.
 
-Level 1:  
+Level 1:\
 $${Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}$$
 
-Level 2:  
+Level 2:
 
 $${\beta}_{0i} = \gamma_{00} + \gamma_{01}G_{i} +   U_{0i}$$
 
 $${\beta}_{1i} = \gamma_{10} +  \gamma_{11}G_{i} +U_{1i}$$
 
-Similar to before, the interpretation of  $U_{1i}$ changes. The term is now what is left over after accounting for group differences in the mean slope. 
-
+Similar to before, the interpretation of $U_{1i}$ changes. The term is now what is left over after accounting for group differences in the mean slope.
 
 ## cross level interactions
 
-Level 1:  
+Level 1:\
 $${Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}$$
 
-Level 2:  
+Level 2:
 
 $${\beta}_{0i} = \gamma_{00} + \gamma_{01}G_{i} +   U_{0i}$$
 
 $${\beta}_{1i} = \gamma_{10} +  \gamma_{11}G_{i} +U_{1i}$$
 
-Combined:
-  $${Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(G_{i}*Time_{ti}) + $$
-  $$ U_{0i} + U_{1i}(Time_{ti}) + \varepsilon_{ti}$$
-  
-  
--------  
-  
-Notice that when we combine Level 1 and Level 2, the slope effect predictor becomes an interaction with time. Anytime you have a predictor of time that will be an interaction with time in that we are asking does group status (or what ever variable) differs in their relationship between time and your DV. 
+Combined: $${Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(G_{i}*Time_{ti}) + $$ $$ U_{0i} + U_{1i}(Time_{ti}) + \varepsilon_{ti}$$
 
+------------------------------------------------------------------------
+
+Notice that when we combine Level 1 and Level 2, the slope effect predictor becomes an interaction with time. Anytime you have a predictor of time that will be an interaction with time in that we are asking does group status (or what ever variable) differs in their relationship between time and your DV.
 
 ## interpretation of lower order terms
 
-Combined:
-  $${Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(G_{i}*Time_{ti}) + $$
-  $$ U_{0i} + U_{1i}(Time_{ti}) + \varepsilon_{ti}$$
-  
-As with regression, the lower order terms are now conditional on the higher order interaction. 
+Combined: $${Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(G_{i}*Time_{ti}) + $$ $$ U_{0i} + U_{1i}(Time_{ti}) + \varepsilon_{ti}$$
 
-$\gamma_{10}$, the fixed effect representing our slope is now the simple slope for group = 0  
+As with regression, the lower order terms are now conditional on the higher order interaction.
 
-$\gamma_{01}$, the fixed effect for group is the difference between groups when time = 0, e.g. the intercept  
+$\gamma_{10}$, the fixed effect representing our slope is now the simple slope for group = 0
 
-$\gamma_{00}$ is the intercept, it is  the value for when our predictors are  zero.
+$\gamma_{01}$, the fixed effect for group is the difference between groups when time = 0, e.g. the intercept
 
+$\gamma_{00}$ is the intercept, it is the value for when our predictors are zero.
 
 ## residual structure
 
@@ -158,29 +130,25 @@ Level 2 covariance matrix
 
 $$\begin{pmatrix} {U}_{0j} \\ {U}_{1j} \end{pmatrix} \sim\mathcal{N} \begin{pmatrix} 0, \tau_{00}^{2} & \tau_{01}\\  0,  \tau_{01} & \tau_{10}^{2} \end{pmatrix}$$
 
-How does your variance-covariance matrix change? 
+How does your variance-covariance matrix change?
 
-Level 1 residual variance
-$${R}_{ij} \sim \mathcal{N}(0, \sigma^{2})$$
+Level 1 residual variance $${R}_{ij} \sim \mathcal{N}(0, \sigma^{2})$$
 
-How does your residual change relative to a model without group effects? Can you graph conceptually what this now captures? 
-
+How does your residual change relative to a model without group effects? Can you graph conceptually what this now captures?
 
 ## predictive equation
 
 Thinking about the equation as a predictive engine will help us later with graphing
 
-Alternative combined
-$${Y}_{ti} = [\gamma_{00} + U_{0i} +\gamma_{01}G_{i}] + [(\gamma_{10}  + \gamma_{11}G_{i}+  U_{1i})(Time_{ti})] + \varepsilon_{ti}$$
-  
-This is just rearranged so you can see that different groups have different intercepts and slopes 
+Alternative combined $${Y}_{ti} = [\gamma_{00} + U_{0i} +\gamma_{01}G_{i}] + [(\gamma_{10}  + \gamma_{11}G_{i}+  U_{1i})(Time_{ti})] + \varepsilon_{ti}$$
 
-  
-  $$\hat{Y}_{ti} = [\gamma_{00} +\gamma_{01}G_{i}] + [(\gamma_{10}  + \gamma_{11}G_{i})(Time_{ti})]$$
-  
+This is just rearranged so you can see that different groups have different intercepts and slopes
+
+$$\hat{Y}_{ti} = [\gamma_{00} +\gamma_{01}G_{i}] + [(\gamma_{10}  + \gamma_{11}G_{i})(Time_{ti})]$$
+
 Notice how when G = 0, the equation simplifies:
-  
-$$\hat{Y}_{ti} = \gamma_{00} + \gamma_{10} (Time_{ti})$$ 
+
+$$\hat{Y}_{ti} = \gamma_{00} + \gamma_{10} (Time_{ti})$$
 
 ## Plotting
 
@@ -191,8 +159,7 @@ alcohol <- read.csv("https://raw.githubusercontent.com/josh-jackson/longitudinal
 head(alcohol)
 ```
 
-
-----
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -201,8 +168,7 @@ fit1 <- lmer(alcuse ~  age_14 + (age_14 | id), data = alcohol)
 summary(fit1)
 ```
 
-
--------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -210,8 +176,7 @@ fit2 <- lmer(alcuse ~  age_14 + male +  (age_14 | id), data = alcohol)
 summary(fit2)
 ```
 
-
--------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -219,8 +184,21 @@ fit3 <- lmer(alcuse ~  age_14 * male + (age_14 | id), data = alcohol)
 summary(fit3)
 ```
 
+--------
 
-------
+```{r}
+#| code-fold: true
+library(easystats)
+model_parameters(fit3)
+```
+
+
+
+
+
+
+
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -229,8 +207,7 @@ alcohol %>%
   data_grid(age_14 = seq_range(age_14, n = 5), male, .model = alcohol)
 ```
 
-
-------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -239,9 +216,7 @@ alcohol %>%
     add_predictions(fit3) 
 ```
 
-
-
-----
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -252,75 +227,56 @@ alcohol %>%
   geom_line(alpha = .2) 
 ```
 
+## L2 Continuous predictors
 
+A continuous L2 predictor is similar to the group predictors.
 
-
-## L2 Continuous predictors 
-
-A continuous L2 predictor is similar to the group predictors. 
-
-Level 1:  
+Level 1:\
 $${Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}$$
 
-Level 2:  
+Level 2:
 
 $${\beta}_{0i} = \gamma_{00} + \gamma_{01}C_{i} +   U_{0i}$$
 
-$${\beta}_{1i} = \gamma_{10} +  \gamma_{11}C_{i} +U_{1i}$$ 
+$${\beta}_{1i} = \gamma_{10} +  \gamma_{11}C_{i} +U_{1i}$$
 
-
-Combined:
-  $${Y}_{ti} = \gamma_{00} + \gamma_{01}C_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(C_{i}*Time_{ti}) +  $$ 
-  $$ U_{0i} + U_{1j}(Time_{ti}) + \varepsilon_{ti}$$
-  
+Combined: $${Y}_{ti} = \gamma_{00} + \gamma_{01}C_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(C_{i}*Time_{ti}) +  $$ $$ U_{0i} + U_{1j}(Time_{ti}) + \varepsilon_{ti}$$
 
 ## Continuous conditional interpretation
 
-$${Y}_{ti} = \gamma_{00} + \gamma_{01}C_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(C_{i}*Time_{ti}) +  $$ 
-  $$ U_{0i} + U_{1j}(Time_{ti}) + \varepsilon_{ti}$$
+$${Y}_{ti} = \gamma_{00} + \gamma_{01}C_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(C_{i}*Time_{ti}) +  $$ $$ U_{0i} + U_{1j}(Time_{ti}) + \varepsilon_{ti}$$
 
 The $\gamma_{11}$ interaction coefficient indexes the difference in slopes at different levels of C
 
-The $\gamma_{10}$ is now the effect of time when the continuous predictor is zero. 
+The $\gamma_{10}$ is now the effect of time when the continuous predictor is zero.
 
-The $\gamma_{01}$ is now the effect of C when time is zero. 
+The $\gamma_{01}$ is now the effect of C when time is zero.
 
-$\gamma_{00}$ is the intercept, it is  the value for when our predictors are  zero. 
+$\gamma_{00}$ is the intercept, it is the value for when our predictors are zero.
 
-$U_{0i}$ Is the random effect for intercept after accounting for C. 
-  
-$U_{1i}$ Is the random effect for the slope after accounting for C. 
+$U_{0i}$ Is the random effect for intercept after accounting for C.
 
+$U_{1i}$ Is the random effect for the slope after accounting for C.
 
 ## Equations for plotting
 
-The same logic for plotting continuous variables except this time we have to choose the values for simple slopes 
+The same logic for plotting continuous variables except this time we have to choose the values for simple slopes
 
 $$\hat{Y}_{ti} = [\gamma_{00} + \gamma_{01}C_{i}]+  [\gamma_{10} + \gamma_{11}C_{i}]*Time_{ti}$$
 
-Assuming C is standardized: 
--1sd
-  $$\hat{Y}_{ti} = [\gamma_{00} +(\gamma_{01}*-1)] + [\gamma_{10}  + (\gamma_{11}*-1)]*Time_{ti}$$
+Assuming C is standardized: -1sd $$\hat{Y}_{ti} = [\gamma_{00} +(\gamma_{01}*-1)] + [\gamma_{10}  + (\gamma_{11}*-1)]*Time_{ti}$$
 
+Mean $$\hat{Y}_{ti} = \gamma_{00} + \gamma_{10} * (Time_{ti})$$
 
-Mean
-  $$\hat{Y}_{ti} = \gamma_{00} + \gamma_{10} * (Time_{ti})$$
-  
-  
-+1sd
-  $$\hat{Y}_{ti} = [\gamma_{00} +\gamma_{01}] + [\gamma_{10}  + \gamma_{11}]*Time_{ti}$$
-
-
++1sd $$\hat{Y}_{ti} = [\gamma_{00} +\gamma_{01}] + [\gamma_{10}  + \gamma_{11}]*Time_{ti}$$
 
 ## individual level trajectories
 
-What do individual level trajectories look like? 
+What do individual level trajectories look like?
 
-  $$\hat{Y}_{ti} = [\gamma_{00} + \gamma_{01}C_{i}+  U_{0i}] + $$ 
-  $$ [\gamma_{10}  + (\gamma_{11}*C_{i}) + U_{1i}]  * Time_{ti}$$
+$$\hat{Y}_{ti} = [\gamma_{00} + \gamma_{01}C_{i}+  U_{0i}] + $$ $$ [\gamma_{10}  + (\gamma_{11}*C_{i}) + U_{1i}]  * Time_{ti}$$
 
 If you know someones random effects, and you know the fixed effects, you can create predicted values for any level of time.
-
 
 ## Example
 
@@ -330,8 +286,7 @@ fit4 <- lmer(alcuse ~  age_14 + peer + (age_14 | id), data = alcohol)
 summary(fit4)
 ```
 
-
-------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -339,14 +294,23 @@ fit5 <- lmer(alcuse ~  age_14 + cpeer + (age_14 | id), data = alcohol)
 summary(fit5)
 ```
 
-
-------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
 fit6 <- lmer(alcuse ~  age_14 * cpeer + (age_14 | id), data = alcohol)
 summary(fit6)
 ```
+
+
+
+-------------
+
+```{r}
+#| code-fold: true
+model_parameters(fit6)
+```
+
 
 
 
@@ -358,7 +322,7 @@ alcohol %>%
    report_sample()
 ```
 
-------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -367,12 +331,7 @@ alcohol %>%
     add_predictions(fit6) 
 ```
 
-
-
-
-
-
-------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -383,98 +342,175 @@ alcohol %>%
   geom_line(alpha = .2) 
 ```
 
-
 ## Multiple predictors
 
-Interpretations with multiple predictors in regression extend to MLMs. For example, health across time, examining the effects of an intervention, while controlling for initial exercise status?: 
+Interpretations with multiple predictors in regression extend to MLMs. For example, health across time, examining the effects of an intervention, while controlling for initial exercise status?:
 
-level 1: 
-$${Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}$$
+level 1: $${Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}$$
 
-Level 2: 
-$${\beta}_{0i} = \gamma_{00} + \gamma_{01}Exercise_{i} +  \gamma_{02}Intervention_{i} +   U_{0i}$$  
+Level 2: $${\beta}_{0i} = \gamma_{00} + \gamma_{01}Exercise_{i} +  \gamma_{02}Intervention_{i} +   U_{0i}$$
 
-$${\beta}_{1i} = \gamma_{10} + \gamma_{11}Intervention_{i} + U_{1i}$$  
+$${\beta}_{1i} = \gamma_{10} + \gamma_{11}Intervention_{i} + U_{1i}$$
 
 
-## Centering redux
-Changing the scale of your predictors changes the interpretation of your model. 
+## SEM
 
-1. Original metric (no centering)
-
-2. Group-mean centering (our group/nesting is person so this is also called person centering). This will be more appropriate when we talk about level 1 predictors. 
-
-3. Group grand-mean centering (centering around person avg)
-
-4. Grand-mean centering (this is taking the average across every obs)
-
-5. Centering on a value of theoretical or applied interest
+```{r}
+alcohol.wide <- alcohol %>% 
+  dplyr::select(-X, -age_14, -ccoa) %>% 
+  pivot_wider(names_from = "age", 
+              names_prefix = "alcuse_",
+              values_from  = alcuse) 
+```
 
 
-## Time considerations 
 
-- We typically center time around each person's initial time to make the intercept more interpretable. However, this can cause correlations between an intercept and a slope. 
+## SEM covariates/predictors
 
-- If high, the correlation can be problematic in terms of estimation. Often we center time in the middle of the repeated assessments to minimize this association. 
+The strategy for including predictors is similar to working with a level 2 mlm equation. Do you want to predict the intercept or the slope? No need to explicitly model an interaction as that is implied. 
 
-- Doing so is especially important if you want to use some variable to predict intercept and slope (or use intercept/slope to predict some variable).
+```{r}
+#| code-fold: true
+library(lavaan)
+sem.1 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
+            s =~ 0*alcuse_14 + 1*alcuse_15 + 2*alcuse_16
+               
+# regressions
+    
+    i ~ male 
+    s ~ male
+'
+fit.1 <- growth(sem.1, data = alcohol.wide)
+summary(fit.1)
+```
 
-
----
-
-- What if people don't have the same number of assessment waves or the same timespan? Where do you center? One option, is to center within each person's own time, regardless of whether it lines up with others. This is nice because it makes the $\gamma_{00}$ interpretable as the average score across people. 
-
-- However, what is the average score? If you are looking at longitudinal data where people span in age from 20 to 80 and the time each person was in the study differed from 1 to 10 years. How do you interpret the average person intercept? 
-
-- Thus you may want to center on something constant across people, like age. The $\gamma_{00}$ can now easily be interpreted as age 40, for example. Buuut, this results in wonky residual terms, perhaps leading to greater covariance between intercept and slope. 
-
-
-## Level 2 centering
-
-- Because level 2 is involved with cross-level interactions, it is always helpful to at least consider centering. For level 2, the centering options are much easier, as one can generally go with grand mean centering. 
-
-- As everyone has only 1 value to contribute to, the calculation and the interpretation is more straightforward. It is thus also equivalent to group grand-mean centering. 
-
------
-
-What are the interpretations for the coefficients for exercise centered vs non-centered? 
-
-level 1: 
-$${Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}$$
-
-Level 2: 
-$${\beta}_{0i} = \gamma_{00} + \gamma_{01}Exercise_{i}  +   U_{0i}$$  
-
-$${\beta}_{1i} = \gamma_{10} +  \gamma_{11}Exercise_{i} +  U_{1i}$$
-
-Combined:
-$$\hat{Health}_{ti} = [\gamma_{00} + \gamma_{01}Exercise_{i}+  U_{0i}] + $$ 
-$$ [\gamma_{10}  + \gamma_{11}Exercise_{i} + U_{1i}]  * Time_{ti}$$
-
-## Level 1 predictors 
-
-- These are predictors that repeat. 
-
-- Some variables that are inherently level 2 (e.g. handedness), some that make sense more as a level 1 (e.g., mood) and some that could be considered either depending on your research question and/or your data (e.g. income). 
-
-- These variables can be treated as another predictor with the effect of "controlling" for some level 1 variable as well as a focal variable. 
 
 --------
 
-Consider health across time predicted by a level 1 exercise variable (1 = yes, exercised). 
+```{r}
+#| code-fold: true
+library(lavaan)
+sem.2 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
+            s =~ 0*alcuse_14 + 1*alcuse_15 + 2*alcuse_16
+               
+# regressions
+    
+    i ~ peer 
+    s ~ peer
+'
+fit.2 <- growth(sem.2, data = alcohol.wide)
+summary(fit.2)
+```
 
-level 1: 
-$${Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}Exercise_{ti} + \varepsilon_{ti}$$
 
-Level 2: 
-$${\beta}_{0i} = \gamma_{00} +   U_{0i}$$  
 
-$${\beta}_{1i} = \gamma_{10} +  U_{1i}$$  
+## centered predictors
 
-$${\beta}_{2i} = \gamma_{20}$$  
+```{r}
+#| code-fold: true
 
-Combined: 
+sem.3 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
+            s =~ 0*alcuse_14 + 1*alcuse_15 + 2*alcuse_16
+               
+# regressions
+    
+    i ~ cpeer
+    s ~  cpeer
+'
+fit.3 <- growth(sem.3, data = alcohol.wide)
+summary(fit.3)
+```
 
-$${Health}_{ti} =  [\gamma_{00} +   \gamma_{10}Time_{ti}   + \gamma_{20}Exercise_{ti}] + $$  
+
+## Multiple predictors
+
+
+```{r}
+#| code-fold: true
+
+sem.4 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
+            s =~ 0*alcuse_14 + 1*alcuse_15 + 2*alcuse_16
+               
+# regressions
+    
+    i ~ cpeer + male
+    s ~ cpeer + male
+'
+fit.4 <- growth(sem.4, data = alcohol.wide)
+summary(fit.4)
+```
+
+
+
+## Centering mlm redux
+
+Changing the scale of your predictors changes the interpretation of your model.
+
+1.  Original metric (no centering)
+
+2.  Group-mean centering (our group/nesting is person so this is also called person centering). This will be more appropriate when we talk about level 1 predictors.
+
+3.  Group grand-mean centering (centering around person avg)
+
+4.  Grand-mean centering (this is taking the average across every obs)
+
+5.  Centering on a value of theoretical or applied interest
+
+## Time considerations
+
+-   We typically center time around each person's initial time to make the intercept more interpretable. However, this can cause correlations between an intercept and a slope.
+
+-   If high, the correlation can be problematic in terms of estimation. Often we center time in the middle of the repeated assessments to minimize this association.
+
+-   Doing so is especially important if you want to use some variable to predict intercept and slope (or use intercept/slope to predict some variable).
+
+------------------------------------------------------------------------
+
+-   What if people don't have the same number of assessment waves or the same timespan? Where do you center? One option, is to center within each person's own time, regardless of whether it lines up with others. This is nice because it makes the $\gamma_{00}$ interpretable as the average score across people.
+
+-   However, what is the average score? If you are looking at longitudinal data where people span in age from 20 to 80 and the time each person was in the study differed from 1 to 10 years. How do you interpret the average person intercept?
+
+-   Thus you may want to center on something constant across people, like age. The $\gamma_{00}$ can now easily be interpreted as age 40, for example. Buuut, this results in wonky residual terms, perhaps leading to greater covariance between intercept and slope.
+
+## Level 2 centering
+
+-   Because level 2 is involved with cross-level interactions, it is always helpful to at least consider centering. For level 2, the centering options are much easier, as one can generally go with grand mean centering.
+
+-   As everyone has only 1 value to contribute to, the calculation and the interpretation is more straightforward. It is thus also equivalent to group grand-mean centering.
+
+------------------------------------------------------------------------
+
+What are the interpretations for the coefficients for exercise centered vs non-centered?
+
+level 1: $${Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}$$
+
+Level 2: $${\beta}_{0i} = \gamma_{00} + \gamma_{01}Exercise_{i}  +   U_{0i}$$
+
+$${\beta}_{1i} = \gamma_{10} +  \gamma_{11}Exercise_{i} +  U_{1i}$$
+
+Combined: $$\hat{Health}_{ti} = [\gamma_{00} + \gamma_{01}Exercise_{i}+  U_{0i}] + $$ $$ [\gamma_{10}  + \gamma_{11}Exercise_{i} + U_{1i}]  * Time_{ti}$$
+
+## Level 1 predictors
+
+-   These are predictors that repeat.
+
+-   Some variables that are inherently level 2 (e.g. handedness), some that make sense more as a level 1 (e.g., mood) and some that could be considered either depending on your research question and/or your data (e.g. income).
+
+-   These variables can be treated as another predictor with the effect of "controlling" for some level 1 variable as well as a focal variable.
+
+------------------------------------------------------------------------
+
+Consider health across time predicted by a level 1 exercise variable (1 = yes, exercised).
+
+level 1: $${Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}Exercise_{ti} + \varepsilon_{ti}$$
+
+Level 2: $${\beta}_{0i} = \gamma_{00} +   U_{0i}$$
+
+$${\beta}_{1i} = \gamma_{10} +  U_{1i}$$
+
+$${\beta}_{2i} = \gamma_{20}$$
+
+Combined:
+
+$${Health}_{ti} =  [\gamma_{00} +   \gamma_{10}Time_{ti}   + \gamma_{20}Exercise_{ti}] + $$\
 $$ [ U_{0i}  + U_{1i}Time_{ti}+ \varepsilon_{ti}]$$
-

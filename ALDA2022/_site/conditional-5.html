@@ -397,8 +397,7 @@
 <ul>
 <li>Do groups differ in their initial status? Level 2, person variable that is dummy coded. Note that group here only is measured once, it is a between person variable.</li>
 </ul>
-<p>level 1:</p>
-<p><span class="math display">\[{Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}\]</span></p>
+<p>level 1: <span class="math display">\[{Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}\]</span></p>
 <p>Level 2:</p>
 <p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}G_{i} +   U_{0i}\]</span></p>
 <p><span class="math display">\[{\beta}_{1i} = \gamma_{10} + U_{1i}\]</span></p>
@@ -411,16 +410,15 @@
 </section>
 <section class="slide level2">
 
-<p>Combined:</p>
-<p><span class="math display">\[{Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i} + \gamma_{10} (Time_{ti})+ U_{0i}  + U_{1i}(Time_{ti}) + \varepsilon_{ti}\]</span></p>
-<p><span class="math display">\[{Y}_{ti} = (\gamma_{00} + \gamma_{01}G_{i} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})] + \varepsilon_{ti}\]</span></p>
+<p>Combined: <span class="math display">\[{Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i} + \gamma_{10} (Time_{ti})+ U_{0i}  + U_{1i}(Time_{ti}) + \varepsilon_{ti}\]</span> <span class="math display">\[{Y}_{ti} = (\gamma_{00} + \gamma_{01}G_{i} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})] + \varepsilon_{ti}\]</span></p>
 </section>
 <section id="interpretation-of-random-effects" class="slide level2">
 <h2>Interpretation of random effects</h2>
 <ul>
 <li>One thing to keep in mind is that we are now changing the meaning of the random effect. Now that we have a predictor in the model, the <span class="math inline">\(U_{0j}\)</span> is the person specific deviation from the group predicted intercept, not the grand mean intercept.</li>
 </ul>
-<p>Level 1:</p>
+<p>Level 1:<br>
+</p>
 <p><span class="math display">\[{Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}\]</span></p>
 <p>Level 2:</p>
 <p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}G_{i} +   U_{0i}\]</span></p>
@@ -428,8 +426,7 @@
 </section>
 <section id="does-your-covariance-structure-change" class="slide level2">
 <h2>Does your covariance structure change?</h2>
-<p>Level 2 covariance matrix</p>
-<p><span class="math display">\[\begin{pmatrix} {U}_{0j} \\ {U}_{1j} \end{pmatrix}
+<p>Level 2 covariance matrix <span class="math display">\[\begin{pmatrix} {U}_{0j} \\ {U}_{1j} \end{pmatrix}
 \sim \mathcal{N} \begin{pmatrix}
   0,     &amp; \tau_{00}^{2} &amp; \tau_{01}\\
   0, &amp; \tau_{01} &amp; \tau_{10}^{2}
@@ -441,24 +438,22 @@
 <h2>Equations for each group</h2>
 <p><span class="math display">\[{Y}_{ti} = (\gamma_{00} + \gamma_{01}G_{i} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})] + \varepsilon_{ti}\]</span></p>
 <p>Understanding how to re-write the equation will help for calculating estimated scores for your predictors in addition to being able to interpret the coefficients.</p>
-<p>Estimated value for an individual in group = 0</p>
-<p><span class="math display">\[\hat{Y}_{ti} = (\gamma_{00} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})]\]</span></p>
-<p>group = 1 individual</p>
-<p><span class="math display">\[\hat{Y}_{ti} = (\gamma_{00} + \gamma_{01}+ U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})]\]</span></p>
+<p>Estimated value for an individual in group = 0<br>
+</p>
+<p><span class="math display">\[\hat{Y}_{ti} = (\gamma_{00} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})]\]</span> group = 1 individual <span class="math display">\[\hat{Y}_{ti} = (\gamma_{00} + \gamma_{01}+ U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})]\]</span></p>
 </section>
 <section class="slide level2">
 
 <p>We can also create group mean estimated trajectories</p>
 <p><span class="math display">\[{Y}_{ti} = (\gamma_{00} + \gamma_{01}G_{i} + U_{0i} ) + [(\gamma_{10}+ U_{1i})(Time_{ti})] + \varepsilon_{ti}\]</span></p>
-<p>group = 0 trajectory</p>
-<p><span class="math display">\[\hat{Y}_{ti} = (\gamma_{00}) + (\gamma_{10})(Time_{ti})\]</span></p>
-<p>group = 1 trajectory</p>
-<p><span class="math display">\[\hat{Y}_{ti} = (\gamma_{00}+ \gamma_{01}) + (\gamma_{10})(Time_{ti})\]</span></p>
+<p>group = 0 trajectory <span class="math display">\[\hat{Y}_{ti} = (\gamma_{00}) + (\gamma_{10})(Time_{ti})\]</span></p>
+<p>group = 1 trajectory <span class="math display">\[\hat{Y}_{ti} = (\gamma_{00}+ \gamma_{01}) + (\gamma_{10})(Time_{ti})\]</span></p>
 </section>
 <section id="slope-and-intercept-group-predictors" class="slide level2">
 <h2>Slope and Intercept Group Predictors</h2>
 <p>Predicting the intercept only can only answer static questions, not about change.</p>
-<p>Level 1:</p>
+<p>Level 1:<br>
+</p>
 <p><span class="math display">\[{Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}\]</span></p>
 <p>Level 2:</p>
 <p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}G_{i} +   U_{0i}\]</span></p>
@@ -467,14 +462,13 @@
 </section>
 <section id="cross-level-interactions" class="slide level2">
 <h2>cross level interactions</h2>
-<p>Level 1:</p>
+<p>Level 1:<br>
+</p>
 <p><span class="math display">\[{Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}\]</span></p>
 <p>Level 2:</p>
 <p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}G_{i} +   U_{0i}\]</span></p>
 <p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  \gamma_{11}G_{i} +U_{1i}\]</span></p>
-<p>Combined:</p>
-<p><span class="math display">\[{Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(G_{i}*Time_{ti}) + \]</span></p>
-<p><span class="math display">\[ U_{0i} + U_{1i}(Time_{ti}) + \varepsilon_{ti}\]</span></p>
+<p>Combined: <span class="math display">\[{Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(G_{i}*Time_{ti}) + \]</span> <span class="math display">\[ U_{0i} + U_{1i}(Time_{ti}) + \varepsilon_{ti}\]</span></p>
 </section>
 <section class="slide level2">
 
@@ -482,9 +476,7 @@
 </section>
 <section id="interpretation-of-lower-order-terms" class="slide level2">
 <h2>interpretation of lower order terms</h2>
-<p>Combined:</p>
-<p><span class="math display">\[{Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(G_{i}*Time_{ti}) + \]</span></p>
-<p><span class="math display">\[ U_{0i} + U_{1i}(Time_{ti}) + \varepsilon_{ti}\]</span></p>
+<p>Combined: <span class="math display">\[{Y}_{ti} = \gamma_{00} + \gamma_{01}G_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(G_{i}*Time_{ti}) + \]</span> <span class="math display">\[ U_{0i} + U_{1i}(Time_{ti}) + \varepsilon_{ti}\]</span></p>
 <p>As with regression, the lower order terms are now conditional on the higher order interaction.</p>
 <p><span class="math inline">\(\gamma_{10}\)</span>, the fixed effect representing our slope is now the simple slope for group = 0</p>
 <p><span class="math inline">\(\gamma_{01}\)</span>, the fixed effect for group is the difference between groups when time = 0, e.g.&nbsp;the intercept</p>
@@ -495,15 +487,13 @@
 <p>Level 2 covariance matrix</p>
 <p><span class="math display">\[\begin{pmatrix} {U}_{0j} \\ {U}_{1j} \end{pmatrix} \sim\mathcal{N} \begin{pmatrix} 0, \tau_{00}^{2} &amp; \tau_{01}\\  0,  \tau_{01} &amp; \tau_{10}^{2} \end{pmatrix}\]</span></p>
 <p>How does your variance-covariance matrix change?</p>
-<p>Level 1 residual variance</p>
-<p><span class="math display">\[{R}_{ij} \sim \mathcal{N}(0, \sigma^{2})\]</span></p>
+<p>Level 1 residual variance <span class="math display">\[{R}_{ij} \sim \mathcal{N}(0, \sigma^{2})\]</span></p>
 <p>How does your residual change relative to a model without group effects? Can you graph conceptually what this now captures?</p>
 </section>
 <section id="predictive-equation" class="slide level2">
 <h2>predictive equation</h2>
 <p>Thinking about the equation as a predictive engine will help us later with graphing</p>
-<p>Alternative combined</p>
-<p><span class="math display">\[{Y}_{ti} = [\gamma_{00} + U_{0i} +\gamma_{01}G_{i}] + [(\gamma_{10}  + \gamma_{11}G_{i}+  U_{1i})(Time_{ti})] + \varepsilon_{ti}\]</span></p>
+<p>Alternative combined <span class="math display">\[{Y}_{ti} = [\gamma_{00} + U_{0i} +\gamma_{01}G_{i}] + [(\gamma_{10}  + \gamma_{11}G_{i}+  U_{1i})(Time_{ti})] + \varepsilon_{ti}\]</span></p>
 <p>This is just rearranged so you can see that different groups have different intercepts and slopes</p>
 <p><span class="math display">\[\hat{Y}_{ti} = [\gamma_{00} +\gamma_{01}G_{i}] + [(\gamma_{10}  + \gamma_{11}G_{i})(Time_{ti})]\]</span></p>
 <p>Notice how when G = 0, the equation simplifies:</p>
@@ -652,9 +642,38 @@ age_14:male  0.309 -0.716 -0.432</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(modelr)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>alcohol <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">data_grid</span>(<span class="at">age_14 =</span> <span class="fu">seq_range</span>(age_14, <span class="at">n =</span> <span class="dv">5</span>), male, <span class="at">.model =</span> alcohol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(easystats)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">model_parameters</span>(fit3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter     | Coefficient |   SE |        95% CI | t(238) |      p
+--------------------------------------------------------------------
+(Intercept)   |        0.75 | 0.15 | [ 0.45, 1.04] |   4.92 | &lt; .001
+age 14        |        0.12 | 0.09 | [-0.05, 0.29] |   1.39 | 0.167 
+male          |       -0.18 | 0.21 | [-0.60, 0.23] |  -0.87 | 0.386 
+age 14 * male |        0.29 | 0.12 | [ 0.05, 0.53] |   2.39 | 0.018 
+
+# Random Effects
+
+Parameter                  | Coefficient
+----------------------------------------
+SD (Intercept: id)         |        0.80
+SD (age_14: id)            |        0.37
+Cor (Intercept~age_14: id) |       -0.20
+SD (Residual)              |        0.58</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(modelr)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>alcohol <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">data_grid</span>(<span class="at">age_14 =</span> <span class="fu">seq_range</span>(age_14, <span class="at">n =</span> <span class="dv">5</span>), male, <span class="at">.model =</span> alcohol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 9
@@ -678,9 +697,9 @@ age_14:male  0.309 -0.716 -0.432</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>alcohol <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">data_grid</span>(<span class="at">age_14 =</span> <span class="fu">seq_range</span>(age_14, <span class="at">n =</span> <span class="dv">5</span>), male, <span class="at">.model =</span> alcohol) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href="#cb11-3"></a>    <span class="fu">add_predictions</span>(fit3) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>alcohol <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">data_grid</span>(<span class="at">age_14 =</span> <span class="fu">seq_range</span>(age_14, <span class="at">n =</span> <span class="dv">5</span>), male, <span class="at">.model =</span> alcohol) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3"></a>    <span class="fu">add_predictions</span>(fit3) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 10
@@ -704,31 +723,29 @@ age_14:male  0.309 -0.716 -0.432</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>alcohol <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">data_grid</span>(<span class="at">age_14 =</span> <span class="fu">seq_range</span>(age_14, <span class="at">n =</span> <span class="dv">5</span>), male, <span class="at">.model =</span> alcohol) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-3"><a href="#cb13-3"></a>    <span class="fu">add_predictions</span>(fit3) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-4"><a href="#cb13-4"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred, <span class="at">x =</span> age_14, <span class="at">group =</span> male)) <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>alcohol <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">data_grid</span>(<span class="at">age_14 =</span> <span class="fu">seq_range</span>(age_14, <span class="at">n =</span> <span class="dv">5</span>), male, <span class="at">.model =</span> alcohol) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3"></a>    <span class="fu">add_predictions</span>(fit3) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred, <span class="at">x =</span> age_14, <span class="at">group =</span> male)) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="conditional-5_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<img data-src="conditional-5_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
 <section id="l2-continuous-predictors" class="slide level2">
 <h2>L2 Continuous predictors</h2>
 <p>A continuous L2 predictor is similar to the group predictors.</p>
-<p>Level 1:</p>
+<p>Level 1:<br>
+</p>
 <p><span class="math display">\[{Y}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}\]</span></p>
 <p>Level 2:</p>
 <p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}C_{i} +   U_{0i}\]</span></p>
 <p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  \gamma_{11}C_{i} +U_{1i}\]</span></p>
-<p>Combined:</p>
-<p><span class="math display">\[{Y}_{ti} = \gamma_{00} + \gamma_{01}C_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(C_{i}*Time_{ti}) +  \]</span></p>
-<p><span class="math display">\[ U_{0i} + U_{1j}(Time_{ti}) + \varepsilon_{ti}\]</span></p>
+<p>Combined: <span class="math display">\[{Y}_{ti} = \gamma_{00} + \gamma_{01}C_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(C_{i}*Time_{ti}) +  \]</span> <span class="math display">\[ U_{0i} + U_{1j}(Time_{ti}) + \varepsilon_{ti}\]</span></p>
 </section>
 <section id="continuous-conditional-interpretation" class="slide level2">
 <h2>Continuous conditional interpretation</h2>
-<p><span class="math display">\[{Y}_{ti} = \gamma_{00} + \gamma_{01}C_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(C_{i}*Time_{ti}) +  \]</span></p>
-<p><span class="math display">\[ U_{0i} + U_{1j}(Time_{ti}) + \varepsilon_{ti}\]</span></p>
+<p><span class="math display">\[{Y}_{ti} = \gamma_{00} + \gamma_{01}C_{i}+  \gamma_{10} (Time_{ti}) + \gamma_{11}(C_{i}*Time_{ti}) +  \]</span> <span class="math display">\[ U_{0i} + U_{1j}(Time_{ti}) + \varepsilon_{ti}\]</span></p>
 <p>The <span class="math inline">\(\gamma_{11}\)</span> interaction coefficient indexes the difference in slopes at different levels of C</p>
 <p>The <span class="math inline">\(\gamma_{10}\)</span> is now the effect of time when the continuous predictor is zero.</p>
 <p>The <span class="math inline">\(\gamma_{01}\)</span> is now the effect of C when time is zero.</p>
@@ -740,18 +757,14 @@ age_14:male  0.309 -0.716 -0.432</code></pre>
 <h2>Equations for plotting</h2>
 <p>The same logic for plotting continuous variables except this time we have to choose the values for simple slopes</p>
 <p><span class="math display">\[\hat{Y}_{ti} = [\gamma_{00} + \gamma_{01}C_{i}]+  [\gamma_{10} + \gamma_{11}C_{i}]*Time_{ti}\]</span></p>
-<p>Assuming C is standardized: -1sd</p>
-<p><span class="math display">\[\hat{Y}_{ti} = [\gamma_{00} +(\gamma_{01}*-1)] + [\gamma_{10}  + (\gamma_{11}*-1)]*Time_{ti}\]</span></p>
-<p>Mean</p>
-<p><span class="math display">\[\hat{Y}_{ti} = \gamma_{00} + \gamma_{10} * (Time_{ti})\]</span></p>
-<p>+1sd</p>
-<p><span class="math display">\[\hat{Y}_{ti} = [\gamma_{00} +\gamma_{01}] + [\gamma_{10}  + \gamma_{11}]*Time_{ti}\]</span></p>
+<p>Assuming C is standardized: -1sd <span class="math display">\[\hat{Y}_{ti} = [\gamma_{00} +(\gamma_{01}*-1)] + [\gamma_{10}  + (\gamma_{11}*-1)]*Time_{ti}\]</span></p>
+<p>Mean <span class="math display">\[\hat{Y}_{ti} = \gamma_{00} + \gamma_{10} * (Time_{ti})\]</span></p>
+<p>+1sd <span class="math display">\[\hat{Y}_{ti} = [\gamma_{00} +\gamma_{01}] + [\gamma_{10}  + \gamma_{11}]*Time_{ti}\]</span></p>
 </section>
 <section id="individual-level-trajectories" class="slide level2">
 <h2>individual level trajectories</h2>
 <p>What do individual level trajectories look like?</p>
-<p><span class="math display">\[\hat{Y}_{ti} = [\gamma_{00} + \gamma_{01}C_{i}+  U_{0i}] + \]</span></p>
-<p><span class="math display">\[ [\gamma_{10}  + (\gamma_{11}*C_{i}) + U_{1i}]  * Time_{ti}\]</span></p>
+<p><span class="math display">\[\hat{Y}_{ti} = [\gamma_{00} + \gamma_{01}C_{i}+  U_{0i}] + \]</span> <span class="math display">\[ [\gamma_{10}  + (\gamma_{11}*C_{i}) + U_{1i}]  * Time_{ti}\]</span></p>
 <p>If you know someones random effects, and you know the fixed effects, you can create predicted values for any level of time.</p>
 </section>
 <section id="example" class="slide level2">
@@ -759,8 +772,8 @@ age_14:male  0.309 -0.716 -0.432</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>fit4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(alcuse <span class="sc">~</span>  age_14 <span class="sc">+</span> peer <span class="sc">+</span> (age_14 <span class="sc">|</span> id), <span class="at">data =</span> alcohol)</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">summary</span>(fit4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>fit4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(alcuse <span class="sc">~</span>  age_14 <span class="sc">+</span> peer <span class="sc">+</span> (age_14 <span class="sc">|</span> id), <span class="at">data =</span> alcohol)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">summary</span>(fit4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
@@ -798,8 +811,8 @@ peer   -0.787  0.000</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>fit5 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(alcuse <span class="sc">~</span>  age_14 <span class="sc">+</span> cpeer <span class="sc">+</span> (age_14 <span class="sc">|</span> id), <span class="at">data =</span> alcohol)</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">summary</span>(fit5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>fit5 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(alcuse <span class="sc">~</span>  age_14 <span class="sc">+</span> cpeer <span class="sc">+</span> (age_14 <span class="sc">|</span> id), <span class="at">data =</span> alcohol)</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">summary</span>(fit5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
@@ -837,8 +850,8 @@ cpeer   0.001  0.000</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>fit6 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(alcuse <span class="sc">~</span>  age_14 <span class="sc">*</span> cpeer <span class="sc">+</span> (age_14 <span class="sc">|</span> id), <span class="at">data =</span> alcohol)</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">summary</span>(fit6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>fit6 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(alcuse <span class="sc">~</span>  age_14 <span class="sc">*</span> cpeer <span class="sc">+</span> (age_14 <span class="sc">|</span> id), <span class="at">data =</span> alcohol)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">summary</span>(fit6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
@@ -873,12 +886,40 @@ age_14:cper  0.000  0.001 -0.410</code></pre>
 </div>
 </div>
 </section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">model_parameters</span>(fit6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter      | Coefficient |   SE |        95% CI | t(238) |      p
+---------------------------------------------------------------------
+(Intercept)    |        0.65 | 0.09 | [ 0.48, 0.82] |   7.51 | &lt; .001
+age 14         |        0.27 | 0.06 | [ 0.15, 0.39] |   4.36 | &lt; .001
+cpeer          |        0.76 | 0.12 | [ 0.52, 0.99] |   6.34 | &lt; .001
+age 14 * cpeer |       -0.15 | 0.09 | [-0.32, 0.02] |  -1.77 | 0.078 
+
+# Random Effects
+
+Parameter                  | Coefficient
+----------------------------------------
+SD (Intercept: id)         |        0.58
+SD (age_14: id)            |        0.38
+Cor (Intercept~age_14: id) |       -0.06
+SD (Residual)              |        0.58</code></pre>
+</div>
+</div>
+</section>
 <section id="plotting-1" class="slide level2">
 <h2>Plotting</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">library</span>(report)</span>
-<span id="cb20-2"><a href="#cb20-2"></a>alcohol <span class="sc">%&gt;%</span> </span>
-<span id="cb20-3"><a href="#cb20-3"></a>   <span class="fu">report_sample</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">library</span>(report)</span>
+<span id="cb24-2"><a href="#cb24-2"></a>alcohol <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3"></a>   <span class="fu">report_sample</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Descriptive Statistics
 
@@ -902,9 +943,9 @@ Mean ccoa (SD)   |    0.00 (0.50)</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>alcohol <span class="sc">%&gt;%</span> </span>
-<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">data_grid</span>(<span class="at">age_14 =</span> <span class="fu">seq_range</span>(age_14, <span class="at">n =</span> <span class="dv">5</span>), <span class="at">cpeer =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">73</span>,<span class="dv">0</span>,.<span class="dv">73</span>), <span class="at">.model =</span> alcohol) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-3"><a href="#cb22-3"></a>    <span class="fu">add_predictions</span>(fit6) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>alcohol <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">data_grid</span>(<span class="at">age_14 =</span> <span class="fu">seq_range</span>(age_14, <span class="at">n =</span> <span class="dv">5</span>), <span class="at">cpeer =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">73</span>,<span class="dv">0</span>,.<span class="dv">73</span>), <span class="at">.model =</span> alcohol) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3"></a>    <span class="fu">add_predictions</span>(fit6) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 15 × 10
@@ -933,26 +974,351 @@ Mean ccoa (SD)   |    0.00 (0.50)</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>alcohol <span class="sc">%&gt;%</span> </span>
-<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">data_grid</span>(<span class="at">age_14 =</span> <span class="fu">seq_range</span>(age_14, <span class="at">n =</span> <span class="dv">5</span>), <span class="at">cpeer =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">73</span>,<span class="dv">0</span>,.<span class="dv">73</span>), <span class="at">.model =</span> alcohol) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-3"><a href="#cb24-3"></a>    <span class="fu">add_predictions</span>(fit6) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-4"><a href="#cb24-4"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred, <span class="at">x =</span> age_14, <span class="at">group =</span> cpeer)) <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>alcohol <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">data_grid</span>(<span class="at">age_14 =</span> <span class="fu">seq_range</span>(age_14, <span class="at">n =</span> <span class="dv">5</span>), <span class="at">cpeer =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">73</span>,<span class="dv">0</span>,.<span class="dv">73</span>), <span class="at">.model =</span> alcohol) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3"></a>    <span class="fu">add_predictions</span>(fit6) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred, <span class="at">x =</span> age_14, <span class="at">group =</span> cpeer)) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="conditional-5_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
+<img data-src="conditional-5_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
 <section id="multiple-predictors" class="slide level2">
 <h2>Multiple predictors</h2>
 <p>Interpretations with multiple predictors in regression extend to MLMs. For example, health across time, examining the effects of an intervention, while controlling for initial exercise status?:</p>
-<p>level 1:</p>
-<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}\]</span></p>
-<p>Level 2:</p>
-<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}Exercise_{i} +  \gamma_{02}Intervention_{i} +   U_{0i}\]</span></p>
+<p>level 1: <span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}\]</span></p>
+<p>Level 2: <span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}Exercise_{i} +  \gamma_{02}Intervention_{i} +   U_{0i}\]</span></p>
 <p><span class="math display">\[{\beta}_{1i} = \gamma_{10} + \gamma_{11}Intervention_{i} + U_{1i}\]</span></p>
 </section>
-<section id="centering-redux" class="slide level2">
-<h2>Centering redux</h2>
+<section id="sem" class="slide level2">
+<h2>SEM</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>alcohol.wide <span class="ot">&lt;-</span> alcohol <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>X, <span class="sc">-</span>age_14, <span class="sc">-</span>ccoa) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"age"</span>, </span>
+<span id="cb29-4"><a href="#cb29-4"></a>              <span class="at">names_prefix =</span> <span class="st">"alcuse_"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5"></a>              <span class="at">values_from  =</span> alcuse) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sem-covariatespredictors" class="slide level2">
+<h2>SEM covariates/predictors</h2>
+<p>The strategy for including predictors is similar to working with a level 2 mlm equation. Do you want to predict the intercept or the slope? No need to explicitly model an interaction as that is implied.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb30-2"><a href="#cb30-2"></a>sem<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="st">'  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 </span></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="st">            s =~ 0*alcuse_14 + 1*alcuse_15 + 2*alcuse_16</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="st">               </span></span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="st"># regressions</span></span>
+<span id="cb30-6"><a href="#cb30-6"></a><span class="st">    </span></span>
+<span id="cb30-7"><a href="#cb30-7"></a><span class="st">    i ~ male </span></span>
+<span id="cb30-8"><a href="#cb30-8"></a><span class="st">    s ~ male</span></span>
+<span id="cb30-9"><a href="#cb30-9"></a><span class="st">'</span></span>
+<span id="cb30-10"><a href="#cb30-10"></a>fit<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">growth</span>(sem<span class="fl">.1</span>, <span class="at">data =</span> alcohol.wide)</span>
+<span id="cb30-11"><a href="#cb30-11"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 27 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        10
+                                                      
+  Number of observations                            82
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 4.213
+  Degrees of freedom                                 2
+  P-value (Chi-square)                           0.122
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i =~                                                
+    alcuse_14         1.000                           
+    alcuse_15         1.000                           
+    alcuse_16         1.000                           
+  s =~                                                
+    alcuse_14         0.000                           
+    alcuse_15         1.000                           
+    alcuse_16         2.000                           
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i ~                                                 
+    male             -0.110    0.206   -0.534    0.594
+  s ~                                                 
+    male              0.272    0.120    2.261    0.024
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+ .i ~~                                                
+   .s                -0.173    0.098   -1.762    0.078
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .alcuse_14         0.000                           
+   .alcuse_15         0.000                           
+   .alcuse_16         0.000                           
+   .i                 0.692    0.147    4.701    0.000
+   .s                 0.136    0.086    1.575    0.115
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .alcuse_14         0.080    0.147    0.546    0.585
+   .alcuse_15         0.432    0.095    4.537    0.000
+   .alcuse_16         0.216    0.175    1.236    0.216
+   .i                 0.789    0.191    4.127    0.000
+   .s                 0.225    0.082    2.749    0.006</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb32-2"><a href="#cb32-2"></a>sem<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="st">'  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 </span></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="st">            s =~ 0*alcuse_14 + 1*alcuse_15 + 2*alcuse_16</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="st">               </span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="st"># regressions</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="st">    </span></span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="st">    i ~ peer </span></span>
+<span id="cb32-8"><a href="#cb32-8"></a><span class="st">    s ~ peer</span></span>
+<span id="cb32-9"><a href="#cb32-9"></a><span class="st">'</span></span>
+<span id="cb32-10"><a href="#cb32-10"></a>fit<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">growth</span>(sem<span class="fl">.2</span>, <span class="at">data =</span> alcohol.wide)</span>
+<span id="cb32-11"><a href="#cb32-11"></a><span class="fu">summary</span>(fit<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 24 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        10
+                                                      
+  Number of observations                            82
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 2.406
+  Degrees of freedom                                 2
+  P-value (Chi-square)                           0.300
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i =~                                                
+    alcuse_14         1.000                           
+    alcuse_15         1.000                           
+    alcuse_16         1.000                           
+  s =~                                                
+    alcuse_14         0.000                           
+    alcuse_15         1.000                           
+    alcuse_16         2.000                           
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i ~                                                 
+    peer              0.736    0.117    6.288    0.000
+  s ~                                                 
+    peer             -0.139    0.084   -1.656    0.098
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+ .i ~~                                                
+   .s                -0.075    0.082   -0.912    0.362
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .alcuse_14         0.000                           
+   .alcuse_15         0.000                           
+   .alcuse_16         0.000                           
+   .i                -0.108    0.146   -0.735    0.462
+   .s                 0.418    0.105    3.978    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .alcuse_14         0.175    0.124    1.416    0.157
+   .alcuse_15         0.375    0.083    4.529    0.000
+   .alcuse_16         0.349    0.175    1.990    0.047
+   .i                 0.430    0.138    3.114    0.002
+   .s                 0.177    0.076    2.312    0.021</code></pre>
+</div>
+</div>
+</section>
+<section id="centered-predictors" class="slide level2">
+<h2>centered predictors</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>sem<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="st">'  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 </span></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="st">            s =~ 0*alcuse_14 + 1*alcuse_15 + 2*alcuse_16</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="st">               </span></span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="st"># regressions</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a><span class="st">    </span></span>
+<span id="cb34-6"><a href="#cb34-6"></a><span class="st">    i ~ cpeer</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="st">    s ~  cpeer</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a><span class="st">'</span></span>
+<span id="cb34-9"><a href="#cb34-9"></a>fit<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">growth</span>(sem<span class="fl">.3</span>, <span class="at">data =</span> alcohol.wide)</span>
+<span id="cb34-10"><a href="#cb34-10"></a><span class="fu">summary</span>(fit<span class="fl">.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 24 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        10
+                                                      
+  Number of observations                            82
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 2.406
+  Degrees of freedom                                 2
+  P-value (Chi-square)                           0.300
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i =~                                                
+    alcuse_14         1.000                           
+    alcuse_15         1.000                           
+    alcuse_16         1.000                           
+  s =~                                                
+    alcuse_14         0.000                           
+    alcuse_15         1.000                           
+    alcuse_16         2.000                           
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i ~                                                 
+    cpeer             0.736    0.117    6.288    0.000
+  s ~                                                 
+    cpeer            -0.139    0.084   -1.656    0.098
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+ .i ~~                                                
+   .s                -0.075    0.082   -0.912    0.362
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .alcuse_14         0.000                           
+   .alcuse_15         0.000                           
+   .alcuse_16         0.000                           
+   .i                 0.642    0.085    7.562    0.000
+   .s                 0.276    0.061    4.531    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .alcuse_14         0.175    0.124    1.416    0.157
+   .alcuse_15         0.375    0.083    4.529    0.000
+   .alcuse_16         0.349    0.175    1.990    0.047
+   .i                 0.430    0.138    3.114    0.002
+   .s                 0.177    0.076    2.312    0.021</code></pre>
+</div>
+</div>
+</section>
+<section id="multiple-predictors-1" class="slide level2">
+<h2>Multiple predictors</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>sem<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="st">'  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 </span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="st">            s =~ 0*alcuse_14 + 1*alcuse_15 + 2*alcuse_16</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="st">               </span></span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="st"># regressions</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a><span class="st">    </span></span>
+<span id="cb36-6"><a href="#cb36-6"></a><span class="st">    i ~ cpeer + male</span></span>
+<span id="cb36-7"><a href="#cb36-7"></a><span class="st">    s ~ cpeer + male</span></span>
+<span id="cb36-8"><a href="#cb36-8"></a><span class="st">'</span></span>
+<span id="cb36-9"><a href="#cb36-9"></a>fit<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">growth</span>(sem<span class="fl">.4</span>, <span class="at">data =</span> alcohol.wide)</span>
+<span id="cb36-10"><a href="#cb36-10"></a><span class="fu">summary</span>(fit<span class="fl">.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 26 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        12
+                                                      
+  Number of observations                            82
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 5.134
+  Degrees of freedom                                 3
+  P-value (Chi-square)                           0.162
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i =~                                                
+    alcuse_14         1.000                           
+    alcuse_15         1.000                           
+    alcuse_16         1.000                           
+  s =~                                                
+    alcuse_14         0.000                           
+    alcuse_15         1.000                           
+    alcuse_16         2.000                           
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i ~                                                 
+    cpeer             0.750    0.120    6.265    0.000
+    male              0.105    0.174    0.603    0.546
+  s ~                                                 
+    cpeer            -0.107    0.084   -1.271    0.204
+    male              0.241    0.122    1.977    0.048
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+ .i ~~                                                
+   .s                -0.090    0.080   -1.132    0.257
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .alcuse_14         0.000                           
+   .alcuse_15         0.000                           
+   .alcuse_16         0.000                           
+   .i                 0.587    0.123    4.783    0.000
+   .s                 0.150    0.086    1.742    0.081
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .alcuse_14         0.162    0.123    1.316    0.188
+   .alcuse_15         0.397    0.084    4.712    0.000
+   .alcuse_16         0.274    0.166    1.649    0.099
+   .i                 0.439    0.139    3.166    0.002
+   .s                 0.183    0.074    2.480    0.013</code></pre>
+</div>
+</div>
+</section>
+<section id="centering-mlm-redux" class="slide level2">
+<h2>Centering mlm redux</h2>
 <p>Changing the scale of your predictors changes the interpretation of your model.</p>
 <ol type="1">
 <li><p>Original metric (no centering)</p></li>
@@ -988,14 +1354,10 @@ Mean ccoa (SD)   |    0.00 (0.50)</code></pre>
 <section class="slide level2">
 
 <p>What are the interpretations for the coefficients for exercise centered vs non-centered?</p>
-<p>level 1:</p>
-<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}\]</span></p>
-<p>Level 2:</p>
-<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}Exercise_{i}  +   U_{0i}\]</span></p>
+<p>level 1: <span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \varepsilon_{ti}\]</span></p>
+<p>Level 2: <span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}Exercise_{i}  +   U_{0i}\]</span></p>
 <p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  \gamma_{11}Exercise_{i} +  U_{1i}\]</span></p>
-<p>Combined:</p>
-<p><span class="math display">\[\hat{Health}_{ti} = [\gamma_{00} + \gamma_{01}Exercise_{i}+  U_{0i}] + \]</span></p>
-<p><span class="math display">\[ [\gamma_{10}  + \gamma_{11}Exercise_{i} + U_{1i}]  * Time_{ti}\]</span></p>
+<p>Combined: <span class="math display">\[\hat{Health}_{ti} = [\gamma_{00} + \gamma_{01}Exercise_{i}+  U_{0i}] + \]</span> <span class="math display">\[ [\gamma_{10}  + \gamma_{11}Exercise_{i} + U_{1i}]  * Time_{ti}\]</span></p>
 </section>
 <section id="level-1-predictors" class="slide level2">
 <h2>Level 1 predictors</h2>
@@ -1008,14 +1370,13 @@ Mean ccoa (SD)   |    0.00 (0.50)</code></pre>
 <section class="slide level2">
 
 <p>Consider health across time predicted by a level 1 exercise variable (1 = yes, exercised).</p>
-<p>level 1:</p>
-<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}Exercise_{ti} + \varepsilon_{ti}\]</span></p>
-<p>Level 2:</p>
-<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} +   U_{0i}\]</span></p>
+<p>level 1: <span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}Exercise_{ti} + \varepsilon_{ti}\]</span></p>
+<p>Level 2: <span class="math display">\[{\beta}_{0i} = \gamma_{00} +   U_{0i}\]</span></p>
 <p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></p>
 <p><span class="math display">\[{\beta}_{2i} = \gamma_{20}\]</span></p>
 <p>Combined:</p>
-<p><span class="math display">\[{Health}_{ti} =  [\gamma_{00} +   \gamma_{10}Time_{ti}   + \gamma_{20}Exercise_{ti}] + \]</span></p>
+<p><span class="math display">\[{Health}_{ti} =  [\gamma_{00} +   \gamma_{10}Time_{ti}   + \gamma_{20}Exercise_{ti}] + \]</span><br>
+</p>
 <p><span class="math display">\[ [ U_{0i}  + U_{1i}Time_{ti}+ \varepsilon_{ti}]\]</span></p>
 
 <div class="footer footer-default">
