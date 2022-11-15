@@ -1369,7 +1369,7 @@ Variances:
 </section>
 <section class="slide level2">
 
-<p>Consider health across time predicted by a level 1 exercise variable (1 = yes, exercised).</p>
+<p>Consider health across time (1 = yes, exercised).</p>
 <p>level 1: <span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}Exercise_{ti} + \varepsilon_{ti}\]</span></p>
 <p>Level 2: <span class="math display">\[{\beta}_{0i} = \gamma_{00} +   U_{0i}\]</span></p>
 <p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></p>
@@ -1378,11 +1378,376 @@ Variances:
 <p><span class="math display">\[{Health}_{ti} =  [\gamma_{00} +   \gamma_{10}Time_{ti}   + \gamma_{20}Exercise_{ti}] + \]</span><br>
 </p>
 <p><span class="math display">\[ [ U_{0i}  + U_{1i}Time_{ti}+ \varepsilon_{ti}]\]</span></p>
+</section>
+<section>
+<section id="interpretation" class="title-slide slide level1 center">
+<h1>Interpretation</h1>
+<p>Tvs can be treated as another predictor with the effect of “controlling” for some TVC. Thus the regression coefficients in the model are conditional on this covariate.</p>
+<p><span class="math inline">\(\gamma_{10}\)</span> is the average rate of change in health, controlling for exercise at each time point</p>
+<p><span class="math inline">\(\gamma_{20}\)</span> is the average difference in health when exercising vs when not, across each time (so controlling for)</p>
+<p><span class="math inline">\(\gamma_{00}\)</span> is the average health at Time = 0 for those that are not exercising. Ie when both predictors are at zero.</p>
+</section>
+<section class="slide level2">
+
+<p>How would you visualize the fixed effects for varying combinations of exercise?</p>
+</section>
+<section id="what-if-time-is-not-focal" class="slide level2">
+<h2>What if time is not focal?</h2>
+<p>Usually time is not an important factor for studies that last for weeks or less. Instead we often we want to look at repeated associations or correlations across time. What happens to the time variable? Two options:</p>
+<ol type="1">
+<li><p>Ignore it. A time variable is asking whether the variable we care about is “associated” with time. Maybe that isn’t important to us, theoretically.</p></li>
+<li><p>Use it to control to increases in your DV across time, but mostly disregard. Time could serve to control for the messiness of daily life, even if it is not a focal variable.</p></li>
+</ol>
+</section>
+<section id="introducing-a-random-slope-for-a-tvc" class="slide level2">
+<h2>Introducing a random slope for a TVC</h2>
+<p>Person specific residuals make the interpretation of parameters a little more difficult as the model says that the gap between exercise and not exercise is the same for everyone. Should we allow it to be this way?</p>
+<p>level 1:</p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}Exercise_{ti} + \varepsilon_{ti}\]</span></p>
+<p>Level 2:</p>
+<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} +   U_{0i}\]</span></p>
+<p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></p>
+<p><span class="math display">\[{\beta}_{2i} = \gamma_{20} +  U_{2i}\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>Level 2 variance-covariance matrix:</p>
+<p><span class="math display">\[\begin{pmatrix} {U}_{0i} \\ {U}_{1i} \\ {U}_{2i} \end{pmatrix} \sim \mathcal{N} \begin{pmatrix}  0,  &amp;  \tau_{0}^{2} &amp; \tau_{01}   &amp; \tau_{02}  \\  0, &amp; \tau_{10} &amp; \tau_{1}^{2} &amp; \tau_{12}  \\ 0, &amp; \tau_{20} &amp; \tau_{21} &amp; \tau_{2}^{2} \end{pmatrix}\]</span></p>
+<p>Residual variance at level 1</p>
+<p><span class="math display">\[{R}_{ti} \sim \mathcal{N}(0, \sigma^{2})\]</span></p>
+</section>
+<section id="where-does-the-variance-go" class="slide level2">
+<h2>Where does the variance go?</h2>
+<p>Compared to time invariant (level 2) predictors, tvc/level 1 predictors are likely to explain variance level 1 and level 2 variance terms. This is because level 1 predictors can include both level 1 and level 2 information.</p>
+<p>Typically level 2 predictors tend to only reduce level 2 variance. It is possible, however, that including a level 1 predictor will increase the variance in level 2 variance components.</p>
+</section>
+<section id="interactions-among-level-1-variables" class="slide level2">
+<h2>Interactions among level 1 variables</h2>
+<p>Couldn’t exercise levels influence the slope of health? The previous models constrained the slopes to be the same, saying that people differ on level when exercising vs not but not on rate of change.</p>
+<p><span class="math display">\[{Health}_{ti} =  [\gamma_{00} +   \gamma_{10}Time_{ti}   + \gamma_{20}Exercise_{ti} + \gamma_{30}TimeXExercise_{ti}]\]</span></p>
+<p><span class="math display">\[+ [ U_{0i}  + U_{1i}Time_{ti}+ \varepsilon_{ti}]\]</span></p>
+<ul>
+<li><p>How could you visualize this model?</p></li>
+<li><p>How do you interpret each of the terms (knowing what you know about interactions)?</p></li>
+<li><p>How would all of this change if our level 1 variable was continuous?</p></li>
+</ul>
+</section>
+<section id="centering-redux" class="slide level2">
+<h2>Centering redux</h2>
+<ul>
+<li><p>If we just leave the exercise variable by itself there is often a combination of within and between person information. The two sources are “smushed” together.</p></li>
+<li><p>I could exercise more than the average person (between person) but my research question is about what happens when <em>I</em> exercise a lot, does that correspond to health. Because my excercise level varies there is within person information.</p></li>
+<li><p>It is not clear whether exercise is associated with health BECAUSE people who exercise tend to be healthier (a between person question that could be addressed with cross sectional data) or is it because when someone exercises they feel healthier.</p></li>
+<li><p>How is <span class="math inline">\(\gamma_{20}Exercise_{ti}\)</span> interpreted?</p></li>
+</ul>
+</section>
+<section id="person-mean-centering" class="slide level2">
+<h2>person mean centering</h2>
+<ul>
+<li><p>Typically for level 1 we will want to within person-mean center to help with the issue of “smushed” variance. Especially when you are working with level 1 interactions, centering is important to interpret your lower order terms.</p></li>
+<li><p>However, this gets rid of all mean level information for a person. The question at hand is not whether you exercise more or less it is compared to your typical levels, what happens when you exercise more or less.</p></li>
+<li><p>If you are including a level 1 person centered variable in the model, note that 1) the average level of exercise is not controlled for and 2) the variation around the level will likely be related to the persons mean score. In other words, the within and between person variance of exercise is not neatly decomposed.</p></li>
+</ul>
+</section>
+<section id="level-1-intensive-vs-long-term" class="slide level2">
+<h2>Level 1 intensive vs long term</h2>
+<ul>
+<li><p>The question of whether to center or not at level 1 partially depends on the type of data we are analyzing.</p></li>
+<li><p>For intensive data, we will want to center for two related reasons: 1. makes the coefficient about within person deviations and 2. helps us separate within and between person effects</p></li>
+<li><p>For longer term data, level 1 is often used as a covariate rather than a focal coefficient. As a result, centering becomes less important.</p></li>
+</ul>
+</section>
+<section id="seperating-between-and-within-person-effects" class="slide level2">
+<h2>Seperating between and within person effects</h2>
+<p>We will create a new variable out of the existing level 1 variable, a person mean. This makes the effects of the person level uncorrelated with the effects of the between person level</p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}(Exercise_{ti}-\overline{Exercise_{i}}) + \varepsilon_{ti}\]</span></p>
+<p>Level 2:</p>
+<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}\overline{Exercise_{i}} + U_{0i}\]</span></p>
+<p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></p>
+<p><span class="math display">\[{\beta}_{2i} = \gamma_{20}\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>What would we be testing if we included included person mean exercise to the person level effect?</p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}(Exercise_{ti}-\overline{Exercise_{i}}) + \varepsilon_{ti}\]</span></p>
+<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}\overline{Exercise_{i}} + U_{0i}\]</span></p>
+<p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></p>
+<p><span class="math display">\[{\beta}_{2i} = \gamma_{20}+ \gamma_{21}\overline{Exercise_{i}}\]</span></p>
+</section>
+<section id="multiple-level-1-predictors" class="slide level2">
+<h2>Multiple level 1 predictors</h2>
+<p><span class="math display">\[{Health}_{ti} =  [\gamma_{00} +   \gamma_{10}Time_{ti}   + \gamma_{20}(Exercise_{ti}-\overline{Exercise_{i}}) + \gamma_{30}Mood_{ti}\]</span></p>
+<p><span class="math display">\[+\gamma_{40}(Mood*(Exercise_{ti}-\overline{Exercise_{i}}))_{ti} ] + [ U_{0i}  + U_{1i}Time_{ti}+ \varepsilon_{ti}]\]</span></p>
+<p>How would <span class="math inline">\(\gamma_{20}\)</span> and <span class="math inline">\(\gamma_{40}\)</span> change in interpretation if exercise was not person centered?</p>
+</section>
+<section class="slide level2">
+
+<p>Level 1:</p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}(Exercise_{ti}-\overline{Exercise_{i}}) +\]</span></p>
+<p><span class="math display">\[\beta_{3i}Mood_{ti}+\beta_{4i}Mood_{ti}*(Exercise_{ti}-\overline{Exercise_{i}})  +\varepsilon_{ti}\]</span></p>
+<p>Level 2:</p>
+<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}\overline{Exercise_{i}} + U_{0i}\]</span></p>
+<p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></p>
+<p><span class="math display">\[{\beta}_{2i} = \gamma_{20}\]</span></p>
+<p><span class="math display">\[{\beta}_{3i} = \gamma_{30}\]</span></p>
+<p><span class="math display">\[{\beta}_{4i} = \gamma_{40}\]</span></p>
+</section>
+<section class="slide level2">
+
+<ul>
+<li><p>For longer term data, where the focus is on a trajectory, and the fators that impact it, controlling for TVC like exercise often is done level 1 and not also at level 2.</p></li>
+<li><p>The level 1 has both between and within person variance, and given you are not trying to seperate the influence, you end up controlling for both when putting in level 1 TVC.</p></li>
+</ul>
+</section>
+<section id="what-happens-if-we-want-to-add-a-level-2-predictor" class="slide level2">
+<h2>What happens if we want to add a level 2 predictor?</h2>
+<p><span class="math display">\[{Health}_{ti} =  [\gamma_{00} + \gamma_{10}Time_{ti} + \gamma_{20}(Exercise_{ti}-\overline{Exercise_{i}}) +\gamma_{30}Mood_{ti}+\gamma_{31}(Mood*\overline{Exercise_{i}})_{ti}\]</span></p>
+<p><span class="math display">\[+\gamma_{40}(Mood*(Exercise_{ti}-\overline{Exercise_{i}}))_{ti} ] + [ U_{0i}  + U_{1i}Time_{ti}+ \varepsilon_{ti}]\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>Level 1:</p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}(Exercise_{ti}-\overline{Exercise_{i}}) + \beta_{3i}Mood_{ti} +\varepsilon_{ti}\]</span></p>
+<p>Level 2:</p>
+<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}\overline{Exercise_{i}} + U_{0i}\]</span></p>
+<p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></p>
+<p><span class="math display">\[{\beta}_{2i} = \gamma_{20}\]</span></p>
+<p><span class="math display">\[{\beta}_{3i} = \gamma_{30} + \gamma_{31}  (\overline{Exercise_{i}})\]</span></p>
+</section>
+<section id="lagged-models" class="slide level2">
+<h2>Lagged models</h2>
+<p>What if I want to predict something in the future?</p>
+<p>Level 1</p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}(Exercise_{(t-1)i}-\overline{Exercise_{i}}) + \varepsilon_{ti}\]</span></p>
+<p>Level 2:</p>
+<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}\overline{Exercise_{i}} + U_{0i}\]</span></p>
+<p><span class="math display">\[{\beta}_{1i} = \gamma_{10} + \gamma_{11}\overline{Exercise_{i}} + U_{1i}\]</span></p>
+<p><span class="math display">\[{\beta}_{2i} = \gamma_{20}\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>How does this model differ from the prior model? What does the <span class="math inline">\(\gamma_{21}\)</span> test? Would you want to include this term or not?</p>
+<p>Level 1</p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}(Exercise_{(t-1)i}-\overline{Exercise_{i}}) + \varepsilon_{ti}\]</span></p>
+<p>Level 2:</p>
+<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}\overline{Exercise_{i}} + U_{0i}\]</span></p>
+<p><span class="math display">\[{\beta}_{1i} = \gamma_{10} + \gamma_{11}\overline{Exercise_{i}} + U_{1i}\]</span></p>
+<p><span class="math display">\[{\beta}_{2i} = \gamma_{20} + \gamma_{21}\overline{Exercise_{i}}\]</span></p>
+</section>
+<section id="contextual-models" class="slide level2">
+<h2>Contextual models</h2>
+<p>Grand mean centering our level 1 variables is another option. We have already seen that when we use time as level 1 predictor. The between and within person variance is now “smushed” together when we do not person center.</p>
+<p>Level 1:</p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}Time_{ti} + \beta_{2i}(Exercise_{ti}-\overline{Exercise_{..}}) + \varepsilon_{ti}\]</span></p>
+<p>Level 2:</p>
+<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}(\overline{Exercise_{i}}-\overline{Exercise_{..}})+ U_{0i}\]</span></p>
+<p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></p>
+<p><span class="math display">\[{\beta}_{2i} = \gamma_{20}\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>When <span class="math inline">\(\gamma_{01}\overline{Exercise_{i}}\)</span> is included at level 2 when we have person-centered level 1 the effects separate the between and within. But level 2 controls for between meaning that <span class="math inline">\(\beta_{2i}(Exercise_{ti}-\overline{Exercise_{..}})\)</span> is now the within person effect, same as if we within person centered!</p>
+</section>
+<section class="slide level2">
+
+<p>How to interpret <span class="math inline">\(\gamma_{01}\overline{Exercise_{i}}\)</span> ?</p>
+<p>The extent that daily exercise is higher for a given person than for the rest of the sample, we can expect that person’s mean exercise to be higher than the rest of the sample as well. Thus, part of the between-person effect can be captured just by including time-varying, level 1 exercise. As a result, <span class="math inline">\(\gamma_{01}\overline{Exercise_{i}}\)</span> represents the difference needed to get from the part of the between person effect carried by just level 1 to the total between-person effect that belongs in the level-2 model</p>
+<p>After controlling for the absolute amount of timevarying exercise, the incremental (unique) effect of average exercise is given by its level-2 contextual effect. For every unit higher person mean exercise, mean daily exercise are expected to be higher by the level-2 contextual effect.</p>
+<p>In summary, similar in interpretation to the within and between separation. The contextual effect = between effect minus within person effect</p>
+<table style="width:11%;">
+<colgroup>
+<col style="width: 11%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>centering and random effects</td>
+</tr>
+<tr class="even">
+<td>Level 1</td>
+</tr>
+<tr class="odd">
+<td><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}(Exercise_{ti}-\overline{Exercise_{i}}) + \varepsilon_{ti}\]</span></td>
+</tr>
+<tr class="even">
+<td><span class="math display">\[{Health}_{ti} = \beta_{0i} +  \beta_{1i}(Exercise_{ti}-\overline{Exercise_{..}}) + \varepsilon_{ti}\]</span></td>
+</tr>
+<tr class="odd">
+<td>Level 2:</td>
+</tr>
+<tr class="even">
+<td><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}(\overline{Exercise_{i}}-\overline{Exercise_{..}}) + U_{0i}\]</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></td>
+</tr>
+<tr class="even">
+<td>Interpretation:</td>
+</tr>
+<tr class="odd">
+<td><span class="math display">\[U_{1i}\]</span></td>
+</tr>
+<tr class="even">
+<td>For PMC, the effect is relative association compared to typical person centered effect – maybe some people have an effect where deviations of exercise influences health but others these deviations do not. For GMC, the effect contains both within and between person effects, so the interpretation is messier</td>
+</tr>
+</tbody>
+</table>
+<p>Level 1</p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i}  + \beta_{1i}(Exercise_{ti}-\overline{Exercise_{i}}) + \varepsilon_{ti}\]</span></p>
+<p><span class="math display">\[{Health}_{ti} = \beta_{0i} +  \beta_{1i}(Exercise_{ti}-\overline{Exercise_{..}}) + \varepsilon_{ti}\]</span></p>
+<p>Level 2:</p>
+<p><span class="math display">\[{\beta}_{0i} = \gamma_{00} + \gamma_{01}(\overline{Exercise_{i}}-\overline{Exercise_{..}}) + U_{0i}\]</span></p>
+<p><span class="math display">\[{\beta}_{1i} = \gamma_{10} +  U_{1i}\]</span></p>
+<p>Interpretation:</p>
+<p><span class="math display">\[U_{0i}\]</span></p>
+<p>For PMC, the effect represents intercept differences when people are at their person mean. Are they healthier than the avg person, at their avg level of exercise? For GMC, the effect when people are at the grand mean. Are they healthier than the at the average level of exercise?</p>
+</section>
+<section id="categorical-tvc" class="slide level2">
+<h2>categorical TVC</h2>
+<p>Depending on your goal it might be confusing/difficult to person mean center. The issue is that centering in this manner leads to values that do not exist e.g.&nbsp;-.5 when your TVC = 0, for example. This also leads to potentially strange/uninterpretable intercepts or other lower order terms.</p>
+<p>Suggested to keep raw tvc at level 1 but GMC at level 2.</p>
+<p>Sometimes time variables can be like this. For a recent paper we coded a life event as a tvc, which effectively switched on and of when the person encountered a life event.</p>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th style="text-align: center;">wave</th>
+<th style="text-align: right;">event</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sem-tvcs" class="slide level2">
+<h2>SEM TVCs</h2>
+<p>Level 1 variables (tvs) are flexibly handled in SEM. Whereas previously a level 1 variable had a constant effect (ie you just had a single parameter) here you can model separate effects for different times. Or you can have a tvc for one timepoint but not another. Doing this in an MLM framework is awkward at best.</p>
+<div class="cell">
+
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># a linear growth model with a time-varying covariate</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a></span>
+<span id="cb38-3"><a href="#cb38-3"></a>model<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="st">'  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 </span></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="st">            s =~ 0*alcuse_14 + .5*alcuse_15 + 1*alcuse_16</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="st">               </span></span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="st"># regressions</span></span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="st">    </span></span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="st">    i ~ male + cpeer</span></span>
+<span id="cb38-9"><a href="#cb38-9"></a><span class="st">    s ~ male + cpeer</span></span>
+<span id="cb38-10"><a href="#cb38-10"></a><span class="st">    </span></span>
+<span id="cb38-11"><a href="#cb38-11"></a><span class="st"># time-varying covariates</span></span>
+<span id="cb38-12"><a href="#cb38-12"></a></span>
+<span id="cb38-13"><a href="#cb38-13"></a><span class="st">    alcuse_14 ~ tvc1</span></span>
+<span id="cb38-14"><a href="#cb38-14"></a><span class="st">    alcuse_15 ~ tvc2</span></span>
+<span id="cb38-15"><a href="#cb38-15"></a><span class="st">    alcuse_16 ~ tvc3</span></span>
+<span id="cb38-16"><a href="#cb38-16"></a></span>
+<span id="cb38-17"><a href="#cb38-17"></a><span class="st">'</span></span>
+<span id="cb38-18"><a href="#cb38-18"></a>fit<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.5</span>, <span class="at">data =</span> alcohol.wide)</span>
+<span id="cb38-19"><a href="#cb38-19"></a></span>
+<span id="cb38-20"><a href="#cb38-20"></a><span class="fu">summary</span>(fit<span class="fl">.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 30 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        15
+                                                      
+  Number of observations                            82
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                22.098
+  Degrees of freedom                                 9
+  P-value (Chi-square)                           0.009
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i =~                                                
+    alcuse_14         1.000                           
+    alcuse_15         1.000                           
+    alcuse_16         1.000                           
+  s =~                                                
+    alcuse_14         0.000                           
+    alcuse_15         0.500                           
+    alcuse_16         1.000                           
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i ~                                                 
+    male              0.122    0.173    0.704    0.482
+    cpeer             0.735    0.121    6.092    0.000
+  s ~                                                 
+    male              0.487    0.245    1.986    0.047
+    cpeer            -0.194    0.171   -1.134    0.257
+  alcuse_14 ~                                         
+    tvc1              0.043    0.071    0.607    0.544
+  alcuse_15 ~                                         
+    tvc2             -0.108    0.073   -1.483    0.138
+  alcuse_16 ~                                         
+    tvc3              0.023    0.094    0.243    0.808
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+ .i ~~                                                
+   .s                -0.216    0.159   -1.361    0.173
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .alcuse_14         0.000                           
+   .alcuse_15         0.000                           
+   .alcuse_16         0.000                           
+   .i                 0.581    0.122    4.750    0.000
+   .s                 0.298    0.173    1.718    0.086
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .alcuse_14         0.122    0.119    1.023    0.306
+   .alcuse_15         0.394    0.083    4.731    0.000
+   .alcuse_16         0.262    0.164    1.594    0.111
+   .i                 0.467    0.139    3.368    0.001
+   .s                 0.795    0.291    2.736    0.006</code></pre>
+</div>
+</div>
+<p>Can we fix the TVCs to be the same?</p>
 
 <div class="footer footer-default">
 
 </div>
-</section>
+</section></section>
     </div>
   </div>
 

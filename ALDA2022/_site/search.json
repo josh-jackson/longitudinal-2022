@@ -1292,7 +1292,7 @@
     "href": "conditional-5.html#centering-redux",
     "title": "conditional",
     "section": "Centering redux",
-    "text": "Centering redux\nChanging the scale of your predictors changes the interpretation of your model.\n\nOriginal metric (no centering)\nGroup-mean centering (our group/nesting is person so this is also called person centering). This will be more appropriate when we talk about level 1 predictors.\nGroup grand-mean centering (centering around person avg)\nGrand-mean centering (this is taking the average across every obs)\nCentering on a value of theoretical or applied interest"
+    "text": "Centering redux\n\nIf we just leave the exercise variable by itself there is often a combination of within and between person information. The two sources are “smushed” together.\nI could exercise more than the average person (between person) but my research question is about what happens when I exercise a lot, does that correspond to health. Because my excercise level varies there is within person information.\nIt is not clear whether exercise is associated with health BECAUSE people who exercise tend to be healthier (a between person question that could be addressed with cross sectional data) or is it because when someone exercises they feel healthier.\nHow is \\(\\gamma_{20}Exercise_{ti}\\) interpreted?"
   },
   {
     "objectID": "conditional-5.html#time-considerations",
@@ -1349,5 +1349,96 @@
     "title": "conditional",
     "section": "Centering mlm redux",
     "text": "Centering mlm redux\nChanging the scale of your predictors changes the interpretation of your model.\n\nOriginal metric (no centering)\nGroup-mean centering (our group/nesting is person so this is also called person centering). This will be more appropriate when we talk about level 1 predictors.\nGroup grand-mean centering (centering around person avg)\nGrand-mean centering (this is taking the average across every obs)\nCentering on a value of theoretical or applied interest"
+  },
+  {
+    "objectID": "conditional-5.html#what-if-time-is-not-focal",
+    "href": "conditional-5.html#what-if-time-is-not-focal",
+    "title": "conditional",
+    "section": "What if time is not focal?",
+    "text": "What if time is not focal?\nUsually time is not an important factor for studies that last for weeks or less. Instead we often we want to look at repeated associations or correlations across time. What happens to the time variable? Two options:\n\nIgnore it. A time variable is asking whether the variable we care about is “associated” with time. Maybe that isn’t important to us, theoretically.\nUse it to control to increases in your DV across time, but mostly disregard. Time could serve to control for the messiness of daily life, even if it is not a focal variable."
+  },
+  {
+    "objectID": "conditional-5.html#introducing-a-random-slope-for-a-tvc",
+    "href": "conditional-5.html#introducing-a-random-slope-for-a-tvc",
+    "title": "conditional",
+    "section": "Introducing a random slope for a TVC",
+    "text": "Introducing a random slope for a TVC\nPerson specific residuals make the interpretation of parameters a little more difficult as the model says that the gap between exercise and not exercise is the same for everyone. Should we allow it to be this way?\nlevel 1:\n\\[{Health}_{ti} = \\beta_{0i}  + \\beta_{1i}Time_{ti} + \\beta_{2i}Exercise_{ti} + \\varepsilon_{ti}\\]\nLevel 2:\n\\[{\\beta}_{0i} = \\gamma_{00} +   U_{0i}\\]\n\\[{\\beta}_{1i} = \\gamma_{10} +  U_{1i}\\]\n\\[{\\beta}_{2i} = \\gamma_{20} +  U_{2i}\\]"
+  },
+  {
+    "objectID": "conditional-5.html#where-does-the-variance-go",
+    "href": "conditional-5.html#where-does-the-variance-go",
+    "title": "conditional",
+    "section": "Where does the variance go?",
+    "text": "Where does the variance go?\nCompared to time invariant (level 2) predictors, tvc/level 1 predictors are likely to explain variance level 1 and level 2 variance terms. This is because level 1 predictors can include both level 1 and level 2 information.\nTypically level 2 predictors tend to only reduce level 2 variance. It is possible, however, that including a level 1 predictor will increase the variance in level 2 variance components."
+  },
+  {
+    "objectID": "conditional-5.html#interactions-among-level-1-variables",
+    "href": "conditional-5.html#interactions-among-level-1-variables",
+    "title": "conditional",
+    "section": "Interactions among level 1 variables",
+    "text": "Interactions among level 1 variables\nCouldn’t exercise levels influence the slope of health? The previous models constrained the slopes to be the same, saying that people differ on level when exercising vs not but not on rate of change.\n\\[{Health}_{ti} =  [\\gamma_{00} +   \\gamma_{10}Time_{ti}   + \\gamma_{20}Exercise_{ti} + \\gamma_{30}TimeXExercise_{ti}]\\]\n\\[+ [ U_{0i}  + U_{1i}Time_{ti}+ \\varepsilon_{ti}]\\]\n\nHow could you visualize this model?\nHow do you interpret each of the terms (knowing what you know about interactions)?\nHow would all of this change if our level 1 variable was continuous?"
+  },
+  {
+    "objectID": "conditional-5.html#person-mean-centering",
+    "href": "conditional-5.html#person-mean-centering",
+    "title": "conditional",
+    "section": "person mean centering",
+    "text": "person mean centering\n\nTypically for level 1 we will want to within person-mean center to help with the issue of “smushed” variance. Especially when you are working with level 1 interactions, centering is important to interpret your lower order terms.\nHowever, this gets rid of all mean level information for a person. The question at hand is not whether you exercise more or less it is compared to your typical levels, what happens when you exercise more or less.\nIf you are including a level 1 person centered variable in the model, note that 1) the average level of exercise is not controlled for and 2) the variation around the level will likely be related to the persons mean score. In other words, the within and between person variance of exercise is not neatly decomposed."
+  },
+  {
+    "objectID": "conditional-5.html#multiple-level-1-predictors",
+    "href": "conditional-5.html#multiple-level-1-predictors",
+    "title": "conditional",
+    "section": "Multiple level 1 predictors",
+    "text": "Multiple level 1 predictors\n\\[{Health}_{ti} =  [\\gamma_{00} +   \\gamma_{10}Time_{ti}   + \\gamma_{20}(Exercise_{ti}-\\overline{Exercise_{i}}) + \\gamma_{30}Mood_{ti}\\]\n\\[+\\gamma_{40}(Mood*(Exercise_{ti}-\\overline{Exercise_{i}}))_{ti} ] + [ U_{0i}  + U_{1i}Time_{ti}+ \\varepsilon_{ti}]\\]\nHow would \\(\\gamma_{20}\\) and \\(\\gamma_{40}\\) change in interpretation if exercise was not person centered?"
+  },
+  {
+    "objectID": "conditional-5.html#what-happens-if-we-want-to-add-a-level-2-predictor",
+    "href": "conditional-5.html#what-happens-if-we-want-to-add-a-level-2-predictor",
+    "title": "conditional",
+    "section": "What happens if we want to add a level 2 predictor?",
+    "text": "What happens if we want to add a level 2 predictor?\n\\[{Health}_{ti} =  [\\gamma_{00} + \\gamma_{10}Time_{ti} + \\gamma_{20}(Exercise_{ti}-\\overline{Exercise_{i}}) +\\gamma_{30}Mood_{ti}+\\gamma_{31}(Mood*\\overline{Exercise_{i}})_{ti}\\]\n\\[+\\gamma_{40}(Mood*(Exercise_{ti}-\\overline{Exercise_{i}}))_{ti} ] + [ U_{0i}  + U_{1i}Time_{ti}+ \\varepsilon_{ti}]\\]"
+  },
+  {
+    "objectID": "conditional-5.html#lagged-models",
+    "href": "conditional-5.html#lagged-models",
+    "title": "conditional",
+    "section": "Lagged models",
+    "text": "Lagged models\nWhat if I want to predict something in the future?\nLevel 1\n\\[{Health}_{ti} = \\beta_{0i}  + \\beta_{1i}Time_{ti} + \\beta_{2i}(Exercise_{(t-1)i}-\\overline{Exercise_{i}}) + \\varepsilon_{ti}\\]\nLevel 2:\n\\[{\\beta}_{0i} = \\gamma_{00} + \\gamma_{01}\\overline{Exercise_{i}} + U_{0i}\\]\n\\[{\\beta}_{1i} = \\gamma_{10} + \\gamma_{11}\\overline{Exercise_{i}} + U_{1i}\\]\n\\[{\\beta}_{2i} = \\gamma_{20}\\]"
+  },
+  {
+    "objectID": "conditional-5.html#contextual-models",
+    "href": "conditional-5.html#contextual-models",
+    "title": "conditional",
+    "section": "Contextual models",
+    "text": "Contextual models\nGrand mean centering our level 1 variables is another option. We have already seen that when we use time as level 1 predictor. The between and within person variance is now “smushed” together when we do not person center.\nLevel 1:\n\\[{Health}_{ti} = \\beta_{0i}  + \\beta_{1i}Time_{ti} + \\beta_{2i}(Exercise_{ti}-\\overline{Exercise_{..}}) + \\varepsilon_{ti}\\]\nLevel 2:\n\\[{\\beta}_{0i} = \\gamma_{00} + \\gamma_{01}(\\overline{Exercise_{i}}-\\overline{Exercise_{..}})+ U_{0i}\\]\n\\[{\\beta}_{1i} = \\gamma_{10} +  U_{1i}\\]\n\\[{\\beta}_{2i} = \\gamma_{20}\\]"
+  },
+  {
+    "objectID": "conditional-5.html#categorical-tvc",
+    "href": "conditional-5.html#categorical-tvc",
+    "title": "conditional",
+    "section": "categorical TVC",
+    "text": "categorical TVC\nDepending on your goal it might be confusing/difficult to person mean center. The issue is that centering in this manner leads to values that do not exist e.g. -.5 when your TVC = 0, for example. This also leads to potentially strange/uninterpretable intercepts or other lower order terms.\nSuggested to keep raw tvc at level 1 but GMC at level 2.\nSometimes time variables can be like this. For a recent paper we coded a life event as a tvc, which effectively switched on and of when the person encountered a life event.\n\n\n\nID\nwave\nevent\n\n\n\n\n1\n0\n0\n\n\n1\n1\n1\n\n\n1\n2\n1\n\n\n2\n0\n0\n\n\n2\n1\n1"
+  },
+  {
+    "objectID": "conditional-5.html#sem-tvcs",
+    "href": "conditional-5.html#sem-tvcs",
+    "title": "conditional",
+    "section": "SEM TVCs",
+    "text": "SEM TVCs\nLevel 1 variables (tvs) are flexibly handled in SEM. Whereas previously a level 1 variable had a constant effect (ie you just had a single parameter) here you can model separate effects for different times. Or you can have a tvc for one timepoint but not another. Doing this in an MLM framework is awkward at best."
+  },
+  {
+    "objectID": "conditional-5.html#seperating-between-and-within-person-effects",
+    "href": "conditional-5.html#seperating-between-and-within-person-effects",
+    "title": "conditional",
+    "section": "Seperating between and within person effects",
+    "text": "Seperating between and within person effects\nWe will create a new variable out of the existing level 1 variable, a person mean. This makes the effects of the person level uncorrelated with the effects of the between person level\n\\[{Health}_{ti} = \\beta_{0i}  + \\beta_{1i}Time_{ti} + \\beta_{2i}(Exercise_{ti}-\\overline{Exercise_{i}}) + \\varepsilon_{ti}\\]\nLevel 2:\n\\[{\\beta}_{0i} = \\gamma_{00} + \\gamma_{01}\\overline{Exercise_{i}} + U_{0i}\\]\n\\[{\\beta}_{1i} = \\gamma_{10} +  U_{1i}\\]\n\\[{\\beta}_{2i} = \\gamma_{20}\\]"
+  },
+  {
+    "objectID": "conditional-5.html#level-1-intensive-vs-long-term",
+    "href": "conditional-5.html#level-1-intensive-vs-long-term",
+    "title": "conditional",
+    "section": "Level 1 intensive vs long term",
+    "text": "Level 1 intensive vs long term\n\nThe question of whether to center or not at level 1 partially depends on the type of data we are analyzing.\nFor intensive data, we will want to center for two related reasons: 1. makes the coefficient about within person deviations and 2. helps us separate within and between person effects\nFor longer term data, level 1 is often used as a covariate rather than a focal coefficient. As a result, centering becomes less important."
   }
 ]
