@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Applied Longitudinal Data Analyses",
     "section": "",
-    "text": "9/13: Homework #1 is posted! Due by 9/26\n8/30: Welcome to the first day of class! If you want to follow along with examples, head over to github for all of the code and data. https://github.com/josh-jackson/longitudinal-2022\nPlease check the homepage regularly for class updates and announcements."
+    "text": "10/13 Homework #2 is posted. Due by 10/27\n9/13: Homework #1 is posted! Due by 9/26\n8/30: Welcome to the first day of class! If you want to follow along with examples, head over to github for all of the code and data. https://github.com/josh-jackson/longitudinal-2022\nPlease check the homepage regularly for class updates and announcements."
   },
   {
     "objectID": "about.html",
@@ -389,7 +389,7 @@
     "href": "homeworks.html",
     "title": "homeworks",
     "section": "",
-    "text": "Longitudinal MLM homework\nLongitudinal SEM homework"
+    "text": "Longitudinal MLM homework\nLongitudinal SEM homework\nCovariate homework"
   },
   {
     "objectID": "mlm-2.html#standard-regression",
@@ -1440,5 +1440,12 @@
     "title": "conditional",
     "section": "Level 1 intensive vs long term",
     "text": "Level 1 intensive vs long term\n\nThe question of whether to center or not at level 1 partially depends on the type of data we are analyzing.\nFor intensive data, we will want to center for two related reasons: 1. makes the coefficient about within person deviations and 2. helps us separate within and between person effects\nFor longer term data, level 1 is often used as a covariate rather than a focal coefficient. As a result, centering becomes less important."
+  },
+  {
+    "objectID": "hw3.html",
+    "href": "hw3.html",
+    "title": "hw3",
+    "section": "",
+    "text": "To get a better handle on predictors or covariates of our models, we are going to use a intensive longitudidnal dataset where people were assessed multiple times a day for two weeks. We will primarily be looking at negative emotion as it fluxtuates throughout the day.\n\nIn the procedure variables (take a look at the tab on the codebook) there is a variable for day of the week. Use this as our initial time variable. Run a multi level model to assess whether positive affect increases over study period.\nTake the model in #1 and add in a between person loneliness predictor. We do not have between person loneliness measure, but we do have many assessments of momentary loneliness (esm.NQ33.w1). Using these momentary assessments, create a between person average of loneliness per person and use to predict whether or not loneliness is associated with changes across time. Interpret the parameter that addresses this hypothesis.\nYou have the hypothesis that average levels of loneliness would interact with whether or not someone interacts with people in general (ie how socialable they are) to impact negative affect. Take the interacting variable(esm.ST13.w1) and create a between person index to interact with the loneliness variable. Interpet model coefficients, noting which parameter addresses this hypothesis.\nRun two seperate models. First, a model with negative affect as the outcome, and mometary stress (esm.ACT39.w1) at level 1 as a the focal predictor. Second, run a model with stress at level 1 and stress at level 2. How do these two models differ? Interpret all parameters.\nFor the second model in #4, create a figure that you would want to include in a manuscript.\nTake the second model in #4 and address the hypothesis that stress only influences negative affect when a person is in their own home (esm.BH01.w1). What coefficient tests this hypothesis?\nTake the model in #6 and create predicted values to tell me the estimated negative affect the model predicts when: a) someone is a standard deviation above stress and in their own home. b) SD above on stress and outside their home. c) SD below stress, inside. d) SD below stress, outside.\nDescribe your overall strategy to fitting random effects in the above models"
   }
 ]

@@ -1,0 +1,29 @@
+---
+title: "hw3"
+editor: visual
+---
+
+Answer the questions below using the HW3 dataset from github. There is also a codebook (hw3 codebook on github) for this dataset. Note that this dataset should not be shared with anyone outside of class. 
+
+To get a better handle on predictors or covariates of our models, we are going to use a intensive longitudidnal dataset where people were assessed multiple times a day for two weeks. We will primarily be looking at negative emotion as it fluxtuates throughout the day. 
+
+1. In the procedure variables (take a look at the tab on the codebook) there is a variable for day of the week. Use this as our initial time variable. Run a multi level model to assess whether positive affect increases over study period. 
+
+2. Take the model in #1 and add in a between person loneliness predictor. We do not have between person loneliness measure, but we do have many assessments of momentary loneliness (esm.NQ33.w1). Using these momentary assessments, create a between person average of loneliness per  person and use to predict whether or not loneliness is associated with changes across time. Interpret the parameter that addresses this hypothesis.
+
+3. You have the hypothesis that average levels of loneliness would interact with whether or not someone interacts with people in general (ie how socialable they are) to impact negative affect. Take the interacting variable(esm.ST13.w1) and create a between person index to interact with the loneliness variable. Interpet model coefficients, noting which parameter addresses this hypothesis. 
+
+4. Run two seperate models. First, a model with negative affect as the outcome, and mometary stress (esm.ACT39.w1) at level 1 as a the focal predictor. Second, run a model with stress at level 1 *and* stress at level 2. How do these two models differ? Interpret all parameters. 
+
+5. For the second model in #4, create a figure that you would want to include in a manuscript. 
+
+6. Take the second model in #4 and address the hypothesis that stress only influences negative affect when a person is in their own home (esm.BH01.w1). What coefficient tests this hypothesis? 
+
+7. Take the model in #6 and create predicted values to tell me the estimated negative affect the model predicts when: a) someone is a standard deviation above stress and in their own home. b) SD above on stress and outside their home. c) SD below stress, inside. d) SD below stress, outside. 
+
+8. Describe your overall strategy to fitting random effects in the above models 
+
+
+
+
+

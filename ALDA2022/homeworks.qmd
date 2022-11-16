@@ -6,3 +6,5 @@ editor: visual
 1.  [Longitudinal MLM homework](hw1.qmd)
 
 2.  [Longitudinal SEM homework](hw2.qmd)
+
+3.  [Covariate homework](hw3.qmd)
