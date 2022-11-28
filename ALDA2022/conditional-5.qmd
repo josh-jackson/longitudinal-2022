@@ -826,7 +826,7 @@ Level 1 variables (tvs) are flexibly handled in SEM. Whereas previously a level 
 
 
 ```{r, echo = FALSE}
-
+#| code-fold: true
   tvc1 <- rnorm(n = 82, 0,1)
   tvc2 <- rnorm(n = 82, 0,1)
   tvc3 <- rnorm(n = 82, 0,1)
@@ -839,7 +839,7 @@ alcohol.wide <- cbind(temp2,tvc3 )
 ----------
 
 ```{r}
-# a linear growth model with a time-varying covariate
+#| code-fold: true
 
 model.5 <- '  i =~ 1*alcuse_14 + 1*alcuse_15 + 1*alcuse_16 
             s =~ 0*alcuse_14 + .5*alcuse_15 + 1*alcuse_16
@@ -862,3 +862,518 @@ summary(fit.5)
 ```
 
 Can we fix the TVCs to be the same? 
+
+
+
+## MELSM
+
+Mixed effects location scale model 
+```{r, messages = FALSE, warning=FALSE}
+#| code-fold: true
+melsm <- read.csv("~/Library/CloudStorage/Box-Box/Bayesian Statistics/bayes22/static/Lectures/melsm.csv")
+
+melsm <- melsm %>% 
+  mutate(day01 = (day - 2) / max((day - 2)))
+```
+
+
+```{r}
+#| code-fold: true
+melsm %>% 
+distinct(record_id) %>% 
+  count()
+```
+
+
+---
+
+Participants filled out daily affective measures and physical activity
+
+```{r}
+#| code-fold: true
+melsm %>% 
+    count(record_id) %>% 
+  ggplot(aes(x = n)) +
+  geom_bar() +
+  scale_x_continuous("number of days", limits = c(0, NA))
+```
+
+
+
+
+## Participant level
+
+```{r}
+#| code-fold: true
+melsm %>% 
+  nest(data = !record_id) %>% 
+  slice_sample(n = 16) %>% 
+  unnest(data) %>% 
+  ggplot(aes(x = day, y = N_A.lag)) +
+  geom_line(color = "black") +
+  geom_point(color = "black", size = 1/2) +
+  ylab("negative affect (standardized)") +
+  facet_wrap(~record_id)
+```
+
+
+
+
+## Standard MLM treatment
+
+```{r}
+#| code-fold: true
+library(brms)
+melsm.1 <-
+  brm(family = gaussian,
+      N_A.std ~ 1 + day01 + (1 + day01 | record_id),
+      prior = c(prior(normal(0, 0.2), class = Intercept),
+                prior(normal(0, 1), class = b),
+                prior(exponential(1), class = sd),
+                prior(exponential(1), class = sigma),
+                prior(lkj(2), class = cor)),
+      iter = 3000, warmup = 1000, chains = 4, cores = 4,
+      data = melsm,
+      file = "melsm.1")
+```
+
+
+---
+
+```{r}
+#| code-fold: true
+summary(melsm.1)
+```
+
+
+----
+
+
+```{r}
+#| code-fold: true
+m1 <- lmer(N_A.std ~ 1 + day01 + (1 + day01 | record_id), data = melsm)
+summary(m1)
+```
+
+
+---
+
+If we do not care about random effects, specify re_formula = NA
+```{r}
+#| code-fold: true
+library(tidybayes)
+fixed.slope<- melsm %>% 
+  data_grid(day01 = seq_range(day01, n = 20)) %>% 
+  add_epred_draws(melsm.1, re_formula = NA )
+  fixed.slope
+```
+
+---
+
+If we want random effects we need to specify the variable to get ALL levels. 
+```{r}
+#| code-fold: true
+melsm %>% 
+  data_grid(day01 = seq_range(day01, n = 20), record_id) 
+```
+193 people * 20 = 3860
+
+---
+
+Then we need to state re_forumla = NULL (which is the default)
+```{r}
+#| code-fold: true
+melsm %>% 
+  data_grid(day01 = seq_range(day01, n = 20), record_id) %>% 
+  add_epred_draws(melsm.1, re_formula = NULL )
+```
+
+---
+
+re_formula formula helps us focus on either the average trajectory (gammas) or the group specific (person Us). If NULL (default), include all group-level effects; if NA, include no group-level effects.
+
+ 160,000 = 20 (different values of X we chose) x 8000 iterations (2k x 4 chains)
+ 30,880,000 = 20* 8000 iterations * 193 people in our dataset
+
+---
+
+```{r}
+#| code-fold: true
+ melsm %>% 
+  data_grid(day01 = seq_range(day01, n = 20), record_id) %>% 
+  add_epred_draws(melsm.1, re_formula = NA) %>% 
+  ggplot()+
+  aes(x = day01, y = .epred) +
+  stat_lineribbon(.width = 0.95, alpha = .5)
+fixed.slope 
+```
+
+---
+
+```{r}
+#| code-fold: true
+## https://www.tjmahr.com/sample-n-groups/
+sample_n_of <- function(data, size, ...) {
+  dots <- quos(...)
+  group_ids <- data %>% 
+    group_by(!!! dots) %>% 
+    group_indices()
+  sampled_groups <- sample(unique(group_ids), size)
+  data %>% 
+    filter(group_ids %in% sampled_groups)
+}
+
+sample_n_of <- function(data, size, ...) {
+  dots <- quos(...)
+  
+  group_ids <- data %>% 
+    group_by(!!! dots) %>% 
+    group_indices()
+  
+  sampled_groups <- sample(unique(group_ids), size)
+  
+  data %>% 
+    filter(group_ids %in% sampled_groups)
+}
+
+
+melsm %>% 
+  data_grid(day01 = seq_range(day01, n = 20), record_id) %>% 
+    sample_n_of(5,record_id) %>% 
+  add_epred_draws(melsm.1, re_formula = NULL) %>% 
+  ggplot(aes(x = day01)) +
+  stat_lineribbon(aes(y = .epred, group = record_id))
+
+
+
+```
+
+
+
+## MLM assumptions
+
+- Sigma captures the variation in NA not accounted for by the intercepts, time predictors, and the correlation. An assumption is that sigma does NOT vary across persons, occasions, or other variables. 
+
+```{r}
+#| code-fold: true
+newd <-
+  melsm %>% 
+  filter(record_id %in% c(30, 115)) %>% 
+  select(record_id, N_A.std, day01)
+
+fits <- newd %>%
+  add_epred_draws(melsm.1)
+
+preds <- newd %>%
+  add_predicted_draws(melsm.1)
+
+fits %>% 
+ggplot(aes(x = day01, y = N_A.std)) +
+  stat_lineribbon(aes(y = .epred),.width = c(.95), alpha = 1/4, color ="grey") +
+  stat_lineribbon(data = preds, aes(y = .prediction),.width = c(.90), alpha = 1/4, color ="blue") +
+  geom_point(data = newd) +
+  facet_wrap(~record_id)
+```
+
+
+
+
+---
+
+$$NA_{ij} \sim \operatorname{Normal}(\mu_{ij}, \sigma_{i})$$
+
+$$\mu_{ij}  = \beta_0 + \beta_1 time_{ij} + u_{0i} + u_{1i} time_{ij}$$
+$$\log(\sigma_i )  = \eta_0 + u_{2i}$$
+
+$$\begin{bmatrix} u_{0i} \\ u_{1i} \\ {u_{2i}} \end{bmatrix}  \sim \operatorname{MVNormal}\begin{pmatrix} \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}, \mathbf S \mathbf R \mathbf S \end{pmatrix}$$
+$$\mathbf S  = \begin{bmatrix} \sigma_0 & 0 & 0 \\ 0 & \sigma_1 & 0 \\ 0 & 0 & \sigma_2 \end{bmatrix}$$
+$$\mathbf R = \begin{bmatrix} 1 & \rho_{12} & \rho_{13} \\ \rho_{21} & 1 & \rho_{23} \\ \rho_{31} & \rho_{32} & 1 \end{bmatrix}$$
+$$\beta_0  \sim \operatorname{Normal}(0, 0.2)$$
+$$\beta_1 \text{and } \eta_0  \sim \operatorname{Normal}(0, 1) $$
+$$ \sigma_0,\dots, \sigma_2 \sim \operatorname{Exponential}(1) $$
+$$\mathbf R  \sim \operatorname{LKJ}(2)$$
+
+---
+
+note: 1) brms default is to use log-link when modeling sigma
+2) |i| syntax within the parentheses allow for correlated random effects. Without this, the random intercept and slope would not be correlated with the random sigma term, effectively setting the correlation equal to zero 
+```{r}
+#| code-fold: true
+melsm.2 <-
+  brm(family = gaussian,
+      bf(N_A.std ~ 1 + day01 + (1 + day01 |i| record_id),
+         sigma ~ 1 + (1 |i| record_id)),
+                prior = c(prior(normal(0, 0.2), class = Intercept),
+                prior(normal(0, 1), class = b),
+                prior(exponential(1), class = sd),
+                prior(normal(0, 1), class = Intercept, dpar = sigma),
+                prior(exponential(1), class = sd, dpar = sigma),
+                prior(lkj(2), class = cor)),
+      iter = 3000, warmup = 1000, chains = 4, cores = 4,
+      data = melsm,
+      file = "melsm.2")
+```
+
+---
+ 
+
+```{r}
+#| code-fold: true
+summary(melsm.2)
+```
+
+
+---
+
+```{r}
+#| code-fold: true
+melsm.2 %>% 
+  spread_draws(b_sigma_Intercept) %>% 
+  exp() %>% 
+  median_qi()
+```
+
+```{r}
+#| code-fold: true
+melsm.2 %>% 
+  spread_draws(b_day01) %>% 
+  median_qi()
+```
+
+
+---
+
+```{r}
+#| code-fold: true
+melsm.2 %>% 
+spread_draws(b_sigma_Intercept,r_record_id__sigma[ID, term]) 
+```
+
+8000 samples * 193 participants = 1544000 
+
+---
+
+```{r}
+#| code-fold: true
+melsm.2 %>% 
+spread_draws(b_sigma_Intercept,r_record_id__sigma[ID, term]) %>% 
+  mutate(b_sigma_Intercept = exp(b_sigma_Intercept)) %>% 
+  mutate(r_record_id__sigma = exp(r_record_id__sigma)) %>% 
+   median_qi(estimate = b_sigma_Intercept + r_record_id__sigma) %>% 
+  ggplot(aes(x = reorder(ID, estimate), y = estimate, ymin = .lower, ymax = .upper)) +
+   geom_pointinterval(point_colour = "black", interval_color = "grey", point_alpha = .25) + scale_x_discrete("Participants ranked by posterior SD", breaks = NULL) + ylab("sigma estimate") + theme_light()
+```
+
+
+---
+
+```{r}
+#| code-fold: true
+fits2 <- newd %>%
+  add_epred_draws(melsm.2)
+
+preds2 <- newd %>%
+  add_predicted_draws(melsm.2)
+
+fits2 %>% 
+ggplot(aes(x = day01, y = N_A.std)) +
+  stat_lineribbon(aes(y = .epred),.width = c(.95), alpha = 1/4, color ="grey") +
+  stat_lineribbon(data = preds2, aes(y = .prediction),.width = c(.90), alpha = 1/4, color ="blue") +
+  geom_point(data = newd) +
+  facet_wrap(~record_id)
+```
+
+
+## time as a predictor of sigma
+
+```{r}
+melsm.3 <-
+  brm(family = gaussian,
+      bf(N_A.std ~ 1 + day01 + (1 + day01 |i| record_id),
+         sigma ~ 1 + day01 + (1 + day01 |i| record_id)),
+      prior = c(prior(normal(0, 0.2), class = Intercept),
+                prior(normal(0, 1), class = b),
+                prior(exponential(1), class = sd),
+                prior(normal(0, 1), class = Intercept, dpar = sigma),
+                prior(normal(0, 1), class = b, dpar = sigma),
+                prior(exponential(1), class = sd, dpar = sigma),
+                prior(lkj(2), class = cor)),
+      iter = 3000, warmup = 1000, chains = 4, cores = 4,
+      data = melsm,
+      file = "melsm.3")
+```
+
+
+---
+
+
+```{r}
+#| code-fold: true
+summary(melsm.3)
+```
+
+
+---
+
+```{r}
+#| code-fold: true
+melsm.3 %>% 
+  gather_draws(b_sigma_Intercept, b_sigma_day01) %>% 
+  median_qi()
+```
+
+---
+
+```{r}
+#| code-fold: true
+melsm.3 %>% 
+  spread_draws(b_sigma_Intercept) %>% 
+  mutate(sigma_day0 = exp(b_sigma_Intercept)) %>% 
+  select(sigma_day0) %>% 
+  median_qi()
+```
+
+```{r}
+#| code-fold: true
+melsm.3 %>% 
+  spread_draws(b_sigma_Intercept, b_sigma_day01) %>% 
+  mutate(sigma_day1 = exp(b_sigma_Intercept + b_sigma_day01)) %>% 
+  select(sigma_day1) %>% 
+  median_qi()
+```
+
+---
+
+```{r}
+#| code-fold: true
+ melsm %>% 
+  data_grid(day01 = seq_range(day01, n = 20), .model = melsm) %>% 
+  add_epred_draws(melsm.3, re_formula = NA, dpar = T) %>% 
+  ungroup() %>% 
+  select(day01, .epred, sigma)
+```
+20 * 8000 = 160000
+
+---
+
+```{r}
+#| code-fold: true
+melsm %>% 
+  data_grid(day01 = seq_range(day01, n = 20), .model = melsm) %>% 
+  add_epred_draws(melsm.3, re_formula = NA, dpar = T) %>% 
+  ungroup() %>% 
+  select(day01, .epred, sigma) %>% 
+  ggplot()+
+  aes(x = day01, y = sigma) +
+  stat_lineribbon(.width = 0.95, alpha = .5)
+```
+
+
+---
+
+```{r}
+#| code-fold: true
+ melsm %>% 
+  data_grid(day01 = seq_range(day01, n = 20), record_id) %>% 
+  add_linpred_draws(melsm.3, re_formula = NA, dpar = T) %>% 
+  ggplot()+
+  aes(x = day01, y = sigma) +
+  stat_lineribbon(.width = 0.95, alpha = .5)
+```
+
+
+---
+
+Lets look at random effects. Remember we fit a random effect for both the intercept and the slope (time)
+```{r}
+#| code-fold: true
+melsm.3 %>% 
+spread_draws(r_record_id__sigma[ID, term]) %>% 
+  mutate(r_record_id__sigma = exp(r_record_id__sigma)) 
+```
+193 * 8000 *2
+
+---
+
+```{r}
+#| code-fold: true
+melsm.3 %>% 
+spread_draws(r_record_id__sigma[ID, term]) %>% 
+  mutate(r_record_id__sigma = exp(r_record_id__sigma)) %>% 
+   median_qi(estimate = r_record_id__sigma) 
+```
+
+---
+
+
+```{r}
+#| code-fold: true
+melsm.3 %>% 
+spread_draws(r_record_id__sigma[ID, term]) %>% 
+  mutate(r_record_id__sigma = exp(r_record_id__sigma)) %>% 
+   median_qi(estimate = r_record_id__sigma) %>% 
+  filter(term == "Intercept") %>% 
+  ggplot(aes(x = reorder(ID, estimate), y = estimate, ymin = .lower, ymax = .upper)) +
+   geom_pointinterval(point_colour = "black", interval_color = "grey", point_alpha = .25) + scale_x_discrete("Participants ranked by posterior SD", breaks = NULL) + ylab("sigma estimate") + theme_light()
+```
+
+---
+
+
+```{r}
+#| code-fold: true
+melsm.3 %>% 
+spread_draws(r_record_id__sigma[ID, term]) %>% 
+  mutate(r_record_id__sigma = exp(r_record_id__sigma)) %>% 
+   median_qi(estimate = r_record_id__sigma) %>% 
+  filter(term == "day01") %>% 
+  ggplot(aes(x = reorder(ID, estimate), y = estimate, ymin = .lower, ymax = .upper)) +
+   geom_pointinterval(point_colour = "black", interval_color = "grey", point_alpha = .25) + scale_x_discrete("Participants ranked by posterior SD", breaks = NULL) + ylab("sigma estimate") + theme_light()
+```
+
+
+---
+
+When on the log scale you can more easily see some people are less than average where some are more than average in terms of sigma
+```{r}
+#| code-fold: true
+melsm.3 %>% 
+spread_draws(r_record_id__sigma[ID, term]) %>% 
+   median_qi(estimate = r_record_id__sigma) %>% 
+  filter(term == "day01") %>% 
+  ggplot(aes(x = reorder(ID, estimate), y = estimate, ymin = .lower, ymax = .upper)) +
+   geom_pointinterval(point_colour = "black", interval_color = "grey", point_alpha = .25) + scale_x_discrete("Participants ranked by posterior SD", breaks = NULL) + ylab("sigma estimate") + theme_light()
+```
+
+
+---
+
+```{r}
+#| code-fold: true
+fits3 <- newd %>%
+  add_epred_draws(melsm.3)
+
+preds3 <- newd %>%
+  add_predicted_draws(melsm.3)
+
+fits3 %>% 
+ggplot(aes(x = day01, y = N_A.std)) +
+  stat_lineribbon(aes(y = .epred),.width = c(.95), alpha = 1/4, color ="grey") +
+  stat_lineribbon(data = preds3, aes(y = .prediction),.width = c(.90), alpha = 1/4, color ="blue") +
+  geom_point(data = newd) +
+  facet_wrap(~record_id)
+```
+
+
+---
+
+```{r}
+#| code-fold: true
+preds3 %>% 
+ggplot(aes(x = .prediction)) +
+  stat_halfeye(aes(x = .prediction)) +
+  facet_wrap(~record_id) + xlim(-4,4)
+
+```
+
+
