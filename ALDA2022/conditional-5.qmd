@@ -868,8 +868,13 @@ Can we fix the TVCs to be the same?
 ## MELSM
 
 Mixed effects location scale model 
-```{r, messages = FALSE, warning=FALSE}
-#| code-fold: true
+location = mean
+scale = variance (usually)
+
+Basically it means modeling multiple distributional parameters simultaneously. 
+
+```{r}
+#| echo: FALSE
 melsm <- read.csv("~/Library/CloudStorage/Box-Box/Bayesian Statistics/bayes22/static/Lectures/melsm.csv")
 
 melsm <- melsm %>% 
@@ -959,6 +964,7 @@ summary(m1)
 ---
 
 If we do not care about random effects, specify re_formula = NA
+
 ```{r}
 #| code-fold: true
 library(tidybayes)
@@ -968,9 +974,11 @@ fixed.slope<- melsm %>%
   fixed.slope
 ```
 
+
 ---
 
 If we want random effects we need to specify the variable to get ALL levels. 
+
 ```{r}
 #| code-fold: true
 melsm %>% 
@@ -981,6 +989,7 @@ melsm %>%
 ---
 
 Then we need to state re_forumla = NULL (which is the default)
+
 ```{r}
 #| code-fold: true
 melsm %>% 
@@ -1005,7 +1014,6 @@ re_formula formula helps us focus on either the average trajectory (gammas) or t
   ggplot()+
   aes(x = day01, y = .epred) +
   stat_lineribbon(.width = 0.95, alpha = .5)
-fixed.slope 
 ```
 
 ---
@@ -1050,9 +1058,7 @@ melsm %>%
 
 
 
-## MLM assumptions
-
-- Sigma captures the variation in NA not accounted for by the intercepts, time predictors, and the correlation. An assumption is that sigma does NOT vary across persons, occasions, or other variables. 
+## Sigma is unmodeled variation
 
 ```{r}
 #| code-fold: true

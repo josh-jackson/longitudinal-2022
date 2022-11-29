@@ -1453,7 +1453,7 @@
     "href": "conditional-5.html#melsm",
     "title": "conditional",
     "section": "MELSM",
-    "text": "MELSM\nMixed effects location scale model ::: {.cell messages=‘false’}\n\nCode\nmelsm <- read.csv(\"~/Library/CloudStorage/Box-Box/Bayesian Statistics/bayes22/static/Lectures/melsm.csv\")\n\nmelsm <- melsm %>% \n  mutate(day01 = (day - 2) / max((day - 2)))\n\n:::\n\n\nCode\nmelsm %>% \ndistinct(record_id) %>% \n  count()\n\n\n    n\n1 193"
+    "text": "MELSM\nMixed effects location scale model location = mean scale = variance (usually)\nBasically it means modeling multiple distributional parameters simultaneously.\n\n\n\n\n\nCode\nmelsm %>% \ndistinct(record_id) %>% \n  count()\n\n\n    n\n1 193"
   },
   {
     "objectID": "conditional-5.html#participant-level",
@@ -1482,5 +1482,12 @@
     "title": "conditional",
     "section": "time as a predictor of sigma",
     "text": "time as a predictor of sigma\n\nmelsm.3 <-\n  brm(family = gaussian,\n      bf(N_A.std ~ 1 + day01 + (1 + day01 |i| record_id),\n         sigma ~ 1 + day01 + (1 + day01 |i| record_id)),\n      prior = c(prior(normal(0, 0.2), class = Intercept),\n                prior(normal(0, 1), class = b),\n                prior(exponential(1), class = sd),\n                prior(normal(0, 1), class = Intercept, dpar = sigma),\n                prior(normal(0, 1), class = b, dpar = sigma),\n                prior(exponential(1), class = sd, dpar = sigma),\n                prior(lkj(2), class = cor)),\n      iter = 3000, warmup = 1000, chains = 4, cores = 4,\n      data = melsm,\n      file = \"melsm.3\")"
+  },
+  {
+    "objectID": "conditional-5.html#sigma-is-unmodeled-variation",
+    "href": "conditional-5.html#sigma-is-unmodeled-variation",
+    "title": "conditional",
+    "section": "Sigma is unmodeled variation",
+    "text": "Sigma is unmodeled variation\n\n\nCode\nnewd <-\n  melsm %>% \n  filter(record_id %in% c(30, 115)) %>% \n  select(record_id, N_A.std, day01)\n\nfits <- newd %>%\n  add_epred_draws(melsm.1)\n\npreds <- newd %>%\n  add_predicted_draws(melsm.1)\n\nfits %>% \nggplot(aes(x = day01, y = N_A.std)) +\n  stat_lineribbon(aes(y = .epred),.width = c(.95), alpha = 1/4, color =\"grey\") +\n  stat_lineribbon(data = preds, aes(y = .prediction),.width = c(.90), alpha = 1/4, color =\"blue\") +\n  geom_point(data = newd) +\n  facet_wrap(~record_id)"
   }
 ]

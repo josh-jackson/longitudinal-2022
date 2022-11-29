@@ -1685,9 +1685,9 @@ Variances:
                                                       
 Model Test User Model:
                                                       
-  Test statistic                                 9.670
+  Test statistic                                15.532
   Degrees of freedom                                 9
-  P-value (Chi-square)                           0.378
+  P-value (Chi-square)                           0.077
 
 Parameter Estimates:
 
@@ -1709,59 +1709,55 @@ Latent Variables:
 Regressions:
                    Estimate  Std.Err  z-value  P(&gt;|z|)
   i ~                                                 
-    male              0.093    0.172    0.539    0.590
-    cpeer             0.739    0.119    6.226    0.000
+    male              0.116    0.167    0.694    0.487
+    cpeer             0.731    0.115    6.343    0.000
   s ~                                                 
-    male              0.512    0.239    2.144    0.032
-    cpeer            -0.213    0.165   -1.289    0.198
+    male              0.488    0.249    1.962    0.050
+    cpeer            -0.199    0.171   -1.159    0.247
   alcuse_14 ~                                         
-    tvc1              0.105    0.073    1.442    0.149
+    tvc1              0.125    0.064    1.957    0.050
   alcuse_15 ~                                         
-    tvc2             -0.029    0.078   -0.370    0.712
+    tvc2              0.030    0.079    0.378    0.706
   alcuse_16 ~                                         
-    tvc3              0.123    0.104    1.180    0.238
+    tvc3             -0.024    0.086   -0.282    0.778
 
 Covariances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)
  .i ~~                                                
-   .s                -0.140    0.157   -0.896    0.370
+   .s                -0.200    0.153   -1.304    0.192
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)
    .alcuse_14         0.000                           
    .alcuse_15         0.000                           
    .alcuse_16         0.000                           
-   .i                 0.586    0.121    4.832    0.000
-   .s                 0.297    0.169    1.765    0.078
+   .i                 0.554    0.119    4.668    0.000
+   .s                 0.327    0.176    1.856    0.063
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)
-   .alcuse_14         0.171    0.123    1.395    0.163
-   .alcuse_15         0.397    0.085    4.698    0.000
-   .alcuse_16         0.284    0.167    1.704    0.088
-   .i                 0.417    0.136    3.062    0.002
-   .s                 0.657    0.292    2.250    0.024</code></pre>
+   .alcuse_14         0.136    0.118    1.156    0.248
+   .alcuse_15         0.416    0.086    4.862    0.000
+   .alcuse_16         0.230    0.166    1.385    0.166
+   .i                 0.416    0.133    3.129    0.002
+   .s                 0.841    0.293    2.869    0.004</code></pre>
 </div>
 </div>
 <p>Can we fix the TVCs to be the same?</p>
 </section>
 <section id="melsm" class="slide level2">
 <h2>MELSM</h2>
-<p>Mixed effects location scale model ::: {.cell messages=‘false’}</p>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>melsm <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"~/Library/CloudStorage/Box-Box/Bayesian Statistics/bayes22/static/Lectures/melsm.csv"</span>)</span>
-<span id="cb40-2"><a href="#cb40-2"></a></span>
-<span id="cb40-3"><a href="#cb40-3"></a>melsm <span class="ot">&lt;-</span> melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb40-4"><a href="#cb40-4"></a>  <span class="fu">mutate</span>(<span class="at">day01 =</span> (day <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="fu">max</span>((day <span class="sc">-</span> <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<p>:::</p>
+<p>Mixed effects location scale model location = mean scale = variance (usually)</p>
+<p>Basically it means modeling multiple distributional parameters simultaneously.</p>
+<div class="cell">
+
+</div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb41-2"><a href="#cb41-2"></a><span class="fu">distinct</span>(record_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-3"><a href="#cb41-3"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2"></a><span class="fu">distinct</span>(record_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>    n
@@ -1775,11 +1771,11 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb43-2"><a href="#cb43-2"></a>    <span class="fu">count</span>(record_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n)) <span class="sc">+</span></span>
-<span id="cb43-4"><a href="#cb43-4"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb43-5"><a href="#cb43-5"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"number of days"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2"></a>    <span class="fu">count</span>(record_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n)) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="#cb42-4"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"number of days"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -1789,15 +1785,15 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">!</span>record_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a href="#cb44-3"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">unnest</span>(data) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-5"><a href="#cb44-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day, <span class="at">y =</span> N_A.lag)) <span class="sc">+</span></span>
-<span id="cb44-6"><a href="#cb44-6"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb44-7"><a href="#cb44-7"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb44-8"><a href="#cb44-8"></a>  <span class="fu">ylab</span>(<span class="st">"negative affect (standardized)"</span>) <span class="sc">+</span></span>
-<span id="cb44-9"><a href="#cb44-9"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>record_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">!</span>record_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-4"><a href="#cb43-4"></a>  <span class="fu">unnest</span>(data) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-5"><a href="#cb43-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day, <span class="at">y =</span> N_A.lag)) <span class="sc">+</span></span>
+<span id="cb43-6"><a href="#cb43-6"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb43-7"><a href="#cb43-7"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb43-8"><a href="#cb43-8"></a>  <span class="fu">ylab</span>(<span class="st">"negative affect (standardized)"</span>) <span class="sc">+</span></span>
+<span id="cb43-9"><a href="#cb43-9"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>record_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -1807,18 +1803,18 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">library</span>(brms)</span>
-<span id="cb45-2"><a href="#cb45-2"></a>melsm<span class="fl">.1</span> <span class="ot">&lt;-</span></span>
-<span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">brm</span>(<span class="at">family =</span> gaussian,</span>
-<span id="cb45-4"><a href="#cb45-4"></a>      N_A.std <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">|</span> record_id),</span>
-<span id="cb45-5"><a href="#cb45-5"></a>      <span class="at">prior =</span> <span class="fu">c</span>(<span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">0.2</span>), <span class="at">class =</span> Intercept),</span>
-<span id="cb45-6"><a href="#cb45-6"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b),</span>
-<span id="cb45-7"><a href="#cb45-7"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
-<span id="cb45-8"><a href="#cb45-8"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sigma),</span>
-<span id="cb45-9"><a href="#cb45-9"></a>                <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor)),</span>
-<span id="cb45-10"><a href="#cb45-10"></a>      <span class="at">iter =</span> <span class="dv">3000</span>, <span class="at">warmup =</span> <span class="dv">1000</span>, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>,</span>
-<span id="cb45-11"><a href="#cb45-11"></a>      <span class="at">data =</span> melsm,</span>
-<span id="cb45-12"><a href="#cb45-12"></a>      <span class="at">file =</span> <span class="st">"melsm.1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(brms)</span>
+<span id="cb44-2"><a href="#cb44-2"></a>melsm<span class="fl">.1</span> <span class="ot">&lt;-</span></span>
+<span id="cb44-3"><a href="#cb44-3"></a>  <span class="fu">brm</span>(<span class="at">family =</span> gaussian,</span>
+<span id="cb44-4"><a href="#cb44-4"></a>      N_A.std <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">|</span> record_id),</span>
+<span id="cb44-5"><a href="#cb44-5"></a>      <span class="at">prior =</span> <span class="fu">c</span>(<span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">0.2</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb44-6"><a href="#cb44-6"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b),</span>
+<span id="cb44-7"><a href="#cb44-7"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
+<span id="cb44-8"><a href="#cb44-8"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sigma),</span>
+<span id="cb44-9"><a href="#cb44-9"></a>                <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor)),</span>
+<span id="cb44-10"><a href="#cb44-10"></a>      <span class="at">iter =</span> <span class="dv">3000</span>, <span class="at">warmup =</span> <span class="dv">1000</span>, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb44-11"><a href="#cb44-11"></a>      <span class="at">data =</span> melsm,</span>
+<span id="cb44-12"><a href="#cb44-12"></a>      <span class="at">file =</span> <span class="st">"melsm.1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -1827,7 +1823,7 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">summary</span>(melsm<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">summary</span>(melsm<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: gaussian 
@@ -1868,8 +1864,8 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(N_A.std <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">|</span> record_id), <span class="at">data =</span> melsm)</span>
-<span id="cb48-2"><a href="#cb48-2"></a><span class="fu">summary</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(N_A.std <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">|</span> record_id), <span class="at">data =</span> melsm)</span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="fu">summary</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
@@ -1902,14 +1898,15 @@ day01 -0.368</code></pre>
 </section>
 <section class="slide level2">
 
-<p>If we do not care about random effects, specify re_formula = NA ::: {.cell}</p>
+<p>If we do not care about random effects, specify re_formula = NA</p>
+<div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">library</span>(tidybayes)</span>
-<span id="cb50-2"><a href="#cb50-2"></a>fixed.slope<span class="ot">&lt;-</span> melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb50-3"><a href="#cb50-3"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb50-4"><a href="#cb50-4"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.1</span>, <span class="at">re_formula =</span> <span class="cn">NA</span> )</span>
-<span id="cb50-5"><a href="#cb50-5"></a>  fixed.slope</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">library</span>(tidybayes)</span>
+<span id="cb49-2"><a href="#cb49-2"></a>fixed.slope<span class="ot">&lt;-</span> melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-4"><a href="#cb49-4"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.1</span>, <span class="at">re_formula =</span> <span class="cn">NA</span> )</span>
+<span id="cb49-5"><a href="#cb49-5"></a>  fixed.slope</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 160,000 × 6
@@ -1928,15 +1925,16 @@ day01 -0.368</code></pre>
 10     0     1     NA         NA    10 0.0742
 # … with 159,990 more rows</code></pre>
 </div>
-<p>:::</p>
+</div>
 </section>
 <section class="slide level2">
 
-<p>If we want random effects we need to specify the variable to get ALL levels. ::: {.cell}</p>
+<p>If we want random effects we need to specify the variable to get ALL levels.</p>
+<div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb52-2"><a href="#cb52-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), record_id) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), record_id) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,860 × 2
@@ -1954,16 +1952,18 @@ day01 -0.368</code></pre>
 10     0        10
 # … with 3,850 more rows</code></pre>
 </div>
-<p>::: 193 people * 20 = 3860</p>
+</div>
+<p>193 people * 20 = 3860</p>
 </section>
 <section class="slide level2">
 
-<p>Then we need to state re_forumla = NULL (which is the default) ::: {.cell}</p>
+<p>Then we need to state re_forumla = NULL (which is the default)</p>
+<div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb54-2"><a href="#cb54-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), record_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb54-3"><a href="#cb54-3"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.1</span>, <span class="at">re_formula =</span> <span class="cn">NULL</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="#cb53-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), record_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb53-3"><a href="#cb53-3"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.1</span>, <span class="at">re_formula =</span> <span class="cn">NULL</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 30,880,000 × 7
@@ -1982,7 +1982,7 @@ day01 -0.368</code></pre>
 10     0         1     1     NA         NA    10 0.0894
 # … with 30,879,990 more rows</code></pre>
 </div>
-<p>:::</p>
+</div>
 </section>
 <section class="slide level2">
 
@@ -1994,35 +1994,14 @@ day01 -0.368</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a> melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb56-2"><a href="#cb56-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), record_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb56-3"><a href="#cb56-3"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.1</span>, <span class="at">re_formula =</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb56-4"><a href="#cb56-4"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb56-5"><a href="#cb56-5"></a>  <span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> .epred) <span class="sc">+</span></span>
-<span id="cb56-6"><a href="#cb56-6"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">.width =</span> <span class="fl">0.95</span>, <span class="at">alpha =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a> melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="#cb55-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), record_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-3"><a href="#cb55-3"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.1</span>, <span class="at">re_formula =</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-4"><a href="#cb55-4"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb55-5"><a href="#cb55-5"></a>  <span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> .epred) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="#cb55-6"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">.width =</span> <span class="fl">0.95</span>, <span class="at">alpha =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>fixed.slope </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 160,000 × 6
-# Groups:   day01, .row [20]
-   day01  .row .chain .iteration .draw .epred
-   &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;      &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
- 1     0     1     NA         NA     1 0.0680
- 2     0     1     NA         NA     2 0.0388
- 3     0     1     NA         NA     3 0.0315
- 4     0     1     NA         NA     4 0.0407
- 5     0     1     NA         NA     5 0.0363
- 6     0     1     NA         NA     6 0.0128
- 7     0     1     NA         NA     7 0.0531
- 8     0     1     NA         NA     8 0.0836
- 9     0     1     NA         NA     9 0.0961
-10     0     1     NA         NA    10 0.0742
-# … with 159,990 more rows</code></pre>
-</div>
 </div>
 <img data-src="conditional-5_files/figure-revealjs/unnamed-chunk-33-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
@@ -2030,66 +2009,63 @@ day01 -0.368</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="do">## https://www.tjmahr.com/sample-n-groups/</span></span>
-<span id="cb59-2"><a href="#cb59-2"></a>sample_n_of <span class="ot">&lt;-</span> <span class="cf">function</span>(data, size, ...) {</span>
-<span id="cb59-3"><a href="#cb59-3"></a>  dots <span class="ot">&lt;-</span> <span class="fu">quos</span>(...)</span>
-<span id="cb59-4"><a href="#cb59-4"></a>  group_ids <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb59-5"><a href="#cb59-5"></a>    <span class="fu">group_by</span>(<span class="sc">!!!</span> dots) <span class="sc">%&gt;%</span> </span>
-<span id="cb59-6"><a href="#cb59-6"></a>    <span class="fu">group_indices</span>()</span>
-<span id="cb59-7"><a href="#cb59-7"></a>  sampled_groups <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(group_ids), size)</span>
-<span id="cb59-8"><a href="#cb59-8"></a>  data <span class="sc">%&gt;%</span> </span>
-<span id="cb59-9"><a href="#cb59-9"></a>    <span class="fu">filter</span>(group_ids <span class="sc">%in%</span> sampled_groups)</span>
-<span id="cb59-10"><a href="#cb59-10"></a>}</span>
-<span id="cb59-11"><a href="#cb59-11"></a></span>
-<span id="cb59-12"><a href="#cb59-12"></a>sample_n_of <span class="ot">&lt;-</span> <span class="cf">function</span>(data, size, ...) {</span>
-<span id="cb59-13"><a href="#cb59-13"></a>  dots <span class="ot">&lt;-</span> <span class="fu">quos</span>(...)</span>
-<span id="cb59-14"><a href="#cb59-14"></a>  </span>
-<span id="cb59-15"><a href="#cb59-15"></a>  group_ids <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb59-16"><a href="#cb59-16"></a>    <span class="fu">group_by</span>(<span class="sc">!!!</span> dots) <span class="sc">%&gt;%</span> </span>
-<span id="cb59-17"><a href="#cb59-17"></a>    <span class="fu">group_indices</span>()</span>
-<span id="cb59-18"><a href="#cb59-18"></a>  </span>
-<span id="cb59-19"><a href="#cb59-19"></a>  sampled_groups <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(group_ids), size)</span>
-<span id="cb59-20"><a href="#cb59-20"></a>  </span>
-<span id="cb59-21"><a href="#cb59-21"></a>  data <span class="sc">%&gt;%</span> </span>
-<span id="cb59-22"><a href="#cb59-22"></a>    <span class="fu">filter</span>(group_ids <span class="sc">%in%</span> sampled_groups)</span>
-<span id="cb59-23"><a href="#cb59-23"></a>}</span>
-<span id="cb59-24"><a href="#cb59-24"></a></span>
-<span id="cb59-25"><a href="#cb59-25"></a></span>
-<span id="cb59-26"><a href="#cb59-26"></a>melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb59-27"><a href="#cb59-27"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), record_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb59-28"><a href="#cb59-28"></a>    <span class="fu">sample_n_of</span>(<span class="dv">5</span>,record_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb59-29"><a href="#cb59-29"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.1</span>, <span class="at">re_formula =</span> <span class="cn">NULL</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb59-30"><a href="#cb59-30"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day01)) <span class="sc">+</span></span>
-<span id="cb59-31"><a href="#cb59-31"></a>  <span class="fu">stat_lineribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> .epred, <span class="at">group =</span> record_id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="do">## https://www.tjmahr.com/sample-n-groups/</span></span>
+<span id="cb56-2"><a href="#cb56-2"></a>sample_n_of <span class="ot">&lt;-</span> <span class="cf">function</span>(data, size, ...) {</span>
+<span id="cb56-3"><a href="#cb56-3"></a>  dots <span class="ot">&lt;-</span> <span class="fu">quos</span>(...)</span>
+<span id="cb56-4"><a href="#cb56-4"></a>  group_ids <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb56-5"><a href="#cb56-5"></a>    <span class="fu">group_by</span>(<span class="sc">!!!</span> dots) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-6"><a href="#cb56-6"></a>    <span class="fu">group_indices</span>()</span>
+<span id="cb56-7"><a href="#cb56-7"></a>  sampled_groups <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(group_ids), size)</span>
+<span id="cb56-8"><a href="#cb56-8"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb56-9"><a href="#cb56-9"></a>    <span class="fu">filter</span>(group_ids <span class="sc">%in%</span> sampled_groups)</span>
+<span id="cb56-10"><a href="#cb56-10"></a>}</span>
+<span id="cb56-11"><a href="#cb56-11"></a></span>
+<span id="cb56-12"><a href="#cb56-12"></a>sample_n_of <span class="ot">&lt;-</span> <span class="cf">function</span>(data, size, ...) {</span>
+<span id="cb56-13"><a href="#cb56-13"></a>  dots <span class="ot">&lt;-</span> <span class="fu">quos</span>(...)</span>
+<span id="cb56-14"><a href="#cb56-14"></a>  </span>
+<span id="cb56-15"><a href="#cb56-15"></a>  group_ids <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb56-16"><a href="#cb56-16"></a>    <span class="fu">group_by</span>(<span class="sc">!!!</span> dots) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-17"><a href="#cb56-17"></a>    <span class="fu">group_indices</span>()</span>
+<span id="cb56-18"><a href="#cb56-18"></a>  </span>
+<span id="cb56-19"><a href="#cb56-19"></a>  sampled_groups <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(group_ids), size)</span>
+<span id="cb56-20"><a href="#cb56-20"></a>  </span>
+<span id="cb56-21"><a href="#cb56-21"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb56-22"><a href="#cb56-22"></a>    <span class="fu">filter</span>(group_ids <span class="sc">%in%</span> sampled_groups)</span>
+<span id="cb56-23"><a href="#cb56-23"></a>}</span>
+<span id="cb56-24"><a href="#cb56-24"></a></span>
+<span id="cb56-25"><a href="#cb56-25"></a></span>
+<span id="cb56-26"><a href="#cb56-26"></a>melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb56-27"><a href="#cb56-27"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), record_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-28"><a href="#cb56-28"></a>    <span class="fu">sample_n_of</span>(<span class="dv">5</span>,record_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-29"><a href="#cb56-29"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.1</span>, <span class="at">re_formula =</span> <span class="cn">NULL</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-30"><a href="#cb56-30"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day01)) <span class="sc">+</span></span>
+<span id="cb56-31"><a href="#cb56-31"></a>  <span class="fu">stat_lineribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> .epred, <span class="at">group =</span> record_id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
 <img data-src="conditional-5_files/figure-revealjs/unnamed-chunk-34-1.png" width="960" class="r-stretch"></section>
-<section id="mlm-assumptions" class="slide level2">
-<h2>MLM assumptions</h2>
-<ul>
-<li>Sigma captures the variation in NA not accounted for by the intercepts, time predictors, and the correlation. An assumption is that sigma does NOT vary across persons, occasions, or other variables.</li>
-</ul>
+<section id="sigma-is-unmodeled-variation" class="slide level2">
+<h2>Sigma is unmodeled variation</h2>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>newd <span class="ot">&lt;-</span></span>
-<span id="cb60-2"><a href="#cb60-2"></a>  melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb60-3"><a href="#cb60-3"></a>  <span class="fu">filter</span>(record_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">115</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb60-4"><a href="#cb60-4"></a>  <span class="fu">select</span>(record_id, N_A.std, day01)</span>
-<span id="cb60-5"><a href="#cb60-5"></a></span>
-<span id="cb60-6"><a href="#cb60-6"></a>fits <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
-<span id="cb60-7"><a href="#cb60-7"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.1</span>)</span>
-<span id="cb60-8"><a href="#cb60-8"></a></span>
-<span id="cb60-9"><a href="#cb60-9"></a>preds <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
-<span id="cb60-10"><a href="#cb60-10"></a>  <span class="fu">add_predicted_draws</span>(melsm<span class="fl">.1</span>)</span>
-<span id="cb60-11"><a href="#cb60-11"></a></span>
-<span id="cb60-12"><a href="#cb60-12"></a>fits <span class="sc">%&gt;%</span> </span>
-<span id="cb60-13"><a href="#cb60-13"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> N_A.std)) <span class="sc">+</span></span>
-<span id="cb60-14"><a href="#cb60-14"></a>  <span class="fu">stat_lineribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> .epred),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">95</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb60-15"><a href="#cb60-15"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">y =</span> .prediction),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">90</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb60-16"><a href="#cb60-16"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> newd) <span class="sc">+</span></span>
-<span id="cb60-17"><a href="#cb60-17"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>record_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>newd <span class="ot">&lt;-</span></span>
+<span id="cb57-2"><a href="#cb57-2"></a>  melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb57-3"><a href="#cb57-3"></a>  <span class="fu">filter</span>(record_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">115</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-4"><a href="#cb57-4"></a>  <span class="fu">select</span>(record_id, N_A.std, day01)</span>
+<span id="cb57-5"><a href="#cb57-5"></a></span>
+<span id="cb57-6"><a href="#cb57-6"></a>fits <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
+<span id="cb57-7"><a href="#cb57-7"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.1</span>)</span>
+<span id="cb57-8"><a href="#cb57-8"></a></span>
+<span id="cb57-9"><a href="#cb57-9"></a>preds <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
+<span id="cb57-10"><a href="#cb57-10"></a>  <span class="fu">add_predicted_draws</span>(melsm<span class="fl">.1</span>)</span>
+<span id="cb57-11"><a href="#cb57-11"></a></span>
+<span id="cb57-12"><a href="#cb57-12"></a>fits <span class="sc">%&gt;%</span> </span>
+<span id="cb57-13"><a href="#cb57-13"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> N_A.std)) <span class="sc">+</span></span>
+<span id="cb57-14"><a href="#cb57-14"></a>  <span class="fu">stat_lineribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> .epred),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">95</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb57-15"><a href="#cb57-15"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">data =</span> preds, <span class="fu">aes</span>(<span class="at">y =</span> .prediction),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">90</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb57-16"><a href="#cb57-16"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> newd) <span class="sc">+</span></span>
+<span id="cb57-17"><a href="#cb57-17"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>record_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -2112,19 +2088,19 @@ day01 -0.368</code></pre>
 <p>note: 1) brms default is to use log-link when modeling sigma 2) |i| syntax within the parentheses allow for correlated random effects. Without this, the random intercept and slope would not be correlated with the random sigma term, effectively setting the correlation equal to zero ::: {.cell}</p>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>melsm<span class="fl">.2</span> <span class="ot">&lt;-</span></span>
-<span id="cb61-2"><a href="#cb61-2"></a>  <span class="fu">brm</span>(<span class="at">family =</span> gaussian,</span>
-<span id="cb61-3"><a href="#cb61-3"></a>      <span class="fu">bf</span>(N_A.std <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">|</span>i<span class="sc">|</span> record_id),</span>
-<span id="cb61-4"><a href="#cb61-4"></a>         sigma <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span>i<span class="sc">|</span> record_id)),</span>
-<span id="cb61-5"><a href="#cb61-5"></a>                <span class="at">prior =</span> <span class="fu">c</span>(<span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">0.2</span>), <span class="at">class =</span> Intercept),</span>
-<span id="cb61-6"><a href="#cb61-6"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b),</span>
-<span id="cb61-7"><a href="#cb61-7"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
-<span id="cb61-8"><a href="#cb61-8"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> Intercept, <span class="at">dpar =</span> sigma),</span>
-<span id="cb61-9"><a href="#cb61-9"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd, <span class="at">dpar =</span> sigma),</span>
-<span id="cb61-10"><a href="#cb61-10"></a>                <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor)),</span>
-<span id="cb61-11"><a href="#cb61-11"></a>      <span class="at">iter =</span> <span class="dv">3000</span>, <span class="at">warmup =</span> <span class="dv">1000</span>, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>,</span>
-<span id="cb61-12"><a href="#cb61-12"></a>      <span class="at">data =</span> melsm,</span>
-<span id="cb61-13"><a href="#cb61-13"></a>      <span class="at">file =</span> <span class="st">"melsm.2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>melsm<span class="fl">.2</span> <span class="ot">&lt;-</span></span>
+<span id="cb58-2"><a href="#cb58-2"></a>  <span class="fu">brm</span>(<span class="at">family =</span> gaussian,</span>
+<span id="cb58-3"><a href="#cb58-3"></a>      <span class="fu">bf</span>(N_A.std <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">|</span>i<span class="sc">|</span> record_id),</span>
+<span id="cb58-4"><a href="#cb58-4"></a>         sigma <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span>i<span class="sc">|</span> record_id)),</span>
+<span id="cb58-5"><a href="#cb58-5"></a>                <span class="at">prior =</span> <span class="fu">c</span>(<span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">0.2</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb58-6"><a href="#cb58-6"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b),</span>
+<span id="cb58-7"><a href="#cb58-7"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
+<span id="cb58-8"><a href="#cb58-8"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> Intercept, <span class="at">dpar =</span> sigma),</span>
+<span id="cb58-9"><a href="#cb58-9"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd, <span class="at">dpar =</span> sigma),</span>
+<span id="cb58-10"><a href="#cb58-10"></a>                <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor)),</span>
+<span id="cb58-11"><a href="#cb58-11"></a>      <span class="at">iter =</span> <span class="dv">3000</span>, <span class="at">warmup =</span> <span class="dv">1000</span>, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb58-12"><a href="#cb58-12"></a>      <span class="at">data =</span> melsm,</span>
+<span id="cb58-13"><a href="#cb58-13"></a>      <span class="at">file =</span> <span class="st">"melsm.2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <p>:::</p>
 </section>
@@ -2133,7 +2109,7 @@ day01 -0.368</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="fu">summary</span>(melsm<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="fu">summary</span>(melsm<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: gaussian 
@@ -2178,10 +2154,10 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>melsm<span class="fl">.2</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb64-2"><a href="#cb64-2"></a>  <span class="fu">spread_draws</span>(b_sigma_Intercept) <span class="sc">%&gt;%</span> </span>
-<span id="cb64-3"><a href="#cb64-3"></a>  <span class="fu">exp</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb64-4"><a href="#cb64-4"></a>  <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>melsm<span class="fl">.2</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb61-2"><a href="#cb61-2"></a>  <span class="fu">spread_draws</span>(b_sigma_Intercept) <span class="sc">%&gt;%</span> </span>
+<span id="cb61-3"><a href="#cb61-3"></a>  <span class="fu">exp</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb61-4"><a href="#cb61-4"></a>  <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
@@ -2193,9 +2169,9 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>melsm<span class="fl">.2</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb66-2"><a href="#cb66-2"></a>  <span class="fu">spread_draws</span>(b_day01) <span class="sc">%&gt;%</span> </span>
-<span id="cb66-3"><a href="#cb66-3"></a>  <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>melsm<span class="fl">.2</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb63-2"><a href="#cb63-2"></a>  <span class="fu">spread_draws</span>(b_day01) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-3"><a href="#cb63-3"></a>  <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
@@ -2210,8 +2186,8 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>melsm<span class="fl">.2</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb68-2"><a href="#cb68-2"></a><span class="fu">spread_draws</span>(b_sigma_Intercept,r_record_id__sigma[ID, term]) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a>melsm<span class="fl">.2</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb65-2"><a href="#cb65-2"></a><span class="fu">spread_draws</span>(b_sigma_Intercept,r_record_id__sigma[ID, term]) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,544,000 × 7
@@ -2238,13 +2214,13 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>melsm<span class="fl">.2</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb70-2"><a href="#cb70-2"></a><span class="fu">spread_draws</span>(b_sigma_Intercept,r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
-<span id="cb70-3"><a href="#cb70-3"></a>  <span class="fu">mutate</span>(<span class="at">b_sigma_Intercept =</span> <span class="fu">exp</span>(b_sigma_Intercept)) <span class="sc">%&gt;%</span> </span>
-<span id="cb70-4"><a href="#cb70-4"></a>  <span class="fu">mutate</span>(<span class="at">r_record_id__sigma =</span> <span class="fu">exp</span>(r_record_id__sigma)) <span class="sc">%&gt;%</span> </span>
-<span id="cb70-5"><a href="#cb70-5"></a>   <span class="fu">median_qi</span>(<span class="at">estimate =</span> b_sigma_Intercept <span class="sc">+</span> r_record_id__sigma) <span class="sc">%&gt;%</span> </span>
-<span id="cb70-6"><a href="#cb70-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(ID, estimate), <span class="at">y =</span> estimate, <span class="at">ymin =</span> .lower, <span class="at">ymax =</span> .upper)) <span class="sc">+</span></span>
-<span id="cb70-7"><a href="#cb70-7"></a>   <span class="fu">geom_pointinterval</span>(<span class="at">point_colour =</span> <span class="st">"black"</span>, <span class="at">interval_color =</span> <span class="st">"grey"</span>, <span class="at">point_alpha =</span> .<span class="dv">25</span>) <span class="sc">+</span> <span class="fu">scale_x_discrete</span>(<span class="st">"Participants ranked by posterior SD"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"sigma estimate"</span>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a>melsm<span class="fl">.2</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href="#cb67-2"></a><span class="fu">spread_draws</span>(b_sigma_Intercept,r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-3"><a href="#cb67-3"></a>  <span class="fu">mutate</span>(<span class="at">b_sigma_Intercept =</span> <span class="fu">exp</span>(b_sigma_Intercept)) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-4"><a href="#cb67-4"></a>  <span class="fu">mutate</span>(<span class="at">r_record_id__sigma =</span> <span class="fu">exp</span>(r_record_id__sigma)) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-5"><a href="#cb67-5"></a>   <span class="fu">median_qi</span>(<span class="at">estimate =</span> b_sigma_Intercept <span class="sc">+</span> r_record_id__sigma) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-6"><a href="#cb67-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(ID, estimate), <span class="at">y =</span> estimate, <span class="at">ymin =</span> .lower, <span class="at">ymax =</span> .upper)) <span class="sc">+</span></span>
+<span id="cb67-7"><a href="#cb67-7"></a>   <span class="fu">geom_pointinterval</span>(<span class="at">point_colour =</span> <span class="st">"black"</span>, <span class="at">interval_color =</span> <span class="st">"grey"</span>, <span class="at">point_alpha =</span> .<span class="dv">25</span>) <span class="sc">+</span> <span class="fu">scale_x_discrete</span>(<span class="st">"Participants ranked by posterior SD"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"sigma estimate"</span>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -2254,18 +2230,18 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a>fits2 <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
-<span id="cb71-2"><a href="#cb71-2"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.2</span>)</span>
-<span id="cb71-3"><a href="#cb71-3"></a></span>
-<span id="cb71-4"><a href="#cb71-4"></a>preds2 <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
-<span id="cb71-5"><a href="#cb71-5"></a>  <span class="fu">add_predicted_draws</span>(melsm<span class="fl">.2</span>)</span>
-<span id="cb71-6"><a href="#cb71-6"></a></span>
-<span id="cb71-7"><a href="#cb71-7"></a>fits2 <span class="sc">%&gt;%</span> </span>
-<span id="cb71-8"><a href="#cb71-8"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> N_A.std)) <span class="sc">+</span></span>
-<span id="cb71-9"><a href="#cb71-9"></a>  <span class="fu">stat_lineribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> .epred),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">95</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb71-10"><a href="#cb71-10"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">data =</span> preds2, <span class="fu">aes</span>(<span class="at">y =</span> .prediction),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">90</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb71-11"><a href="#cb71-11"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> newd) <span class="sc">+</span></span>
-<span id="cb71-12"><a href="#cb71-12"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>record_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>fits2 <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="#cb68-2"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.2</span>)</span>
+<span id="cb68-3"><a href="#cb68-3"></a></span>
+<span id="cb68-4"><a href="#cb68-4"></a>preds2 <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
+<span id="cb68-5"><a href="#cb68-5"></a>  <span class="fu">add_predicted_draws</span>(melsm<span class="fl">.2</span>)</span>
+<span id="cb68-6"><a href="#cb68-6"></a></span>
+<span id="cb68-7"><a href="#cb68-7"></a>fits2 <span class="sc">%&gt;%</span> </span>
+<span id="cb68-8"><a href="#cb68-8"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> N_A.std)) <span class="sc">+</span></span>
+<span id="cb68-9"><a href="#cb68-9"></a>  <span class="fu">stat_lineribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> .epred),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">95</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb68-10"><a href="#cb68-10"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">data =</span> preds2, <span class="fu">aes</span>(<span class="at">y =</span> .prediction),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">90</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb68-11"><a href="#cb68-11"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> newd) <span class="sc">+</span></span>
+<span id="cb68-12"><a href="#cb68-12"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>record_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -2273,20 +2249,20 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <section id="time-as-a-predictor-of-sigma" class="slide level2">
 <h2>time as a predictor of sigma</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>melsm<span class="fl">.3</span> <span class="ot">&lt;-</span></span>
-<span id="cb72-2"><a href="#cb72-2"></a>  <span class="fu">brm</span>(<span class="at">family =</span> gaussian,</span>
-<span id="cb72-3"><a href="#cb72-3"></a>      <span class="fu">bf</span>(N_A.std <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">|</span>i<span class="sc">|</span> record_id),</span>
-<span id="cb72-4"><a href="#cb72-4"></a>         sigma <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">|</span>i<span class="sc">|</span> record_id)),</span>
-<span id="cb72-5"><a href="#cb72-5"></a>      <span class="at">prior =</span> <span class="fu">c</span>(<span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">0.2</span>), <span class="at">class =</span> Intercept),</span>
-<span id="cb72-6"><a href="#cb72-6"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b),</span>
-<span id="cb72-7"><a href="#cb72-7"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
-<span id="cb72-8"><a href="#cb72-8"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> Intercept, <span class="at">dpar =</span> sigma),</span>
-<span id="cb72-9"><a href="#cb72-9"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b, <span class="at">dpar =</span> sigma),</span>
-<span id="cb72-10"><a href="#cb72-10"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd, <span class="at">dpar =</span> sigma),</span>
-<span id="cb72-11"><a href="#cb72-11"></a>                <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor)),</span>
-<span id="cb72-12"><a href="#cb72-12"></a>      <span class="at">iter =</span> <span class="dv">3000</span>, <span class="at">warmup =</span> <span class="dv">1000</span>, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>,</span>
-<span id="cb72-13"><a href="#cb72-13"></a>      <span class="at">data =</span> melsm,</span>
-<span id="cb72-14"><a href="#cb72-14"></a>      <span class="at">file =</span> <span class="st">"melsm.3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a>melsm<span class="fl">.3</span> <span class="ot">&lt;-</span></span>
+<span id="cb69-2"><a href="#cb69-2"></a>  <span class="fu">brm</span>(<span class="at">family =</span> gaussian,</span>
+<span id="cb69-3"><a href="#cb69-3"></a>      <span class="fu">bf</span>(N_A.std <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">|</span>i<span class="sc">|</span> record_id),</span>
+<span id="cb69-4"><a href="#cb69-4"></a>         sigma <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> day01 <span class="sc">|</span>i<span class="sc">|</span> record_id)),</span>
+<span id="cb69-5"><a href="#cb69-5"></a>      <span class="at">prior =</span> <span class="fu">c</span>(<span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">0.2</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb69-6"><a href="#cb69-6"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b),</span>
+<span id="cb69-7"><a href="#cb69-7"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
+<span id="cb69-8"><a href="#cb69-8"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> Intercept, <span class="at">dpar =</span> sigma),</span>
+<span id="cb69-9"><a href="#cb69-9"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b, <span class="at">dpar =</span> sigma),</span>
+<span id="cb69-10"><a href="#cb69-10"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd, <span class="at">dpar =</span> sigma),</span>
+<span id="cb69-11"><a href="#cb69-11"></a>                <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor)),</span>
+<span id="cb69-12"><a href="#cb69-12"></a>      <span class="at">iter =</span> <span class="dv">3000</span>, <span class="at">warmup =</span> <span class="dv">1000</span>, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb69-13"><a href="#cb69-13"></a>      <span class="at">data =</span> melsm,</span>
+<span id="cb69-14"><a href="#cb69-14"></a>      <span class="at">file =</span> <span class="st">"melsm.3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
@@ -2294,7 +2270,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a><span class="fu">summary</span>(melsm<span class="fl">.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a><span class="fu">summary</span>(melsm<span class="fl">.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: gaussian 
@@ -2348,9 +2324,9 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb75-2"><a href="#cb75-2"></a>  <span class="fu">gather_draws</span>(b_sigma_Intercept, b_sigma_day01) <span class="sc">%&gt;%</span> </span>
-<span id="cb75-3"><a href="#cb75-3"></a>  <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb72-2"><a href="#cb72-2"></a>  <span class="fu">gather_draws</span>(b_sigma_Intercept, b_sigma_day01) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-3"><a href="#cb72-3"></a>  <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
@@ -2366,11 +2342,11 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb77-2"><a href="#cb77-2"></a>  <span class="fu">spread_draws</span>(b_sigma_Intercept) <span class="sc">%&gt;%</span> </span>
-<span id="cb77-3"><a href="#cb77-3"></a>  <span class="fu">mutate</span>(<span class="at">sigma_day0 =</span> <span class="fu">exp</span>(b_sigma_Intercept)) <span class="sc">%&gt;%</span> </span>
-<span id="cb77-4"><a href="#cb77-4"></a>  <span class="fu">select</span>(sigma_day0) <span class="sc">%&gt;%</span> </span>
-<span id="cb77-5"><a href="#cb77-5"></a>  <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb74-2"><a href="#cb74-2"></a>  <span class="fu">spread_draws</span>(b_sigma_Intercept) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-3"><a href="#cb74-3"></a>  <span class="fu">mutate</span>(<span class="at">sigma_day0 =</span> <span class="fu">exp</span>(b_sigma_Intercept)) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-4"><a href="#cb74-4"></a>  <span class="fu">select</span>(sigma_day0) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-5"><a href="#cb74-5"></a>  <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
@@ -2382,11 +2358,11 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb79-2"><a href="#cb79-2"></a>  <span class="fu">spread_draws</span>(b_sigma_Intercept, b_sigma_day01) <span class="sc">%&gt;%</span> </span>
-<span id="cb79-3"><a href="#cb79-3"></a>  <span class="fu">mutate</span>(<span class="at">sigma_day1 =</span> <span class="fu">exp</span>(b_sigma_Intercept <span class="sc">+</span> b_sigma_day01)) <span class="sc">%&gt;%</span> </span>
-<span id="cb79-4"><a href="#cb79-4"></a>  <span class="fu">select</span>(sigma_day1) <span class="sc">%&gt;%</span> </span>
-<span id="cb79-5"><a href="#cb79-5"></a>  <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb76-2"><a href="#cb76-2"></a>  <span class="fu">spread_draws</span>(b_sigma_Intercept, b_sigma_day01) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-3"><a href="#cb76-3"></a>  <span class="fu">mutate</span>(<span class="at">sigma_day1 =</span> <span class="fu">exp</span>(b_sigma_Intercept <span class="sc">+</span> b_sigma_day01)) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-4"><a href="#cb76-4"></a>  <span class="fu">select</span>(sigma_day1) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-5"><a href="#cb76-5"></a>  <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
@@ -2401,11 +2377,11 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a> melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb81-2"><a href="#cb81-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), <span class="at">.model =</span> melsm) <span class="sc">%&gt;%</span> </span>
-<span id="cb81-3"><a href="#cb81-3"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.3</span>, <span class="at">re_formula =</span> <span class="cn">NA</span>, <span class="at">dpar =</span> T) <span class="sc">%&gt;%</span> </span>
-<span id="cb81-4"><a href="#cb81-4"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb81-5"><a href="#cb81-5"></a>  <span class="fu">select</span>(day01, .epred, sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a> melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb78-2"><a href="#cb78-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), <span class="at">.model =</span> melsm) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-3"><a href="#cb78-3"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.3</span>, <span class="at">re_formula =</span> <span class="cn">NA</span>, <span class="at">dpar =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-4"><a href="#cb78-4"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb78-5"><a href="#cb78-5"></a>  <span class="fu">select</span>(day01, .epred, sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 160,000 × 3
@@ -2431,14 +2407,14 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1"></a>melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb83-2"><a href="#cb83-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), <span class="at">.model =</span> melsm) <span class="sc">%&gt;%</span> </span>
-<span id="cb83-3"><a href="#cb83-3"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.3</span>, <span class="at">re_formula =</span> <span class="cn">NA</span>, <span class="at">dpar =</span> T) <span class="sc">%&gt;%</span> </span>
-<span id="cb83-4"><a href="#cb83-4"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb83-5"><a href="#cb83-5"></a>  <span class="fu">select</span>(day01, .epred, sigma) <span class="sc">%&gt;%</span> </span>
-<span id="cb83-6"><a href="#cb83-6"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb83-7"><a href="#cb83-7"></a>  <span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> sigma) <span class="sc">+</span></span>
-<span id="cb83-8"><a href="#cb83-8"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">.width =</span> <span class="fl">0.95</span>, <span class="at">alpha =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a>melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb80-2"><a href="#cb80-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), <span class="at">.model =</span> melsm) <span class="sc">%&gt;%</span> </span>
+<span id="cb80-3"><a href="#cb80-3"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.3</span>, <span class="at">re_formula =</span> <span class="cn">NA</span>, <span class="at">dpar =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb80-4"><a href="#cb80-4"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb80-5"><a href="#cb80-5"></a>  <span class="fu">select</span>(day01, .epred, sigma) <span class="sc">%&gt;%</span> </span>
+<span id="cb80-6"><a href="#cb80-6"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb80-7"><a href="#cb80-7"></a>  <span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> sigma) <span class="sc">+</span></span>
+<span id="cb80-8"><a href="#cb80-8"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">.width =</span> <span class="fl">0.95</span>, <span class="at">alpha =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -2448,12 +2424,12 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a> melsm <span class="sc">%&gt;%</span> </span>
-<span id="cb84-2"><a href="#cb84-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), record_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb84-3"><a href="#cb84-3"></a>  <span class="fu">add_linpred_draws</span>(melsm<span class="fl">.3</span>, <span class="at">re_formula =</span> <span class="cn">NA</span>, <span class="at">dpar =</span> T) <span class="sc">%&gt;%</span> </span>
-<span id="cb84-4"><a href="#cb84-4"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb84-5"><a href="#cb84-5"></a>  <span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> sigma) <span class="sc">+</span></span>
-<span id="cb84-6"><a href="#cb84-6"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">.width =</span> <span class="fl">0.95</span>, <span class="at">alpha =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a> melsm <span class="sc">%&gt;%</span> </span>
+<span id="cb81-2"><a href="#cb81-2"></a>  <span class="fu">data_grid</span>(<span class="at">day01 =</span> <span class="fu">seq_range</span>(day01, <span class="at">n =</span> <span class="dv">20</span>), record_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb81-3"><a href="#cb81-3"></a>  <span class="fu">add_linpred_draws</span>(melsm<span class="fl">.3</span>, <span class="at">re_formula =</span> <span class="cn">NA</span>, <span class="at">dpar =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb81-4"><a href="#cb81-4"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb81-5"><a href="#cb81-5"></a>  <span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> sigma) <span class="sc">+</span></span>
+<span id="cb81-6"><a href="#cb81-6"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">.width =</span> <span class="fl">0.95</span>, <span class="at">alpha =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -2463,9 +2439,9 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <p>Lets look at random effects. Remember we fit a random effect for both the intercept and the slope (time) ::: {.cell}</p>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb85-2"><a href="#cb85-2"></a><span class="fu">spread_draws</span>(r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
-<span id="cb85-3"><a href="#cb85-3"></a>  <span class="fu">mutate</span>(<span class="at">r_record_id__sigma =</span> <span class="fu">exp</span>(r_record_id__sigma)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb82-2"><a href="#cb82-2"></a><span class="fu">spread_draws</span>(r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
+<span id="cb82-3"><a href="#cb82-3"></a>  <span class="fu">mutate</span>(<span class="at">r_record_id__sigma =</span> <span class="fu">exp</span>(r_record_id__sigma)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,088,000 × 6
@@ -2491,10 +2467,10 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb87-2"><a href="#cb87-2"></a><span class="fu">spread_draws</span>(r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
-<span id="cb87-3"><a href="#cb87-3"></a>  <span class="fu">mutate</span>(<span class="at">r_record_id__sigma =</span> <span class="fu">exp</span>(r_record_id__sigma)) <span class="sc">%&gt;%</span> </span>
-<span id="cb87-4"><a href="#cb87-4"></a>   <span class="fu">median_qi</span>(<span class="at">estimate =</span> r_record_id__sigma) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb84-2"><a href="#cb84-2"></a><span class="fu">spread_draws</span>(r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
+<span id="cb84-3"><a href="#cb84-3"></a>  <span class="fu">mutate</span>(<span class="at">r_record_id__sigma =</span> <span class="fu">exp</span>(r_record_id__sigma)) <span class="sc">%&gt;%</span> </span>
+<span id="cb84-4"><a href="#cb84-4"></a>   <span class="fu">median_qi</span>(<span class="at">estimate =</span> r_record_id__sigma) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 386 × 8
@@ -2519,13 +2495,13 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb89-2"><a href="#cb89-2"></a><span class="fu">spread_draws</span>(r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
-<span id="cb89-3"><a href="#cb89-3"></a>  <span class="fu">mutate</span>(<span class="at">r_record_id__sigma =</span> <span class="fu">exp</span>(r_record_id__sigma)) <span class="sc">%&gt;%</span> </span>
-<span id="cb89-4"><a href="#cb89-4"></a>   <span class="fu">median_qi</span>(<span class="at">estimate =</span> r_record_id__sigma) <span class="sc">%&gt;%</span> </span>
-<span id="cb89-5"><a href="#cb89-5"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"Intercept"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb89-6"><a href="#cb89-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(ID, estimate), <span class="at">y =</span> estimate, <span class="at">ymin =</span> .lower, <span class="at">ymax =</span> .upper)) <span class="sc">+</span></span>
-<span id="cb89-7"><a href="#cb89-7"></a>   <span class="fu">geom_pointinterval</span>(<span class="at">point_colour =</span> <span class="st">"black"</span>, <span class="at">interval_color =</span> <span class="st">"grey"</span>, <span class="at">point_alpha =</span> .<span class="dv">25</span>) <span class="sc">+</span> <span class="fu">scale_x_discrete</span>(<span class="st">"Participants ranked by posterior SD"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"sigma estimate"</span>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb86-2"><a href="#cb86-2"></a><span class="fu">spread_draws</span>(r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-3"><a href="#cb86-3"></a>  <span class="fu">mutate</span>(<span class="at">r_record_id__sigma =</span> <span class="fu">exp</span>(r_record_id__sigma)) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-4"><a href="#cb86-4"></a>   <span class="fu">median_qi</span>(<span class="at">estimate =</span> r_record_id__sigma) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-5"><a href="#cb86-5"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"Intercept"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-6"><a href="#cb86-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(ID, estimate), <span class="at">y =</span> estimate, <span class="at">ymin =</span> .lower, <span class="at">ymax =</span> .upper)) <span class="sc">+</span></span>
+<span id="cb86-7"><a href="#cb86-7"></a>   <span class="fu">geom_pointinterval</span>(<span class="at">point_colour =</span> <span class="st">"black"</span>, <span class="at">interval_color =</span> <span class="st">"grey"</span>, <span class="at">point_alpha =</span> .<span class="dv">25</span>) <span class="sc">+</span> <span class="fu">scale_x_discrete</span>(<span class="st">"Participants ranked by posterior SD"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"sigma estimate"</span>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -2535,13 +2511,13 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb90-2"><a href="#cb90-2"></a><span class="fu">spread_draws</span>(r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
-<span id="cb90-3"><a href="#cb90-3"></a>  <span class="fu">mutate</span>(<span class="at">r_record_id__sigma =</span> <span class="fu">exp</span>(r_record_id__sigma)) <span class="sc">%&gt;%</span> </span>
-<span id="cb90-4"><a href="#cb90-4"></a>   <span class="fu">median_qi</span>(<span class="at">estimate =</span> r_record_id__sigma) <span class="sc">%&gt;%</span> </span>
-<span id="cb90-5"><a href="#cb90-5"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"day01"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb90-6"><a href="#cb90-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(ID, estimate), <span class="at">y =</span> estimate, <span class="at">ymin =</span> .lower, <span class="at">ymax =</span> .upper)) <span class="sc">+</span></span>
-<span id="cb90-7"><a href="#cb90-7"></a>   <span class="fu">geom_pointinterval</span>(<span class="at">point_colour =</span> <span class="st">"black"</span>, <span class="at">interval_color =</span> <span class="st">"grey"</span>, <span class="at">point_alpha =</span> .<span class="dv">25</span>) <span class="sc">+</span> <span class="fu">scale_x_discrete</span>(<span class="st">"Participants ranked by posterior SD"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"sigma estimate"</span>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb87-2"><a href="#cb87-2"></a><span class="fu">spread_draws</span>(r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
+<span id="cb87-3"><a href="#cb87-3"></a>  <span class="fu">mutate</span>(<span class="at">r_record_id__sigma =</span> <span class="fu">exp</span>(r_record_id__sigma)) <span class="sc">%&gt;%</span> </span>
+<span id="cb87-4"><a href="#cb87-4"></a>   <span class="fu">median_qi</span>(<span class="at">estimate =</span> r_record_id__sigma) <span class="sc">%&gt;%</span> </span>
+<span id="cb87-5"><a href="#cb87-5"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"day01"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb87-6"><a href="#cb87-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(ID, estimate), <span class="at">y =</span> estimate, <span class="at">ymin =</span> .lower, <span class="at">ymax =</span> .upper)) <span class="sc">+</span></span>
+<span id="cb87-7"><a href="#cb87-7"></a>   <span class="fu">geom_pointinterval</span>(<span class="at">point_colour =</span> <span class="st">"black"</span>, <span class="at">interval_color =</span> <span class="st">"grey"</span>, <span class="at">point_alpha =</span> .<span class="dv">25</span>) <span class="sc">+</span> <span class="fu">scale_x_discrete</span>(<span class="st">"Participants ranked by posterior SD"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"sigma estimate"</span>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -2551,12 +2527,12 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <p>When on the log scale you can more easily see some people are less than average where some are more than average in terms of sigma ::: {.cell}</p>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb91-2"><a href="#cb91-2"></a><span class="fu">spread_draws</span>(r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
-<span id="cb91-3"><a href="#cb91-3"></a>   <span class="fu">median_qi</span>(<span class="at">estimate =</span> r_record_id__sigma) <span class="sc">%&gt;%</span> </span>
-<span id="cb91-4"><a href="#cb91-4"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"day01"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb91-5"><a href="#cb91-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(ID, estimate), <span class="at">y =</span> estimate, <span class="at">ymin =</span> .lower, <span class="at">ymax =</span> .upper)) <span class="sc">+</span></span>
-<span id="cb91-6"><a href="#cb91-6"></a>   <span class="fu">geom_pointinterval</span>(<span class="at">point_colour =</span> <span class="st">"black"</span>, <span class="at">interval_color =</span> <span class="st">"grey"</span>, <span class="at">point_alpha =</span> .<span class="dv">25</span>) <span class="sc">+</span> <span class="fu">scale_x_discrete</span>(<span class="st">"Participants ranked by posterior SD"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"sigma estimate"</span>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a>melsm<span class="fl">.3</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb88-2"><a href="#cb88-2"></a><span class="fu">spread_draws</span>(r_record_id__sigma[ID, term]) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-3"><a href="#cb88-3"></a>   <span class="fu">median_qi</span>(<span class="at">estimate =</span> r_record_id__sigma) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-4"><a href="#cb88-4"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"day01"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-5"><a href="#cb88-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(ID, estimate), <span class="at">y =</span> estimate, <span class="at">ymin =</span> .lower, <span class="at">ymax =</span> .upper)) <span class="sc">+</span></span>
+<span id="cb88-6"><a href="#cb88-6"></a>   <span class="fu">geom_pointinterval</span>(<span class="at">point_colour =</span> <span class="st">"black"</span>, <span class="at">interval_color =</span> <span class="st">"grey"</span>, <span class="at">point_alpha =</span> .<span class="dv">25</span>) <span class="sc">+</span> <span class="fu">scale_x_discrete</span>(<span class="st">"Participants ranked by posterior SD"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"sigma estimate"</span>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img data-src="conditional-5_files/figure-revealjs/unnamed-chunk-55-1.png" width="960"></p>
@@ -2568,18 +2544,18 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a>fits3 <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
-<span id="cb92-2"><a href="#cb92-2"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.3</span>)</span>
-<span id="cb92-3"><a href="#cb92-3"></a></span>
-<span id="cb92-4"><a href="#cb92-4"></a>preds3 <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
-<span id="cb92-5"><a href="#cb92-5"></a>  <span class="fu">add_predicted_draws</span>(melsm<span class="fl">.3</span>)</span>
-<span id="cb92-6"><a href="#cb92-6"></a></span>
-<span id="cb92-7"><a href="#cb92-7"></a>fits3 <span class="sc">%&gt;%</span> </span>
-<span id="cb92-8"><a href="#cb92-8"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> N_A.std)) <span class="sc">+</span></span>
-<span id="cb92-9"><a href="#cb92-9"></a>  <span class="fu">stat_lineribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> .epred),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">95</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb92-10"><a href="#cb92-10"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">data =</span> preds3, <span class="fu">aes</span>(<span class="at">y =</span> .prediction),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">90</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb92-11"><a href="#cb92-11"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> newd) <span class="sc">+</span></span>
-<span id="cb92-12"><a href="#cb92-12"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>record_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a>fits3 <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="#cb89-2"></a>  <span class="fu">add_epred_draws</span>(melsm<span class="fl">.3</span>)</span>
+<span id="cb89-3"><a href="#cb89-3"></a></span>
+<span id="cb89-4"><a href="#cb89-4"></a>preds3 <span class="ot">&lt;-</span> newd <span class="sc">%&gt;%</span></span>
+<span id="cb89-5"><a href="#cb89-5"></a>  <span class="fu">add_predicted_draws</span>(melsm<span class="fl">.3</span>)</span>
+<span id="cb89-6"><a href="#cb89-6"></a></span>
+<span id="cb89-7"><a href="#cb89-7"></a>fits3 <span class="sc">%&gt;%</span> </span>
+<span id="cb89-8"><a href="#cb89-8"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day01, <span class="at">y =</span> N_A.std)) <span class="sc">+</span></span>
+<span id="cb89-9"><a href="#cb89-9"></a>  <span class="fu">stat_lineribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> .epred),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">95</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb89-10"><a href="#cb89-10"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">data =</span> preds3, <span class="fu">aes</span>(<span class="at">y =</span> .prediction),<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">90</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb89-11"><a href="#cb89-11"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> newd) <span class="sc">+</span></span>
+<span id="cb89-12"><a href="#cb89-12"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>record_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -2589,10 +2565,10 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a>preds3 <span class="sc">%&gt;%</span> </span>
-<span id="cb93-2"><a href="#cb93-2"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .prediction)) <span class="sc">+</span></span>
-<span id="cb93-3"><a href="#cb93-3"></a>  <span class="fu">stat_halfeye</span>(<span class="fu">aes</span>(<span class="at">x =</span> .prediction)) <span class="sc">+</span></span>
-<span id="cb93-4"><a href="#cb93-4"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>record_id) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a>preds3 <span class="sc">%&gt;%</span> </span>
+<span id="cb90-2"><a href="#cb90-2"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .prediction)) <span class="sc">+</span></span>
+<span id="cb90-3"><a href="#cb90-3"></a>  <span class="fu">stat_halfeye</span>(<span class="fu">aes</span>(<span class="at">x =</span> .prediction)) <span class="sc">+</span></span>
+<span id="cb90-4"><a href="#cb90-4"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>record_id) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
