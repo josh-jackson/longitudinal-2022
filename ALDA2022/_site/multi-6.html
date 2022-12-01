@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.0.37">
+
+  <title>ALDA2022 - multivariate</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title">multivariate</h1>
+</section>
+
+<section id="multiple-dvs" class="slide level2">
+<h2>Multiple DVs</h2>
+<ul>
+<li><p>Normally we are only interested in 1 DV at a time. However, many theories incorprate multiple DVs. With longitudinal models it is easy to incorporate multivariate questions.</p></li>
+<li><p>SEM is well suited for multiple DVs as there is less of an emphasis on a single traidtional equation. “If you can draw it you can model it”</p></li>
+<li><p>Some ~basic multivariate models can be run with MLM</p></li>
+</ul>
+</section>
+<section id="growth-models-x2" class="slide level2">
+<h2>Growth models x2</h2>
+<p>What does a multivariate growth model look like?</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>affect <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/longitudinal.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>model<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="st">'  i =~ 1*PosAFF11 + 1*PosAFF12 + 1*PosAFF13 </span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="st">            s =~ 0*PosAFF11 + 1*PosAFF12 + 2*PosAFF13'</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a>fit<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.1</span>, <span class="at">data=</span>affect)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 31 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         8
+                                                      
+  Number of observations                           368
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 0.016
+  Degrees of freedom                                 1
+  P-value (Chi-square)                           0.898
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i =~                                                
+    PosAFF11          1.000                           
+    PosAFF12          1.000                           
+    PosAFF13          1.000                           
+  s =~                                                
+    PosAFF11          0.000                           
+    PosAFF12          1.000                           
+    PosAFF13          2.000                           
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i ~~                                                
+    s                -0.041    0.026   -1.609    0.108
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .PosAFF11          0.000                           
+   .PosAFF12          0.000                           
+   .PosAFF13          0.000                           
+    i                 3.210    0.035   91.085    0.000
+    s                 0.045    0.020    2.268    0.023
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .PosAFF11          0.314    0.049    6.456    0.000
+   .PosAFF12          0.244    0.024   10.322    0.000
+   .PosAFF13          0.185    0.038    4.930    0.000
+    i                 0.210    0.046    4.608    0.000
+    s                 0.024    0.021    1.187    0.235</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>model<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="st">'  i1 =~ 1*PosAFF11 + 1*PosAFF12 + 1*PosAFF13 </span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="st">            s1 =~ 0*PosAFF11 + 1*PosAFF12 + 2*PosAFF13</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="st">            </span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="st">             i2 =~ 1*NegAFF21 + 1*NegAFF22 + 1*NegAFF23 </span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="st">            s2 =~ 0*NegAFF21 + 1*NegAFF22 + 2*NegAFF23</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="st">'</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a>fit<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">growth</span>(model<span class="fl">.2</span>, <span class="at">data=</span>affect, <span class="at">missing =</span> <span class="st">"ML"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="fu">summary</span>(fit<span class="fl">.2</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 67 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        20
+                                                      
+  Number of observations                           368
+  Number of missing patterns                         1
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                64.081
+  Degrees of freedom                                 7
+  P-value (Chi-square)                           0.000
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i1 =~                                                                 
+    PosAFF11          1.000                               0.443    0.605
+    PosAFF12          1.000                               0.443    0.716
+    PosAFF13          1.000                               0.443    0.766
+  s1 =~                                                                 
+    PosAFF11          0.000                               0.000    0.000
+    PosAFF12          1.000                               0.116    0.188
+    PosAFF13          2.000                               0.232    0.402
+  i2 =~                                                                 
+    NegAFF21          1.000                               0.397    0.690
+    NegAFF22          1.000                               0.397    0.940
+    NegAFF23          1.000                               0.397    0.987
+  s2 =~                                                                 
+    NegAFF21          0.000                               0.000    0.000
+    NegAFF22          1.000                               0.109    0.258
+    NegAFF23          2.000                               0.218    0.543
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i1 ~~                                                                 
+    s1               -0.030    0.025   -1.208    0.227   -0.586   -0.586
+    i2               -0.128    0.020   -6.412    0.000   -0.727   -0.727
+    s2                0.040    0.010    3.965    0.000    0.837    0.837
+  s1 ~~                                                                 
+    i2                0.047    0.011    4.276    0.000    1.009    1.009
+    s2               -0.024    0.006   -4.154    0.000   -1.893   -1.893
+  i2 ~~                                                                 
+    s2               -0.037    0.013   -2.815    0.005   -0.863   -0.863
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .PosAFF11          0.000                               0.000    0.000
+   .PosAFF12          0.000                               0.000    0.000
+   .PosAFF13          0.000                               0.000    0.000
+   .NegAFF21          0.000                               0.000    0.000
+   .NegAFF22          0.000                               0.000    0.000
+   .NegAFF23          0.000                               0.000    0.000
+    i1                3.210    0.035   91.035    0.000    7.252    7.252
+    s1                0.045    0.020    2.269    0.023    0.390    0.390
+    i2                1.389    0.028   50.166    0.000    3.499    3.499
+    s2               -0.057    0.015   -3.837    0.000   -0.518   -0.518
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .PosAFF11          0.340    0.048    7.134    0.000    0.340    0.634
+   .PosAFF12          0.233    0.022   10.351    0.000    0.233    0.609
+   .PosAFF13          0.205    0.038    5.453    0.000    0.205    0.612
+   .NegAFF21          0.173    0.024    7.172    0.000    0.173    0.523
+   .NegAFF22          0.083    0.009    8.963    0.000    0.083    0.468
+   .NegAFF23          0.106    0.017    6.262    0.000    0.106    0.655
+    i1                0.196    0.044    4.463    0.000    1.000    1.000
+    s1                0.013    0.020    0.660    0.509    1.000    1.000
+    i2                0.157    0.024    6.518    0.000    1.000    1.000
+    s2                0.012    0.010    1.164    0.245    1.000    1.000</code></pre>
+</div>
+</div>
+</section>
+<section id="second-order" class="slide level2">
+<h2>second order</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>mv.sec.order <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">## define latent variables</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">Pos1 =~ NA*PosAFF11 + L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="st">Pos2 =~ NA*PosAFF12 + L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="st">Pos3 =~ NA*PosAFF13 + L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="st">Neg1 =~ NA*NegAFF11 + L4*NegAFF11 + L5*NegAFF21 + L6*NegAFF31</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="st">Neg2 =~ NA*NegAFF12 + L4*NegAFF12 + L5*NegAFF22 + L6*NegAFF32</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="st">Neg3 =~ NA*NegAFF13 + L4*NegAFF13 + L5*NegAFF23 + L6*NegAFF33</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="st">## intercepts</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="st">PosAFF11 ~ t1*1</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="st">PosAFF21 ~ t2*1</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="st">PosAFF31 ~ t3*1</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="st">PosAFF12 ~ t1*1</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="st">PosAFF22 ~ t2*1</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="st">PosAFF32 ~ t3*1</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="st">PosAFF13 ~ t1*1</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="st">PosAFF23 ~ t2*1</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="st">PosAFF33 ~ t3*1</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="st">NegAFF11 ~ tt1*1</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="st">NegAFF21 ~ tt2*1</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="st">NegAFF31 ~ tt3*1</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="st">NegAFF12 ~ tt1*1</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="st">NegAFF22 ~ tt2*1</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="st">NegAFF32 ~ tt3*1</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a></span>
+<span id="cb5-32"><a href="#cb5-32"></a><span class="st">NegAFF13 ~ tt1*1</span></span>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="st">NegAFF23 ~ tt2*1</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="st">NegAFF33 ~ tt3*1</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a></span>
+<span id="cb5-36"><a href="#cb5-36"></a></span>
+<span id="cb5-37"><a href="#cb5-37"></a><span class="st">## correlated residuals across time</span></span>
+<span id="cb5-38"><a href="#cb5-38"></a><span class="st">PosAFF11 ~~ PosAFF12 + PosAFF13</span></span>
+<span id="cb5-39"><a href="#cb5-39"></a><span class="st">PosAFF12 ~~ PosAFF13</span></span>
+<span id="cb5-40"><a href="#cb5-40"></a><span class="st">PosAFF21 ~~ PosAFF22 + PosAFF23</span></span>
+<span id="cb5-41"><a href="#cb5-41"></a><span class="st">PosAFF22 ~~ PosAFF23</span></span>
+<span id="cb5-42"><a href="#cb5-42"></a><span class="st">PosAFF31 ~~ PosAFF32 + PosAFF33</span></span>
+<span id="cb5-43"><a href="#cb5-43"></a><span class="st">PosAFF32 ~~ PosAFF33</span></span>
+<span id="cb5-44"><a href="#cb5-44"></a></span>
+<span id="cb5-45"><a href="#cb5-45"></a><span class="st">NegAFF11 ~~ NegAFF12 + NegAFF13</span></span>
+<span id="cb5-46"><a href="#cb5-46"></a><span class="st">NegAFF12 ~~ NegAFF13</span></span>
+<span id="cb5-47"><a href="#cb5-47"></a><span class="st">NegAFF21 ~~ NegAFF22 + NegAFF23</span></span>
+<span id="cb5-48"><a href="#cb5-48"></a><span class="st">NegAFF22 ~~ NegAFF23</span></span>
+<span id="cb5-49"><a href="#cb5-49"></a><span class="st">NegAFF31 ~~ NegAFF32 + NegAFF33</span></span>
+<span id="cb5-50"><a href="#cb5-50"></a><span class="st">NegAFF32 ~~ NegAFF33</span></span>
+<span id="cb5-51"><a href="#cb5-51"></a></span>
+<span id="cb5-52"><a href="#cb5-52"></a><span class="st">## latent variable intercepts</span></span>
+<span id="cb5-53"><a href="#cb5-53"></a><span class="st">Pos1 ~ 0*1</span></span>
+<span id="cb5-54"><a href="#cb5-54"></a><span class="st">Pos2  ~ 0*1</span></span>
+<span id="cb5-55"><a href="#cb5-55"></a><span class="st">Pos3  ~ 0*1</span></span>
+<span id="cb5-56"><a href="#cb5-56"></a></span>
+<span id="cb5-57"><a href="#cb5-57"></a><span class="st">Neg1 ~ 0*1</span></span>
+<span id="cb5-58"><a href="#cb5-58"></a><span class="st">Neg2  ~ 0*1</span></span>
+<span id="cb5-59"><a href="#cb5-59"></a><span class="st">Neg3  ~ 0*1</span></span>
+<span id="cb5-60"><a href="#cb5-60"></a></span>
+<span id="cb5-61"><a href="#cb5-61"></a><span class="st">#model constraints for effect coding</span></span>
+<span id="cb5-62"><a href="#cb5-62"></a><span class="st">## loadings must average to 1</span></span>
+<span id="cb5-63"><a href="#cb5-63"></a><span class="st">L1 == 3 - L2 - L3</span></span>
+<span id="cb5-64"><a href="#cb5-64"></a><span class="st">L4 == 3 - L5 - L6</span></span>
+<span id="cb5-65"><a href="#cb5-65"></a><span class="st">## means must average to 0</span></span>
+<span id="cb5-66"><a href="#cb5-66"></a><span class="st">t1 == 0 - t2 - t3</span></span>
+<span id="cb5-67"><a href="#cb5-67"></a><span class="st">tt1 == 0 - tt2 - tt3</span></span>
+<span id="cb5-68"><a href="#cb5-68"></a></span>
+<span id="cb5-69"><a href="#cb5-69"></a><span class="st">i.p =~ 1*Pos1 + 1*Pos2 + 1*Pos3 </span></span>
+<span id="cb5-70"><a href="#cb5-70"></a><span class="st">s.p =~ 0*Pos1 + 1*Pos2 + 2*Pos3</span></span>
+<span id="cb5-71"><a href="#cb5-71"></a></span>
+<span id="cb5-72"><a href="#cb5-72"></a><span class="st">i.n =~ 1*Neg1 + 1*Neg2 + 1*Neg3 </span></span>
+<span id="cb5-73"><a href="#cb5-73"></a><span class="st">s.n =~ 0*Neg1 + 1*Neg2 + 2*Neg3'</span></span>
+<span id="cb5-74"><a href="#cb5-74"></a></span>
+<span id="cb5-75"><a href="#cb5-75"></a></span>
+<span id="cb5-76"><a href="#cb5-76"></a>mv.secondorder <span class="ot">&lt;-</span> <span class="fu">growth</span>(mv.sec.order, <span class="at">data=</span>affect, <span class="at">missing =</span> <span class="st">"ML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">summary</span>(mv.secondorder, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 191 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        92
+  Number of equality constraints                    28
+                                                      
+  Number of observations                           368
+  Number of missing patterns                         1
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                               248.244
+  Degrees of freedom                               125
+  P-value (Chi-square)                           0.000
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  Pos1 =~                                                               
+    PosAFF11  (L1)    0.948    0.014   68.484    0.000    0.640    0.894
+    PosAFF21  (L2)    1.015    0.015   68.707    0.000    0.686    0.886
+    PosAFF31  (L3)    1.037    0.014   73.770    0.000    0.701    0.918
+  Pos2 =~                                                               
+    PosAFF12  (L1)    0.948    0.014   68.484    0.000    0.564    0.887
+    PosAFF22  (L2)    1.015    0.015   68.707    0.000    0.605    0.878
+    PosAFF32  (L3)    1.037    0.014   73.770    0.000    0.618    0.931
+  Pos3 =~                                                               
+    PosAFF13  (L1)    0.948    0.014   68.484    0.000    0.509    0.883
+    PosAFF23  (L2)    1.015    0.015   68.707    0.000    0.545    0.864
+    PosAFF33  (L3)    1.037    0.014   73.770    0.000    0.557    0.890
+  Neg1 =~                                                               
+    NegAFF11  (L4)    1.029    0.018   58.212    0.000    0.552    0.862
+    NegAFF21  (L5)    0.959    0.017   55.123    0.000    0.515    0.868
+    NegAFF31  (L6)    1.011    0.016   62.776    0.000    0.543    0.911
+  Neg2 =~                                                               
+    NegAFF12  (L4)    1.029    0.018   58.212    0.000    0.377    0.838
+    NegAFF22  (L5)    0.959    0.017   55.123    0.000    0.351    0.865
+    NegAFF32  (L6)    1.011    0.016   62.776    0.000    0.370    0.901
+  Neg3 =~                                                               
+    NegAFF13  (L4)    1.029    0.018   58.212    0.000    0.363    0.780
+    NegAFF23  (L5)    0.959    0.017   55.123    0.000    0.338    0.847
+    NegAFF33  (L6)    1.011    0.016   62.776    0.000    0.357    0.883
+  i.p =~                                                                
+    Pos1              1.000                               0.699    0.699
+    Pos2              1.000                               0.793    0.793
+    Pos3              1.000                               0.880    0.880
+  s.p =~                                                                
+    Pos1              0.000                               0.000    0.000
+    Pos2              1.000                               0.188    0.188
+    Pos3              2.000                               0.418    0.418
+  i.n =~                                                                
+    Neg1              1.000                               0.697    0.697
+    Neg2              1.000                               1.021    1.021
+    Neg3              1.000                               1.059    1.059
+  s.n =~                                                                
+    Neg1              0.000                               0.000    0.000
+    Neg2              1.000                               0.279    0.279
+    Neg3              2.000                               0.578    0.578
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .PosAFF11 ~~                                                           
+   .PosAFF12          0.004    0.007    0.581    0.561    0.004    0.043
+   .PosAFF13         -0.001    0.007   -0.091    0.927   -0.001   -0.007
+ .PosAFF12 ~~                                                           
+   .PosAFF13          0.002    0.006    0.324    0.746    0.002    0.024
+ .PosAFF21 ~~                                                           
+   .PosAFF22          0.008    0.008    0.969    0.333    0.008    0.069
+   .PosAFF23          0.006    0.008    0.772    0.440    0.006    0.056
+ .PosAFF22 ~~                                                           
+   .PosAFF23          0.012    0.007    1.608    0.108    0.012    0.114
+ .PosAFF31 ~~                                                           
+   .PosAFF32          0.005    0.007    0.768    0.443    0.005    0.072
+   .PosAFF33          0.016    0.007    2.126    0.034    0.016    0.181
+ .PosAFF32 ~~                                                           
+   .PosAFF33          0.004    0.006    0.695    0.487    0.004    0.062
+ .NegAFF11 ~~                                                           
+   .NegAFF12          0.006    0.006    1.048    0.294    0.006    0.073
+   .NegAFF13          0.006    0.006    0.998    0.318    0.006    0.067
+ .NegAFF12 ~~                                                           
+   .NegAFF13          0.007    0.005    1.492    0.136    0.007    0.099
+ .NegAFF21 ~~                                                           
+   .NegAFF22          0.015    0.004    3.263    0.001    0.015    0.244
+   .NegAFF23          0.010    0.005    2.168    0.030    0.010    0.163
+ .NegAFF22 ~~                                                           
+   .NegAFF23          0.011    0.003    3.235    0.001    0.011    0.250
+ .NegAFF31 ~~                                                           
+   .NegAFF32         -0.006    0.004   -1.577    0.115   -0.006   -0.145
+   .NegAFF33         -0.008    0.004   -1.793    0.073   -0.008   -0.166
+ .NegAFF32 ~~                                                           
+   .NegAFF33         -0.002    0.003   -0.674    0.500   -0.002   -0.062
+  i.p ~~                                                                
+    s.p              -0.036    0.022   -1.581    0.114   -0.671   -0.671
+    i.n              -0.151    0.019   -7.794    0.000   -0.853   -0.853
+    s.n               0.054    0.010    5.454    0.000    1.129    1.129
+  s.p ~~                                                                
+    i.n               0.063    0.010    6.314    0.000    1.493    1.493
+    s.n              -0.036    0.005   -6.625    0.000   -3.133   -3.133
+  i.n ~~                                                                
+    s.n              -0.035    0.012   -2.880    0.004   -0.923   -0.923
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .PosAFF11  (t1)    0.216    0.045    4.791    0.000    0.216    0.302
+   .PosAFF21  (t2)   -0.154    0.048   -3.187    0.001   -0.154   -0.198
+   .PosAFF31  (t3)   -0.063    0.046   -1.365    0.172   -0.063   -0.082
+   .PosAFF12  (t1)    0.216    0.045    4.791    0.000    0.216    0.340
+   .PosAFF22  (t2)   -0.154    0.048   -3.187    0.001   -0.154   -0.223
+   .PosAFF32  (t3)   -0.063    0.046   -1.365    0.172   -0.063   -0.094
+   .PosAFF13  (t1)    0.216    0.045    4.791    0.000    0.216    0.375
+   .PosAFF23  (t2)   -0.154    0.048   -3.187    0.001   -0.154   -0.244
+   .PosAFF33  (t3)   -0.063    0.046   -1.365    0.172   -0.063   -0.100
+   .NegAFF11 (tt1)    0.039    0.025    1.553    0.120    0.039    0.061
+   .NegAFF21 (tt2)    0.018    0.025    0.716    0.474    0.018    0.030
+   .NegAFF31 (tt3)   -0.056    0.023   -2.497    0.013   -0.056   -0.095
+   .NegAFF12 (tt1)    0.039    0.025    1.553    0.120    0.039    0.087
+   .NegAFF22 (tt2)    0.018    0.025    0.716    0.474    0.018    0.043
+   .NegAFF32 (tt3)   -0.056    0.023   -2.497    0.013   -0.056   -0.137
+   .NegAFF13 (tt1)    0.039    0.025    1.553    0.120    0.039    0.084
+   .NegAFF23 (tt2)    0.018    0.025    0.716    0.474    0.018    0.044
+   .NegAFF33 (tt3)   -0.056    0.023   -2.497    0.013   -0.056   -0.140
+   .Pos1              0.000                               0.000    0.000
+   .Pos2              0.000                               0.000    0.000
+   .Pos3              0.000                               0.000    0.000
+   .Neg1              0.000                               0.000    0.000
+   .Neg2              0.000                               0.000    0.000
+   .Neg3              0.000                               0.000    0.000
+    i.p               3.193    0.035   92.501    0.000    6.758    6.758
+    s.p               0.018    0.018    0.996    0.319    0.163    0.163
+    i.n               1.414    0.027   52.911    0.000    3.781    3.781
+    s.n              -0.047    0.015   -3.271    0.001   -0.465   -0.465
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .PosAFF11          0.103    0.011    9.281    0.000    0.103    0.201
+   .PosAFF21          0.129    0.013    9.683    0.000    0.129    0.215
+   .PosAFF31          0.092    0.012    7.837    0.000    0.092    0.157
+   .PosAFF12          0.086    0.009    9.582    0.000    0.086    0.213
+   .PosAFF22          0.109    0.011   10.042    0.000    0.109    0.229
+   .PosAFF32          0.059    0.009    6.869    0.000    0.059    0.134
+   .PosAFF13          0.073    0.008    8.877    0.000    0.073    0.221
+   .PosAFF23          0.101    0.010    9.715    0.000    0.101    0.254
+   .PosAFF33          0.081    0.009    8.640    0.000    0.081    0.208
+   .NegAFF11          0.105    0.011   10.019    0.000    0.105    0.257
+   .NegAFF21          0.086    0.009    9.635    0.000    0.086    0.246
+   .NegAFF31          0.061    0.008    7.271    0.000    0.061    0.171
+   .NegAFF12          0.060    0.006   10.358    0.000    0.060    0.298
+   .NegAFF22          0.042    0.005    9.127    0.000    0.042    0.252
+   .NegAFF32          0.032    0.004    7.515    0.000    0.032    0.188
+   .NegAFF13          0.085    0.008   10.966    0.000    0.085    0.392
+   .NegAFF23          0.045    0.005    8.959    0.000    0.045    0.283
+   .NegAFF33          0.036    0.005    7.399    0.000    0.036    0.221
+   .Pos1              0.234    0.041    5.641    0.000    0.511    0.511
+   .Pos2              0.190    0.021    9.025    0.000    0.536    0.536
+   .Pos3              0.157    0.034    4.600    0.000    0.545    0.545
+   .Neg1              0.148    0.022    6.683    0.000    0.515    0.515
+   .Neg2              0.054    0.008    6.944    0.000    0.405    0.405
+   .Neg3              0.084    0.015    5.626    0.000    0.674    0.674
+    i.p               0.223    0.041    5.464    0.000    1.000    1.000
+    s.p               0.013    0.018    0.686    0.493    1.000    1.000
+    i.n               0.140    0.022    6.382    0.000    1.000    1.000
+    s.n               0.010    0.009    1.108    0.268    1.000    1.000
+
+Constraints:
+                                               |Slack|
+    L1 - (3-L2-L3)                               0.000
+    L4 - (3-L5-L6)                               0.000
+    t1 - (0-t2-t3)                               0.000
+    tt1 - (0-tt2-tt3)                            0.000</code></pre>
+</div>
+</div>
+</section>
+<section id="bayesian-multivariate-models" class="slide level2">
+<h2>Bayesian multivariate models</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>data <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/josh-jackson/bayes/master/mlm.csv"</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>mlm <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(data) </span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">head</span>(mlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID group time    CON CON_SAL CON_SMN7    DAN DAN_CON DAN_SAL DAN_SMN7   DMN6
+1  6    PD    4 0.1929  0.0708   0.0088 0.1619  0.1156  0.0739   0.0041 0.1775
+2  6    PD    5 0.1949  0.0862   0.0040 0.1677  0.1173  0.0812   0.0204 0.1512
+3  6    PD    6 0.1811  0.0916  -0.0037 0.2153  0.1636  0.1133   0.0155 0.1733
+4 29    PD    4 0.1594  0.0438  -0.0253 0.1749  0.0161  0.0621   0.0121 0.2145
+5 29    PD    5 0.0881  0.0446  -0.0288 0.1356  0.0377  0.0277   0.0444 0.1338
+6 34  CTRL    4 0.1372  0.0113  -0.0792 0.1659  0.0045 -0.0075   0.0432 0.1250
+  DMN6_CON DMN6_DAN DMN6_SAL DMN6_SMN7    SAL SAL_SMN7   SMN7 wave       date
+1  -0.1162  -0.1184  -0.1264   -0.0257 0.2097   0.0695 0.0352    1 2011-01-07
+2  -0.0709  -0.1177  -0.1214   -0.0342 0.2036   0.0453 0.0504    2 2011-12-19
+3  -0.0994  -0.1215  -0.1622   -0.0295 0.2024   0.0443 0.0135    3 2012-11-12
+4   0.0199  -0.1355  -0.0815   -0.0998 0.2337   0.0552 0.1104    1 2011-10-03
+5   0.0311  -0.0819  -0.0237   -0.0655 0.1229   0.0465 0.0761    2 2012-10-16
+6   0.0493  -0.0893  -0.0539   -0.0655 0.1432   0.0072 0.1226    1 2011-10-27
+  Exclude RSNdata RSNexclude RSNexcludeDevDem  CogDate_0 CCIRtrio_MR_date_0
+1    keep       1       keep             keep 2006-12-08               &lt;NA&gt;
+2    keep       1       keep             keep 2006-12-08               &lt;NA&gt;
+3    keep       1       keep             keep 2006-12-08               &lt;NA&gt;
+4    keep       1       keep          exclude 2007-11-27               &lt;NA&gt;
+5    keep       1       keep          exclude 2007-11-27               &lt;NA&gt;
+6    keep       1       keep             keep 2008-04-17               &lt;NA&gt;
+  Dur_PDsx_0 PIBpos18 Neuro_Dx NeuroCDR_0 NeuroCDR_1 NeuroCDR_2 NeuroCDR_3
+1         NA     PIB-      iPD   PD CDR=0  PD CDR=.5  PD CDR=.5   PD CDR=0
+2         NA     PIB-      iPD   PD CDR=0  PD CDR=.5  PD CDR=.5   PD CDR=0
+3         NA     PIB-      iPD   PD CDR=0  PD CDR=.5  PD CDR=.5   PD CDR=0
+4         NA     PIB-      iPD   PD CDR=0   PD CDR=0       &lt;NA&gt;  PD CDR=.5
+5         NA     PIB-      iPD   PD CDR=0   PD CDR=0       &lt;NA&gt;  PD CDR=.5
+6         NA     PIB-       HC   HC CDR=0       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;
+  NeuroCDR_4 NeuroCDR_5 NeuroCDR_6 NeuroCDR_7 NeuroCDR_8  YOB    Sex Ethnicity
+1  PD CDR=.5  PD CDR=.5  PD CDR=.5  PD CDR=.5 PD CDR=0.5 1937 female caucasian
+2  PD CDR=.5  PD CDR=.5  PD CDR=.5  PD CDR=.5 PD CDR=0.5 1937 female caucasian
+3  PD CDR=.5  PD CDR=.5  PD CDR=.5  PD CDR=.5 PD CDR=0.5 1937 female caucasian
+4  PD CDR=.5   PD CDR=1  PD CDR=.5       &lt;NA&gt;       &lt;NA&gt; 1935   male caucasian
+5  PD CDR=.5   PD CDR=1  PD CDR=.5       &lt;NA&gt;       &lt;NA&gt; 1935   male caucasian
+6   HC CDR=0       &lt;NA&gt;   HC CDR=0       &lt;NA&gt;       &lt;NA&gt; 1944 female caucasian
+  Education APOEs APOE4 Orig_MCBP_30to60    Asyn    Abeta Total_Tau      week
+1        14    33     0     -0.084801180      NA       NA        NA 0.0000000
+2        14    33     0     -0.084801180      NA       NA        NA 0.9479452
+3        14    33     0     -0.084801180      NA       NA        NA 1.8493151
+4        14    23     0      0.001760821 3356.47 1273.076   357.214 0.0000000
+5        14    23     0      0.001760821 3356.47 1273.076   357.214 1.0383562
+6        12    33     0      0.105326328      NA       NA        NA 0.0000000
+  Cog_rest_datediff
+1                NA
+2                NA
+3                NA
+4                NA
+5                NA
+6                NA</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(brms)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>mlm<span class="fl">.4</span> <span class="ot">&lt;-</span> </span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">brm</span>(<span class="at">family =</span> gaussian,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>      CON <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> time <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> time <span class="sc">|</span> ID),</span>
+<span id="cb10-5"><a href="#cb10-5"></a>      <span class="at">prior =</span> <span class="fu">c</span>(<span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">1.5</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb10-6"><a href="#cb10-6"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">1.5</span>), <span class="at">class =</span> b),</span>
+<span id="cb10-7"><a href="#cb10-7"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">1.5</span>), <span class="at">class =</span> sd, <span class="at">coef =</span> Intercept, <span class="at">group =</span> ID), </span>
+<span id="cb10-8"><a href="#cb10-8"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">1.5</span>), <span class="at">class =</span> sd, <span class="at">coef =</span> time, <span class="at">group =</span> ID), </span>
+<span id="cb10-9"><a href="#cb10-9"></a>                <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sigma),</span>
+<span id="cb10-10"><a href="#cb10-10"></a>                <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor)),</span>
+<span id="cb10-11"><a href="#cb10-11"></a>      <span class="at">iter =</span> <span class="dv">4000</span>, <span class="at">warmup =</span> <span class="dv">1000</span>, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb10-12"><a href="#cb10-12"></a>      <span class="at">file =</span> <span class="st">"mlm.4"</span>,</span>
+<span id="cb10-13"><a href="#cb10-13"></a>      <span class="at">data =</span> mlm)</span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="fu">summary</span>(mlm<span class="fl">.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: CON ~ 1 + time + (1 + time | ID) 
+   Data: mlm (Number of observations: 225) 
+  Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+         total post-warmup draws = 12000
+
+Group-Level Effects: 
+~ID (Number of levels: 91) 
+                    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)           0.06      0.01     0.05     0.07 1.00     3080     3528
+sd(time)                0.00      0.00     0.00     0.01 1.00     1501     1367
+cor(Intercept,time)    -0.08      0.39    -0.75     0.72 1.00     8963     7456
+
+Population-Level Effects: 
+          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept     0.19      0.01     0.18     0.21 1.00     5084     6825
+time         -0.00      0.00    -0.01     0.00 1.00    10026     7880
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     0.05      0.00     0.04     0.05 1.00     4129     5352
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>mv<span class="fl">.1</span> <span class="ot">&lt;-</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">brm</span>(<span class="at">family =</span> gaussian,</span>
+<span id="cb12-3"><a href="#cb12-3"></a>      <span class="fu">mvbind</span>(CON, DAN) <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> time <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> time <span class="sc">|</span> ID),</span>
+<span id="cb12-4"><a href="#cb12-4"></a>      <span class="at">prior =</span> <span class="fu">c</span>(<span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">1.5</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb12-5"><a href="#cb12-5"></a>                <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">1.5</span>), <span class="at">class =</span> b),</span>
+<span id="cb12-6"><a href="#cb12-6"></a>                <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor),</span>
+<span id="cb12-7"><a href="#cb12-7"></a>                <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> rescor)),</span>
+<span id="cb12-8"><a href="#cb12-8"></a>      <span class="at">iter =</span> <span class="dv">4000</span>, <span class="at">warmup =</span> <span class="dv">1000</span>, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb12-9"><a href="#cb12-9"></a>      <span class="at">file =</span> <span class="st">"mv.1"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10"></a>      <span class="at">data =</span> mlm)</span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="fu">summary</span>(mv<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: MV(gaussian, gaussian) 
+  Links: mu = identity; sigma = identity
+         mu = identity; sigma = identity 
+Formula: CON ~ 1 + time + (1 + time | ID) 
+         DAN ~ 1 + time + (1 + time | ID) 
+   Data: mlm (Number of observations: 225) 
+  Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+         total post-warmup draws = 12000
+
+Group-Level Effects: 
+~ID (Number of levels: 91) 
+                            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+sd(CON_Intercept)               0.06      0.01     0.05     0.07 1.00     3184
+sd(CON_time)                    0.00      0.00     0.00     0.01 1.02      309
+sd(DAN_Intercept)               0.04      0.01     0.03     0.05 1.00     2250
+sd(DAN_time)                    0.00      0.00     0.00     0.01 1.00      806
+cor(CON_Intercept,CON_time)    -0.14      0.39    -0.77     0.70 1.00     2604
+cor(DAN_Intercept,DAN_time)    -0.04      0.40    -0.75     0.76 1.00     4314
+                            Tail_ESS
+sd(CON_Intercept)               6838
+sd(CON_time)                      54
+sd(DAN_Intercept)               2293
+sd(DAN_time)                     953
+cor(CON_Intercept,CON_time)     4370
+cor(DAN_Intercept,DAN_time)     7145
+
+Population-Level Effects: 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+CON_Intercept     0.19      0.01     0.18     0.21 1.00     2974     3996
+DAN_Intercept     0.20      0.01     0.19     0.22 1.00     3085     6662
+CON_time         -0.00      0.00    -0.01     0.00 1.00     8481     9014
+DAN_time         -0.01      0.00    -0.01    -0.00 1.00     1963     2066
+
+Family Specific Parameters: 
+          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma_CON     0.05      0.00     0.04     0.05 1.01      359       82
+sigma_DAN     0.05      0.00     0.04     0.06 1.00     1279     1194
+
+Residual Correlations: 
+                Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+rescor(CON,DAN)     0.13      0.09    -0.05     0.32 1.01      418      160
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">fixef</span>(mv<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  Estimate   Est.Error         Q2.5         Q97.5
+CON_Intercept  0.194589928 0.007834112  0.179361004  0.2097894777
+DAN_Intercept  0.203763593 0.006581122  0.190879710  0.2166098867
+CON_time      -0.002881418 0.002247423 -0.007293958  0.0016142091
+DAN_time      -0.005110302 0.002261724 -0.009492880 -0.0007040594</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(tidybayes)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>mv<span class="fl">.1</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">spread_draws</span>(rescor__CON__DAN) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="#cb16-4"></a>   <span class="fu">median_qi</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 6
+  rescor__CON__DAN  .lower .upper .width .point .interval
+             &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
+1            0.125 -0.0536  0.317   0.95 median qi       </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>mv<span class="fl">.1</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">spread_draws</span>(rescor__CON__DAN) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rescor__CON__DAN)) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>   <span class="fu">stat_halfeye</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="multi-6_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>mlm.wide <span class="ot">&lt;-</span> mlm <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ID, DAN, CON, wave) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> DAN<span class="sc">:</span>CON, <span class="at">names_to =</span> <span class="st">"trait"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="st">"ID"</span>, <span class="at">names_from =</span> <span class="fu">c</span>(<span class="st">"trait"</span>, <span class="st">"wave"</span>), <span class="at">values_from =</span> value)</span>
+<span id="cb19-5"><a href="#cb19-5"></a></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="fu">head</span>(mlm.wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+     ID DAN_1 CON_1 DAN_2  CON_2  DAN_3  CON_3 DAN_4 CON_4
+  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     6 0.162 0.193 0.168 0.195   0.215  0.181    NA    NA
+2    29 0.175 0.159 0.136 0.0881 NA     NA        NA    NA
+3    34 0.166 0.137 0.140 0.0746 NA     NA        NA    NA
+4    36 0.152 0.139 0.205 0.180  NA     NA        NA    NA
+5    37 0.219 0.226 0.158 0.178   0.259  0.152    NA    NA
+6    48 0.130 0.250 0.270 0.232   0.248  0.173    NA    NA</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>bv.c <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="st">    i.dan =~ 1*DAN_1 + 1*DAN_2 + 1*DAN_3 + 1*DAN_4</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="st">    s.dan =~ 0*DAN_1 + 1*DAN_2 + 2*DAN_3 + 3*DAN_4</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="st">    i.con =~ 1*CON_1 + 1*CON_2 + 1*CON_3 + 1*CON_4</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="st">    s.con =~ 0*CON_1 + 1*CON_2 + 2*CON_3 + 3*CON_4</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a></span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="st">'</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a>fit.bv.c <span class="ot">&lt;-</span> <span class="fu">growth</span>(bv.c, <span class="at">data =</span> mlm.wide, <span class="at">missing =</span> <span class="st">"ML"</span>)</span>
+<span id="cb21-11"><a href="#cb21-11"></a><span class="fu">summary</span>(fit.bv.c,<span class="at">standardized=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 384 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        22
+                                                      
+  Number of observations                            91
+  Number of missing patterns                         3
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                99.387
+  Degrees of freedom                                22
+  P-value (Chi-square)                           0.000
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i.dan =~                                                              
+    DAN_1             1.000                               0.049    0.790
+    DAN_2             1.000                               0.049    0.765
+    DAN_3             1.000                               0.049    0.767
+    DAN_4             1.000                               0.049    0.503
+  s.dan =~                                                              
+    DAN_1             0.000                               0.000    0.000
+    DAN_2             1.000                               0.029    0.450
+    DAN_3             2.000                               0.058    0.901
+    DAN_4             3.000                               0.087    0.886
+  i.con =~                                                              
+    CON_1             1.000                               0.053    0.734
+    CON_2             1.000                               0.053    0.725
+    CON_3             1.000                               0.053    0.710
+    CON_4             1.000                               0.053    0.566
+  s.con =~                                                              
+    CON_1             0.000                                  NA       NA
+    CON_2             1.000                                  NA       NA
+    CON_3             2.000                                  NA       NA
+    CON_4             3.000                                  NA       NA
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i.dan ~~                                                              
+    s.dan            -0.001    0.000   -1.087    0.277   -0.362   -0.362
+    i.con             0.001    0.000    1.949    0.051    0.340    0.340
+    s.con             0.000    0.000    0.300    0.764    0.121    0.121
+  s.dan ~~                                                              
+    i.con             0.001    0.000    1.972    0.049    0.418    0.418
+    s.con            -0.000    0.000   -1.615    0.106   -0.701   -0.701
+  i.con ~~                                                              
+    s.con             0.000    0.000    0.603    0.546    0.409    0.409
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .DAN_1             0.000                               0.000    0.000
+   .DAN_2             0.000                               0.000    0.000
+   .DAN_3             0.000                               0.000    0.000
+   .DAN_4             0.000                               0.000    0.000
+   .CON_1             0.000                               0.000    0.000
+   .CON_2             0.000                               0.000    0.000
+   .CON_3             0.000                               0.000    0.000
+   .CON_4             0.000                               0.000    0.000
+    i.dan             0.202    0.006   31.530    0.000    4.100    4.100
+    s.dan            -0.009    0.005   -1.926    0.054   -0.318   -0.318
+    i.con             0.192    0.007   26.588    0.000    3.659    3.659
+    s.con            -0.004    0.004   -0.952    0.341       NA       NA
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .DAN_1             0.001    0.001    2.166    0.030    0.001    0.376
+   .DAN_2             0.002    0.000    4.723    0.000    0.002    0.461
+   .DAN_3             0.000    0.001    0.573    0.566    0.000    0.100
+   .DAN_4             0.003    0.002    1.282    0.200    0.003    0.284
+   .CON_1             0.002    0.001    3.214    0.001    0.002    0.461
+   .CON_2             0.002    0.001    4.062    0.000    0.002    0.398
+   .CON_3             0.002    0.001    2.649    0.008    0.002    0.417
+   .CON_4             0.006    0.003    1.674    0.094    0.006    0.669
+    i.dan             0.002    0.001    3.156    0.002    1.000    1.000
+    s.dan             0.001    0.000    2.253    0.024    1.000    1.000
+    i.con             0.003    0.001    3.187    0.001    1.000    1.000
+    s.con            -0.000    0.000   -0.586    0.558       NA       NA</code></pre>
+</div>
+</div>
+</section>
+<section id="more-complex-sem-multivariate-models" class="slide level2">
+<h2>More complex SEM multivariate models</h2>
+<p>Suggested readings:</p>
+<p>https://www.annualreviews.org/doi/abs/10.1146/annurev.psych.60.110707.163612</p>
+<p>https://www.sciencedirect.com/science/article/pii/S187892931730021X#sec0125</p>
+</section>
+<section id="two-wave-assessments" class="slide level2">
+<h2>Two wave assessments</h2>
+<p>How to measure change, or should we? https://www.gwern.net/docs/dnb/1970-cronbach.pdf This paper lays out some of the problems that occur with standard treatments of two wave assessments.</p>
+<p>The most basic two wave form of change is a difference score. However, many have said these are problematic. The issues are: 1. hard to separate measurement error from true change<br>
+2. unreliable estimate of change<br>
+3. initial level (or last level) may be driving change. How to account for?</p>
+</section>
+<section class="slide level2">
+
+<ul>
+<li><p>The alternative is a standard residual gain/change score where you regress time 2 onto time 1. This overcomes some of the issues raised about because we are being conservative about the error by “regressing to the mean” such that people with larger changes than average will have their change scores “shrunken” to the average, must like we do with MLMs.</p></li>
+<li><p>This also helps with accounting for starting values that may be responsible for the changes, as this is literally controlling for the initial level.</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>The issues with residualized change models, however, are:</p>
+<ol type="1">
+<li><p>it isn’t true change, as you are implying people change similarly</p></li>
+<li><p>it does not account for unreliability of change in a principled way</p></li>
+</ol>
+</section>
+<section id="lords-paradox" class="slide level2">
+<h2>Lords Paradox</h2>
+<p>This has lead to what is known as Lord’s paradox. Take the two approaches above, simplified to:</p>
+<p><code>lm(t2-t1 ~ group)</code></p>
+<p><code>lm(t2 ~ t1 + group)</code></p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  id group          T1          T2          diff
+1  1    Tx -0.30176644 -0.07218389  0.2295825445
+2  2    Tx  0.06935731  0.09741980  0.0280624915
+3  3    Tx  0.27111029  0.12699551 -0.1441147849
+4  4    Tx -0.58642443 -0.16449642  0.4219280069
+5  5    Tx  0.10728117  0.07408057 -0.0332006005
+6  6    Tx  0.12651397  0.12665183  0.0001378524</code></pre>
+</div>
+</div>
+</section>
+<section id="change-scoregain-score-model" class="slide level2">
+<h2>change score/gain score model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(diff <span class="sc">~</span> group, df)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = diff ~ group, data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5174 -0.1133  0.0208  0.1310  0.4612 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)  0.038975   0.017300   2.253   0.0254 *
+groupControl 0.004028   0.024466   0.165   0.8694  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.173 on 198 degrees of freedom
+Multiple R-squared:  0.0001369, Adjusted R-squared:  -0.004913 
+F-statistic: 0.02711 on 1 and 198 DF,  p-value: 0.8694</code></pre>
+</div>
+</div>
+</section>
+<section id="residualized-change-score-model" class="slide level2">
+<h2>residualized change score model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(T2 <span class="sc">~</span> group <span class="sc">+</span> T1, df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = T2 ~ group + T1, data = df)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.315819 -0.066341  0.005835  0.060977  0.268154 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   0.01724    0.01008    1.71   0.0888 .  
+groupControl  0.44744    0.02648   16.90   &lt;2e-16 ***
+T1            0.44538    0.02797   15.92   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1002 on 197 degrees of freedom
+Multiple R-squared:  0.9463,    Adjusted R-squared:  0.9457 
+F-statistic:  1734 on 2 and 197 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>What is going on? We are asking different questions by not accounting for T1 in the former model. The change score model is accounting for the total effect (in mediation language) whereas the residualized change score model is only interested in the direct effect.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>mod <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="st">  T1 ~ a*group</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="st">  T2 ~ b*group + c*T1</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="st">  </span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="st">  # total effect</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="st">  TE := (a*-1) + (a*c*1) + (b*1)  </span></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="st">'</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a>lord <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod, <span class="at">data=</span>df)</span>
+<span id="cb29-9"><a href="#cb29-9"></a><span class="fu">summary</span>(lord)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 1 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         5
+                                                      
+  Number of observations                           200
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  T1 ~                                                
+    group      (a)    0.800    0.036   22.317    0.000
+  T2 ~                                                
+    group      (b)    0.447    0.026   17.028    0.000
+    T1         (c)    0.445    0.028   16.043    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .T1                0.064    0.006   10.000    0.000
+   .T2                0.010    0.001   10.000    0.000
+
+Defined Parameters:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+    TE                0.004    0.024    0.165    0.869</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>What is not immediately obvious is that the change score can be conceptualized as a series of regressions. Starting with the residualized change score model</p>
+<p><code>T2 = b*T1 + e</code></p>
+<p>If we assume that the relationship (b) between T1 and T2 is 1. We can re-write as:</p>
+<p><code>T2 = 1*T1 + e</code></p>
+<p>Then we can subtract T1 fro each side of the model, leaving:</p>
+<p><code>T2 - T1 = e</code></p>
+<p>In other words, a change score is equivalent to assuming a perfect regression association (correlation) between timepoints.</p>
+</section>
+<section class="slide level2">
+
+<p>Here, the residual will be equal to the average change and the variance of that will be the variance in the change. This can be thought of as akin to the mean and variance of our latent slope variable.</p>
+<p>Lets visualize each of these models via path models</p>
+</section>
+<section id="residualized-change-model" class="slide level2">
+<h2>Residualized change model</h2>
+
+<img data-src="res.change.png" class="r-stretch"><p>Our latent residual can be conceptualized as what is left over from T2 after accounting for T1 (based on the average association between T1 and T2). We now have a measure of error/change that is not correlated to T1.</p>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>res.change <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="st">  T2 ~ T1</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="st">'</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a>res.change <span class="ot">&lt;-</span> <span class="fu">sem</span>(res.change, <span class="at">data=</span>df)</span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="fu">summary</span>(res.change)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 1 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         2
+                                                      
+  Number of observations                           200
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  T2 ~                                                
+    T1                0.845    0.023   36.317    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .T2                0.024    0.002   10.000    0.000</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(T2<span class="sc">~</span>T1, df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = T2 ~ T1, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.46327 -0.10765  0.00553  0.11529  0.44807 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.09699    0.01391   6.974 4.51e-11 ***
+T1           0.84469    0.02338  36.135  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1565 on 198 degrees of freedom
+Multiple R-squared:  0.8683,    Adjusted R-squared:  0.8677 
+F-statistic:  1306 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>res.change.m <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="st">  T2 ~ T1</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="st">'</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a>res.change.m <span class="ot">&lt;-</span> <span class="fu">sem</span>(res.change.m, <span class="at">data=</span>df,<span class="at">meanstructure =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="fu">summary</span>(res.change.m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 27 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         3
+                                                      
+  Number of observations                           200
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  T2 ~                                                
+    T1                0.845    0.023   36.317    0.000
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .T2                0.097    0.014    7.009    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .T2                0.024    0.002   10.000    0.000</code></pre>
+</div>
+</div>
+</section>
+<section id="residual-sd-from-the-regression-output-is-equal-to-the-sem-variance" class="slide level2">
+<h2>residual sd from the regression output is equal to the SEM variance</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fl">0.1565</span><span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02449225</code></pre>
+</div>
+</div>
+<p>Note that this isn’t telling us anything about the difference score or even the means of the numbers per se.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="fu">describe</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       vars   n   mean    sd median trimmed   mad   min    max  range  skew
+id*       1 200 100.50 57.88 100.50  100.50 74.13  1.00 200.00 199.00  0.00
+group*    2 200   1.50  0.50   1.50    1.50  0.74  1.00   2.00   1.00  0.00
+T1        3 200   0.36  0.47   0.41    0.35  0.61 -0.59   1.51   2.10  0.06
+T2        4 200   0.40  0.43   0.35    0.40  0.61 -0.54   1.17   1.71  0.01
+diff      5 200   0.04  0.17   0.06    0.05  0.17 -0.47   0.50   0.98 -0.44
+       kurtosis   se
+id*       -1.22 4.09
+group*    -2.01 0.04
+T1        -1.16 0.03
+T2        -1.59 0.03
+diff      -0.05 0.01</code></pre>
+</div>
+</div>
+<p>This is why I am not a fan of the residualzed change score. It doesn’t get at change the way we typically think of it. Previously our MLMs provide a way to think about what change means, and SEMs will do the same.</p>
+</section>
+<section id="latent-change-score" class="slide level2">
+<h2>Latent change score</h2>
+<p>Looping back to concerns about difference scores and residualized change scores, we can address these using SEM. The problems raised above</p>
+<ul>
+<li>It isn’t true change, as you are implying people change similarly</li>
+<li>Change is likely associated with T1</li>
+<li>Hard to separate measurement error from true change</li>
+</ul>
+<p>go away when:</p>
+<ol type="1">
+<li>Examine absolute differences<br>
+</li>
+<li>Able to separate (account for) initial levels from change.<br>
+</li>
+<li>Measuring change latently, and thus error free.</li>
+</ol>
+<p>Number 2 is accomplished above in the residualized change models. However, what is not accomplished is getting terms similar to the slope component of a growth curve ie absolute change. Nor does it account for measurement error</p>
+</section>
+<section id="lets-compare-this-with-our-old-trusty-mlm-friend" class="slide level2">
+<h2>Lets compare this with our old trusty mlm friend</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>df.long <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols=</span>T1<span class="sc">:</span>T2, <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"drop"</span>,<span class="st">"time"</span>),<span class="at">names_pattern =</span> <span class="st">"([A-Za-z]+)(</span><span class="sc">\\</span><span class="st">d+)"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-3"><a href="#cb41-3"></a>  <span class="fu">select</span>(<span class="sc">-</span>drop) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-4"><a href="#cb41-4"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-5"><a href="#cb41-5"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> time <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb41-6"><a href="#cb41-6"></a><span class="fu">head</span>(df.long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  id    group    diff  time   value
+  &lt;fct&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1 1     Tx     0.230      0 -0.302 
+2 1     Tx     0.230      1 -0.0722
+3 2     Tx     0.0281     0  0.0694
+4 2     Tx     0.0281     1  0.0974
+5 3     Tx    -0.144      0  0.271 
+6 3     Tx    -0.144      1  0.127 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb43-2"><a href="#cb43-2"></a>mlm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lmer</span>(value <span class="sc">~</span>  time <span class="sc">+</span> (<span class="dv">1</span>  <span class="sc">|</span> id ), <span class="at">data =</span> df.long)</span>
+<span id="cb43-3"><a href="#cb43-3"></a><span class="fu">summary</span>(mlm<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: value ~ time + (1 | id)
+   Data: df.long
+
+REML criterion at convergence: 118.1
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.99283 -0.47843 -0.02817  0.51432  2.38752 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 0.19014  0.436   
+ Residual             0.01489  0.122   
+Number of obs: 400, groups:  id, 200
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  0.36056    0.03202  11.261
+time         0.04099    0.01220   3.359
+
+Correlation of Fixed Effects:
+     (Intr)
+time -0.191</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Time equals the absolute difference!! Intercept is the value at T1. I can recreate the mean values with this output. And I can see how people differ at T1.</p>
+<p>However, this does not tell you differences in how people change. That is, everyone is assumed to change similarly ie fixed slope.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb45-2"><a href="#cb45-2"></a>mlm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lmer</span>(value <span class="sc">~</span>  time <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> time  <span class="sc">|</span> id ), <span class="at">data =</span> df.long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>output: Error: number of observations (=400) &lt;= number of random effects (=400) for term (1 + time | id); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable</p>
+<p><sad trombone="" noise=""></sad></p>
+</section>
+<section class="slide level2">
+
+<p>We can either do two things: go with Bayes or go with SEM. SEM is actully more flexible here so lets explore this option.</p>
+<p>Knowing what we know about recreating difference scores via constraints, we can also make a latent change score by modifying the same residual path model. This time assuming the association between t1 and t2 are the same.</p>
+</section>
+<section class="slide level2">
+
+
+<img data-src="latent.change.png" class="r-stretch"><p>Now we can interpret the residual as change, as it is explicitly what is left over from T2 after accoutering for T1. This is starting to look like what we for a growth model.</p>
+</section>
+<section class="slide level2">
+
+<p>We have: 1. Mean and variance of the slope(change), akin to our random and fixed effects in MLM 2. Covariance between intercept and slope.</p>
+<p>To test whether or not our slope is significant we can compare that with a model where slope is constrained to be zero. Same for testing the slope variance.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>latent.change <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="st">  #define difference score</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a><span class="st">  T2 ~ 1*T1</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="st">  </span></span>
+<span id="cb46-5"><a href="#cb46-5"></a><span class="st">  # define the latent change variable</span></span>
+<span id="cb46-6"><a href="#cb46-6"></a><span class="st">  change =~ 1*T2</span></span>
+<span id="cb46-7"><a href="#cb46-7"></a><span class="st">  </span></span>
+<span id="cb46-8"><a href="#cb46-8"></a><span class="st">  #estimate means</span></span>
+<span id="cb46-9"><a href="#cb46-9"></a><span class="st">  change ~ 1</span></span>
+<span id="cb46-10"><a href="#cb46-10"></a><span class="st">  T1 ~ 1</span></span>
+<span id="cb46-11"><a href="#cb46-11"></a><span class="st">  </span></span>
+<span id="cb46-12"><a href="#cb46-12"></a><span class="st">  #Constrains mean of T2 to 0</span></span>
+<span id="cb46-13"><a href="#cb46-13"></a><span class="st">  T2 ~0*1</span></span>
+<span id="cb46-14"><a href="#cb46-14"></a></span>
+<span id="cb46-15"><a href="#cb46-15"></a><span class="st">  #estimate variance of change</span></span>
+<span id="cb46-16"><a href="#cb46-16"></a><span class="st">  change ~~ change</span></span>
+<span id="cb46-17"><a href="#cb46-17"></a></span>
+<span id="cb46-18"><a href="#cb46-18"></a><span class="st">  #estimate variance of T1 intercept</span></span>
+<span id="cb46-19"><a href="#cb46-19"></a><span class="st">  T1 ~~ T1</span></span>
+<span id="cb46-20"><a href="#cb46-20"></a><span class="st">  </span></span>
+<span id="cb46-21"><a href="#cb46-21"></a><span class="st">  #constrain variance of T2 to 0</span></span>
+<span id="cb46-22"><a href="#cb46-22"></a><span class="st">  T2 ~~ 0*T2</span></span>
+<span id="cb46-23"><a href="#cb46-23"></a></span>
+<span id="cb46-24"><a href="#cb46-24"></a><span class="st">  #intercept slope covariance</span></span>
+<span id="cb46-25"><a href="#cb46-25"></a><span class="st">  change ~~ T1</span></span>
+<span id="cb46-26"><a href="#cb46-26"></a><span class="st">'</span></span>
+<span id="cb46-27"><a href="#cb46-27"></a></span>
+<span id="cb46-28"><a href="#cb46-28"></a>latent.change <span class="ot">&lt;-</span> <span class="fu">sem</span>(latent.change, <span class="at">data=</span>df)</span>
+<span id="cb46-29"><a href="#cb46-29"></a><span class="fu">summary</span>(latent.change)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-11 ended normally after 18 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         5
+                                                      
+  Number of observations                           200
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  change =~                                           
+    T2                1.000                           
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  T2 ~                                                
+    T1                1.000                           
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  change ~~                                           
+    T1               -0.035    0.006   -5.553    0.000
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+    change            0.041    0.012    3.367    0.001
+    T1                0.361    0.033   10.774    0.000
+   .T2                0.000                           
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+    change            0.030    0.003   10.000    0.000
+    T1                0.224    0.022   10.000    0.000
+   .T2                0.000                           </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">describe</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       vars   n   mean    sd median trimmed   mad   min    max  range  skew
+id*       1 200 100.50 57.88 100.50  100.50 74.13  1.00 200.00 199.00  0.00
+group*    2 200   1.50  0.50   1.50    1.50  0.74  1.00   2.00   1.00  0.00
+T1        3 200   0.36  0.47   0.41    0.35  0.61 -0.59   1.51   2.10  0.06
+T2        4 200   0.40  0.43   0.35    0.40  0.61 -0.54   1.17   1.71  0.01
+diff      5 200   0.04  0.17   0.06    0.05  0.17 -0.47   0.50   0.98 -0.44
+       kurtosis   se
+id*       -1.22 4.09
+group*    -2.01 0.04
+T1        -1.16 0.03
+T2        -1.59 0.03
+diff      -0.05 0.01</code></pre>
+</div>
+</div>
+<p>Change now has an intercept and a variance – just like in growth curves!</p>
+</section>
+<section id="residualized-latent-change-score" class="slide level2">
+<h2>Residualized latent change score</h2>
+<p>Note that we haven’t yet removed the variance from the T1 (control for T1). There is a negative assocaition between where people start and how much they change.</p>
+<p>This may or may not be something you want to do. It is mostly helpful if change has occurred prior to T1 and you are looking at the impact of some variable on change. If you are doing an intervention that takes place after T1 then maybe stick to latent change model. If you are measuring a developmental process across time and want to make sure that initial levels aren’t influencing change then you may want to do this. If you are doing that but think that initial levels are related to the change process then maybe you would be over controlling, wiping away what may be important. ¯_(ツ)_/¯</p>
+
+
+<img data-src="res.lat.change.png" class="r-stretch"><div class="footer footer-default">
+
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          let href = ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>

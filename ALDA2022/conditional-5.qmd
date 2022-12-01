@@ -1103,6 +1103,7 @@ $$\mathbf R  \sim \operatorname{LKJ}(2)$$
 
 note: 1) brms default is to use log-link when modeling sigma
 2) |i| syntax within the parentheses allow for correlated random effects. Without this, the random intercept and slope would not be correlated with the random sigma term, effectively setting the correlation equal to zero 
+
 ```{r}
 #| code-fold: true
 melsm.2 <-
@@ -1275,28 +1276,18 @@ melsm %>%
 ```
 
 
----
-
-```{r}
-#| code-fold: true
- melsm %>% 
-  data_grid(day01 = seq_range(day01, n = 20), record_id) %>% 
-  add_linpred_draws(melsm.3, re_formula = NA, dpar = T) %>% 
-  ggplot()+
-  aes(x = day01, y = sigma) +
-  stat_lineribbon(.width = 0.95, alpha = .5)
-```
-
 
 ---
 
 Lets look at random effects. Remember we fit a random effect for both the intercept and the slope (time)
+
 ```{r}
 #| code-fold: true
 melsm.3 %>% 
 spread_draws(r_record_id__sigma[ID, term]) %>% 
   mutate(r_record_id__sigma = exp(r_record_id__sigma)) 
 ```
+
 193 * 8000 *2
 
 ---

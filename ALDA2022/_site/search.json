@@ -74,7 +74,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Motivation and handling data\nLongitudinal MLM\nLongitudinal SEM\nLines that Bend\nPredictors"
+    "text": "Motivation and handling data\nLongitudinal MLM\nLongitudinal SEM\nLines that Bend\nPredictors\nMultivarite"
   },
   {
     "objectID": "intro-1.html#individual-level",
@@ -1489,5 +1489,103 @@
     "title": "conditional",
     "section": "Sigma is unmodeled variation",
     "text": "Sigma is unmodeled variation\n\n\nCode\nnewd <-\n  melsm %>% \n  filter(record_id %in% c(30, 115)) %>% \n  select(record_id, N_A.std, day01)\n\nfits <- newd %>%\n  add_epred_draws(melsm.1)\n\npreds <- newd %>%\n  add_predicted_draws(melsm.1)\n\nfits %>% \nggplot(aes(x = day01, y = N_A.std)) +\n  stat_lineribbon(aes(y = .epred),.width = c(.95), alpha = 1/4, color =\"grey\") +\n  stat_lineribbon(data = preds, aes(y = .prediction),.width = c(.90), alpha = 1/4, color =\"blue\") +\n  geom_point(data = newd) +\n  facet_wrap(~record_id)"
+  },
+  {
+    "objectID": "multi-6.html#multiple-dvs",
+    "href": "multi-6.html#multiple-dvs",
+    "title": "multivariate",
+    "section": "Multiple DVs",
+    "text": "Multiple DVs\n\nNormally we are only interested in 1 DV at a time. However, many theories incorprate multiple DVs. With longitudinal models it is easy to incorporate multivariate questions.\nSEM is well suited for multiple DVs as there is less of an emphasis on a single traidtional equation. “If you can draw it you can model it”\nSome ~basic multivariate models can be run with MLM"
+  },
+  {
+    "objectID": "multi-6.html#growth-models-x2",
+    "href": "multi-6.html#growth-models-x2",
+    "title": "multivariate",
+    "section": "Growth models x2",
+    "text": "Growth models x2\nWhat does a multivariate growth model look like?\n\n\nCode\naffect <- read.csv(\"https://raw.githubusercontent.com/josh-jackson/longitudinal-2022/main/longitudinal.csv\")\nlibrary(lavaan)\nlibrary(tidyverse)\n\n\n\nmodel.1 <- '  i =~ 1*PosAFF11 + 1*PosAFF12 + 1*PosAFF13 \n            s =~ 0*PosAFF11 + 1*PosAFF12 + 2*PosAFF13'\n\nfit.1 <- growth(model.1, data=affect)\nsummary(fit.1)\n\n\nlavaan 0.6-11 ended normally after 31 iterations\n\n  Estimator                                         ML\n  Optimization method                           NLMINB\n  Number of model parameters                         8\n                                                      \n  Number of observations                           368\n                                                      \nModel Test User Model:\n                                                      \n  Test statistic                                 0.016\n  Degrees of freedom                                 1\n  P-value (Chi-square)                           0.898\n\nParameter Estimates:\n\n  Standard errors                             Standard\n  Information                                 Expected\n  Information saturated (h1) model          Structured\n\nLatent Variables:\n                   Estimate  Std.Err  z-value  P(>|z|)\n  i =~                                                \n    PosAFF11          1.000                           \n    PosAFF12          1.000                           \n    PosAFF13          1.000                           \n  s =~                                                \n    PosAFF11          0.000                           \n    PosAFF12          1.000                           \n    PosAFF13          2.000                           \n\nCovariances:\n                   Estimate  Std.Err  z-value  P(>|z|)\n  i ~~                                                \n    s                -0.041    0.026   -1.609    0.108\n\nIntercepts:\n                   Estimate  Std.Err  z-value  P(>|z|)\n   .PosAFF11          0.000                           \n   .PosAFF12          0.000                           \n   .PosAFF13          0.000                           \n    i                 3.210    0.035   91.085    0.000\n    s                 0.045    0.020    2.268    0.023\n\nVariances:\n                   Estimate  Std.Err  z-value  P(>|z|)\n   .PosAFF11          0.314    0.049    6.456    0.000\n   .PosAFF12          0.244    0.024   10.322    0.000\n   .PosAFF13          0.185    0.038    4.930    0.000\n    i                 0.210    0.046    4.608    0.000\n    s                 0.024    0.021    1.187    0.235"
+  },
+  {
+    "objectID": "multi-6.html#second-order",
+    "href": "multi-6.html#second-order",
+    "title": "multivariate",
+    "section": "second order",
+    "text": "second order\n\nmv.sec.order <- '\n## define latent variables\nPos1 =~ NA*PosAFF11 + L1*PosAFF11 + L2*PosAFF21 + L3*PosAFF31\nPos2 =~ NA*PosAFF12 + L1*PosAFF12 + L2*PosAFF22 + L3*PosAFF32\nPos3 =~ NA*PosAFF13 + L1*PosAFF13 + L2*PosAFF23 + L3*PosAFF33\n\nNeg1 =~ NA*NegAFF11 + L4*NegAFF11 + L5*NegAFF21 + L6*NegAFF31\nNeg2 =~ NA*NegAFF12 + L4*NegAFF12 + L5*NegAFF22 + L6*NegAFF32\nNeg3 =~ NA*NegAFF13 + L4*NegAFF13 + L5*NegAFF23 + L6*NegAFF33\n\n## intercepts\nPosAFF11 ~ t1*1\nPosAFF21 ~ t2*1\nPosAFF31 ~ t3*1\n\nPosAFF12 ~ t1*1\nPosAFF22 ~ t2*1\nPosAFF32 ~ t3*1\n\nPosAFF13 ~ t1*1\nPosAFF23 ~ t2*1\nPosAFF33 ~ t3*1\n\nNegAFF11 ~ tt1*1\nNegAFF21 ~ tt2*1\nNegAFF31 ~ tt3*1\n\nNegAFF12 ~ tt1*1\nNegAFF22 ~ tt2*1\nNegAFF32 ~ tt3*1\n\nNegAFF13 ~ tt1*1\nNegAFF23 ~ tt2*1\nNegAFF33 ~ tt3*1\n\n\n## correlated residuals across time\nPosAFF11 ~~ PosAFF12 + PosAFF13\nPosAFF12 ~~ PosAFF13\nPosAFF21 ~~ PosAFF22 + PosAFF23\nPosAFF22 ~~ PosAFF23\nPosAFF31 ~~ PosAFF32 + PosAFF33\nPosAFF32 ~~ PosAFF33\n\nNegAFF11 ~~ NegAFF12 + NegAFF13\nNegAFF12 ~~ NegAFF13\nNegAFF21 ~~ NegAFF22 + NegAFF23\nNegAFF22 ~~ NegAFF23\nNegAFF31 ~~ NegAFF32 + NegAFF33\nNegAFF32 ~~ NegAFF33\n\n## latent variable intercepts\nPos1 ~ 0*1\nPos2  ~ 0*1\nPos3  ~ 0*1\n\nNeg1 ~ 0*1\nNeg2  ~ 0*1\nNeg3  ~ 0*1\n\n#model constraints for effect coding\n## loadings must average to 1\nL1 == 3 - L2 - L3\nL4 == 3 - L5 - L6\n## means must average to 0\nt1 == 0 - t2 - t3\ntt1 == 0 - tt2 - tt3\n\ni.p =~ 1*Pos1 + 1*Pos2 + 1*Pos3 \ns.p =~ 0*Pos1 + 1*Pos2 + 2*Pos3\n\ni.n =~ 1*Neg1 + 1*Neg2 + 1*Neg3 \ns.n =~ 0*Neg1 + 1*Neg2 + 2*Neg3'\n\n\nmv.secondorder <- growth(mv.sec.order, data=affect, missing = \"ML\")"
+  },
+  {
+    "objectID": "multi-6.html#bayesian-multivariate-models",
+    "href": "multi-6.html#bayesian-multivariate-models",
+    "title": "multivariate",
+    "section": "Bayesian multivariate models",
+    "text": "Bayesian multivariate models\n\n\nCode\ndata <- \"https://raw.githubusercontent.com/josh-jackson/bayes/master/mlm.csv\"\nmlm <- read.csv(data) \nhead(mlm)\n\n\n  ID group time    CON CON_SAL CON_SMN7    DAN DAN_CON DAN_SAL DAN_SMN7   DMN6\n1  6    PD    4 0.1929  0.0708   0.0088 0.1619  0.1156  0.0739   0.0041 0.1775\n2  6    PD    5 0.1949  0.0862   0.0040 0.1677  0.1173  0.0812   0.0204 0.1512\n3  6    PD    6 0.1811  0.0916  -0.0037 0.2153  0.1636  0.1133   0.0155 0.1733\n4 29    PD    4 0.1594  0.0438  -0.0253 0.1749  0.0161  0.0621   0.0121 0.2145\n5 29    PD    5 0.0881  0.0446  -0.0288 0.1356  0.0377  0.0277   0.0444 0.1338\n6 34  CTRL    4 0.1372  0.0113  -0.0792 0.1659  0.0045 -0.0075   0.0432 0.1250\n  DMN6_CON DMN6_DAN DMN6_SAL DMN6_SMN7    SAL SAL_SMN7   SMN7 wave       date\n1  -0.1162  -0.1184  -0.1264   -0.0257 0.2097   0.0695 0.0352    1 2011-01-07\n2  -0.0709  -0.1177  -0.1214   -0.0342 0.2036   0.0453 0.0504    2 2011-12-19\n3  -0.0994  -0.1215  -0.1622   -0.0295 0.2024   0.0443 0.0135    3 2012-11-12\n4   0.0199  -0.1355  -0.0815   -0.0998 0.2337   0.0552 0.1104    1 2011-10-03\n5   0.0311  -0.0819  -0.0237   -0.0655 0.1229   0.0465 0.0761    2 2012-10-16\n6   0.0493  -0.0893  -0.0539   -0.0655 0.1432   0.0072 0.1226    1 2011-10-27\n  Exclude RSNdata RSNexclude RSNexcludeDevDem  CogDate_0 CCIRtrio_MR_date_0\n1    keep       1       keep             keep 2006-12-08               <NA>\n2    keep       1       keep             keep 2006-12-08               <NA>\n3    keep       1       keep             keep 2006-12-08               <NA>\n4    keep       1       keep          exclude 2007-11-27               <NA>\n5    keep       1       keep          exclude 2007-11-27               <NA>\n6    keep       1       keep             keep 2008-04-17               <NA>\n  Dur_PDsx_0 PIBpos18 Neuro_Dx NeuroCDR_0 NeuroCDR_1 NeuroCDR_2 NeuroCDR_3\n1         NA     PIB-      iPD   PD CDR=0  PD CDR=.5  PD CDR=.5   PD CDR=0\n2         NA     PIB-      iPD   PD CDR=0  PD CDR=.5  PD CDR=.5   PD CDR=0\n3         NA     PIB-      iPD   PD CDR=0  PD CDR=.5  PD CDR=.5   PD CDR=0\n4         NA     PIB-      iPD   PD CDR=0   PD CDR=0       <NA>  PD CDR=.5\n5         NA     PIB-      iPD   PD CDR=0   PD CDR=0       <NA>  PD CDR=.5\n6         NA     PIB-       HC   HC CDR=0       <NA>       <NA>       <NA>\n  NeuroCDR_4 NeuroCDR_5 NeuroCDR_6 NeuroCDR_7 NeuroCDR_8  YOB    Sex Ethnicity\n1  PD CDR=.5  PD CDR=.5  PD CDR=.5  PD CDR=.5 PD CDR=0.5 1937 female caucasian\n2  PD CDR=.5  PD CDR=.5  PD CDR=.5  PD CDR=.5 PD CDR=0.5 1937 female caucasian\n3  PD CDR=.5  PD CDR=.5  PD CDR=.5  PD CDR=.5 PD CDR=0.5 1937 female caucasian\n4  PD CDR=.5   PD CDR=1  PD CDR=.5       <NA>       <NA> 1935   male caucasian\n5  PD CDR=.5   PD CDR=1  PD CDR=.5       <NA>       <NA> 1935   male caucasian\n6   HC CDR=0       <NA>   HC CDR=0       <NA>       <NA> 1944 female caucasian\n  Education APOEs APOE4 Orig_MCBP_30to60    Asyn    Abeta Total_Tau      week\n1        14    33     0     -0.084801180      NA       NA        NA 0.0000000\n2        14    33     0     -0.084801180      NA       NA        NA 0.9479452\n3        14    33     0     -0.084801180      NA       NA        NA 1.8493151\n4        14    23     0      0.001760821 3356.47 1273.076   357.214 0.0000000\n5        14    23     0      0.001760821 3356.47 1273.076   357.214 1.0383562\n6        12    33     0      0.105326328      NA       NA        NA 0.0000000\n  Cog_rest_datediff\n1                NA\n2                NA\n3                NA\n4                NA\n5                NA\n6                NA"
+  },
+  {
+    "objectID": "multi-6.html#more-complex-sem-multivariate-models",
+    "href": "multi-6.html#more-complex-sem-multivariate-models",
+    "title": "multivariate",
+    "section": "More complex SEM multivariate models",
+    "text": "More complex SEM multivariate models\nSuggested readings:\nhttps://www.annualreviews.org/doi/abs/10.1146/annurev.psych.60.110707.163612\nhttps://www.sciencedirect.com/science/article/pii/S187892931730021X#sec0125"
+  },
+  {
+    "objectID": "multi-6.html#two-wave-assessments",
+    "href": "multi-6.html#two-wave-assessments",
+    "title": "multivariate",
+    "section": "Two wave assessments",
+    "text": "Two wave assessments\nHow to measure change, or should we? https://www.gwern.net/docs/dnb/1970-cronbach.pdf This paper lays out some of the problems that occur with standard treatments of two wave assessments.\nThe most basic two wave form of change is a difference score. However, many have said these are problematic. The issues are: 1. hard to separate measurement error from true change\n2. unreliable estimate of change\n3. initial level (or last level) may be driving change. How to account for?"
+  },
+  {
+    "objectID": "multi-6.html#lords-paradox",
+    "href": "multi-6.html#lords-paradox",
+    "title": "multivariate",
+    "section": "Lords Paradox",
+    "text": "Lords Paradox\nThis has lead to what is known as Lord’s paradox. Take the two approaches above, simplified to:\nlm(t2-t1 ~ group)\nlm(t2 ~ t1 + group)\n\n\n\n\nhead(df)\n\n  id group          T1          T2          diff\n1  1    Tx -0.30176644 -0.07218389  0.2295825445\n2  2    Tx  0.06935731  0.09741980  0.0280624915\n3  3    Tx  0.27111029  0.12699551 -0.1441147849\n4  4    Tx -0.58642443 -0.16449642  0.4219280069\n5  5    Tx  0.10728117  0.07408057 -0.0332006005\n6  6    Tx  0.12651397  0.12665183  0.0001378524"
+  },
+  {
+    "objectID": "multi-6.html#change-scoregain-score-model",
+    "href": "multi-6.html#change-scoregain-score-model",
+    "title": "multivariate",
+    "section": "change score/gain score model",
+    "text": "change score/gain score model\n\nsummary(lm(diff ~ group, df)) \n\n\nCall:\nlm(formula = diff ~ group, data = df)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-0.5174 -0.1133  0.0208  0.1310  0.4612 \n\nCoefficients:\n             Estimate Std. Error t value Pr(>|t|)  \n(Intercept)  0.038975   0.017300   2.253   0.0254 *\ngroupControl 0.004028   0.024466   0.165   0.8694  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.173 on 198 degrees of freedom\nMultiple R-squared:  0.0001369, Adjusted R-squared:  -0.004913 \nF-statistic: 0.02711 on 1 and 198 DF,  p-value: 0.8694"
+  },
+  {
+    "objectID": "multi-6.html#residualized-change-score-model",
+    "href": "multi-6.html#residualized-change-score-model",
+    "title": "multivariate",
+    "section": "residualized change score model",
+    "text": "residualized change score model\n\nsummary(lm(T2 ~ group + T1, df))\n\n\nCall:\nlm(formula = T2 ~ group + T1, data = df)\n\nResiduals:\n      Min        1Q    Median        3Q       Max \n-0.315819 -0.066341  0.005835  0.060977  0.268154 \n\nCoefficients:\n             Estimate Std. Error t value Pr(>|t|)    \n(Intercept)   0.01724    0.01008    1.71   0.0888 .  \ngroupControl  0.44744    0.02648   16.90   <2e-16 ***\nT1            0.44538    0.02797   15.92   <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.1002 on 197 degrees of freedom\nMultiple R-squared:  0.9463,    Adjusted R-squared:  0.9457 \nF-statistic:  1734 on 2 and 197 DF,  p-value: < 2.2e-16"
+  },
+  {
+    "objectID": "multi-6.html#residualized-change-model",
+    "href": "multi-6.html#residualized-change-model",
+    "title": "multivariate",
+    "section": "Residualized change model",
+    "text": "Residualized change model\n\nOur latent residual can be conceptualized as what is left over from T2 after accounting for T1 (based on the average association between T1 and T2). We now have a measure of error/change that is not correlated to T1."
+  },
+  {
+    "objectID": "multi-6.html#residual-sd-from-the-regression-output-is-equal-to-the-sem-variance",
+    "href": "multi-6.html#residual-sd-from-the-regression-output-is-equal-to-the-sem-variance",
+    "title": "multivariate",
+    "section": "residual sd from the regression output is equal to the SEM variance",
+    "text": "residual sd from the regression output is equal to the SEM variance\n\n0.1565^2\n\n[1] 0.02449225\n\n\nNote that this isn’t telling us anything about the difference score or even the means of the numbers per se.\n\nlibrary(psych)\ndescribe(df)\n\n       vars   n   mean    sd median trimmed   mad   min    max  range  skew\nid*       1 200 100.50 57.88 100.50  100.50 74.13  1.00 200.00 199.00  0.00\ngroup*    2 200   1.50  0.50   1.50    1.50  0.74  1.00   2.00   1.00  0.00\nT1        3 200   0.36  0.47   0.41    0.35  0.61 -0.59   1.51   2.10  0.06\nT2        4 200   0.40  0.43   0.35    0.40  0.61 -0.54   1.17   1.71  0.01\ndiff      5 200   0.04  0.17   0.06    0.05  0.17 -0.47   0.50   0.98 -0.44\n       kurtosis   se\nid*       -1.22 4.09\ngroup*    -2.01 0.04\nT1        -1.16 0.03\nT2        -1.59 0.03\ndiff      -0.05 0.01\n\n\nThis is why I am not a fan of the residualzed change score. It doesn’t get at change the way we typically think of it. Previously our MLMs provide a way to think about what change means, and SEMs will do the same."
+  },
+  {
+    "objectID": "multi-6.html#latent-change-score",
+    "href": "multi-6.html#latent-change-score",
+    "title": "multivariate",
+    "section": "Latent change score",
+    "text": "Latent change score\nLooping back to concerns about difference scores and residualized change scores, we can address these using SEM. The problems raised above\n\nIt isn’t true change, as you are implying people change similarly\nChange is likely associated with T1\nHard to separate measurement error from true change\n\ngo away when:\n\nExamine absolute differences\n\nAble to separate (account for) initial levels from change.\n\nMeasuring change latently, and thus error free.\n\nNumber 2 is accomplished above in the residualized change models. However, what is not accomplished is getting terms similar to the slope component of a growth curve ie absolute change. Nor does it account for measurement error"
+  },
+  {
+    "objectID": "multi-6.html#lets-compare-this-with-our-old-trusty-mlm-friend",
+    "href": "multi-6.html#lets-compare-this-with-our-old-trusty-mlm-friend",
+    "title": "multivariate",
+    "section": "Lets compare this with our old trusty mlm friend",
+    "text": "Lets compare this with our old trusty mlm friend\n\n\nCode\ndf.long <- df %>% \n  pivot_longer(cols=T1:T2, names_to = c(\"drop\",\"time\"),names_pattern = \"([A-Za-z]+)(\\\\d+)\", values_to = \"value\") %>% \n  select(-drop) %>% \n  mutate(time = as.numeric(time)) %>% \n  mutate(time = time -1)\nhead(df.long)\n\n\n# A tibble: 6 × 5\n  id    group    diff  time   value\n  <fct> <fct>   <dbl> <dbl>   <dbl>\n1 1     Tx     0.230      0 -0.302 \n2 1     Tx     0.230      1 -0.0722\n3 2     Tx     0.0281     0  0.0694\n4 2     Tx     0.0281     1  0.0974\n5 3     Tx    -0.144      0  0.271 \n6 3     Tx    -0.144      1  0.127 \n\n\n\n\nCode\nlibrary(lme4)\nmlm.1 <- lmer(value ~  time + (1  | id ), data = df.long)\nsummary(mlm.1)\n\n\nLinear mixed model fit by REML ['lmerMod']\nFormula: value ~ time + (1 | id)\n   Data: df.long\n\nREML criterion at convergence: 118.1\n\nScaled residuals: \n     Min       1Q   Median       3Q      Max \n-1.99283 -0.47843 -0.02817  0.51432  2.38752 \n\nRandom effects:\n Groups   Name        Variance Std.Dev.\n id       (Intercept) 0.19014  0.436   \n Residual             0.01489  0.122   \nNumber of obs: 400, groups:  id, 200\n\nFixed effects:\n            Estimate Std. Error t value\n(Intercept)  0.36056    0.03202  11.261\ntime         0.04099    0.01220   3.359\n\nCorrelation of Fixed Effects:\n     (Intr)\ntime -0.191"
+  },
+  {
+    "objectID": "multi-6.html#residualized-latent-change-score",
+    "href": "multi-6.html#residualized-latent-change-score",
+    "title": "multivariate",
+    "section": "Residualized latent change score",
+    "text": "Residualized latent change score\nNote that we haven’t yet removed the variance from the T1 (control for T1). There is a negative assocaition between where people start and how much they change.\nThis may or may not be something you want to do. It is mostly helpful if change has occurred prior to T1 and you are looking at the impact of some variable on change. If you are doing an intervention that takes place after T1 then maybe stick to latent change model. If you are measuring a developmental process across time and want to make sure that initial levels aren’t influencing change then you may want to do this. If you are doing that but think that initial levels are related to the change process then maybe you would be over controlling, wiping away what may be important. ¯_(ツ)_/¯"
   }
 ]
