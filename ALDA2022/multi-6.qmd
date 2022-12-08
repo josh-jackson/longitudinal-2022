@@ -8,15 +8,15 @@ editor: visual
 
 ## Multiple DVs
 
-- Normally we are only interested in 1 DV at a time. However, many theories incorprate multiple DVs. With longitudinal models it is easy to incorporate multivariate questions. 
+-   Normally we are only interested in 1 DV at a time. However, many theories incorprate multiple DVs. With longitudinal models it is easy to incorporate multivariate questions.
 
-- SEM is well suited for multiple DVs as there is less of an emphasis on a single traidtional equation. "If you can draw it you can model it" 
+-   SEM is well suited for multiple DVs as there is less of an emphasis on a single traidtional equation. "If you can draw it you can model it"
 
-- Some ~basic multivariate models can be run with MLM
+-   Some \~basic multivariate models can be run with MLM
 
 ## Growth models x2
 
-What does a multivariate growth model look like? 
+What does a multivariate growth model look like?
 
 ```{r}
 #| code-fold: true
@@ -35,9 +35,7 @@ summary(fit.1)
 
 ```
 
-
-
------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -54,7 +52,6 @@ fit.2 <- growth(model.2, data=affect, missing = "ML")
 summary(fit.2, standardized = TRUE)
 
 ```
-
 
 ## second order
 
@@ -138,15 +135,13 @@ mv.secondorder <- growth(mv.sec.order, data=affect, missing = "ML")
 
 ```
 
-
--------
+------------------------------------------------------------------------
 
 ```{r}
 summary(mv.secondorder, standardized = TRUE)
 ```
 
 ## Bayesian multivariate models
-
 
 ```{r}
 #| code-fold: true
@@ -155,8 +150,7 @@ mlm <- read.csv(data)
 head(mlm)
 ```
 
-
------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -176,10 +170,7 @@ mlm.4 <-
 summary(mlm.4)
 ```
 
-
-
-
------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -197,8 +188,7 @@ summary(mv.1)
 
 ```
 
-
-------
+------------------------------------------------------------------------
 
 ```{r}
 fixef(mv.1)
@@ -211,8 +201,7 @@ mv.1 %>%
    median_qi()
 ```
 
-
--------
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -223,9 +212,7 @@ mv.1 %>%
 
 ```
 
-
---------
-
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -236,8 +223,6 @@ mlm.wide <- mlm %>%
 
 head(mlm.wide)
 ```
-
-
 
 ```{r}
 #| code-fold: true
@@ -254,8 +239,7 @@ fit.bv.c <- growth(bv.c, data = mlm.wide, missing = "ML")
 summary(fit.bv.c,standardized=TRUE)
 ```
 
-
-## More complex SEM multivariate models 
+## More complex SEM multivariate models
 
 Suggested readings:
 
@@ -263,38 +247,34 @@ https://www.annualreviews.org/doi/abs/10.1146/annurev.psych.60.110707.163612
 
 https://www.sciencedirect.com/science/article/pii/S187892931730021X#sec0125
 
-
 ## Two wave assessments
 
-How to measure change, or should we? https://www.gwern.net/docs/dnb/1970-cronbach.pdf This paper lays out some of the problems that occur with standard treatments of two wave assessments. 
+How to measure change, or should we? https://www.gwern.net/docs/dnb/1970-cronbach.pdf This paper lays out some of the problems that occur with standard treatments of two wave assessments.
 
-The most basic two wave form of change is a difference score. However, many have said these are problematic. 
-The issues are: 
-1. hard to separate measurement error from true change  
-2. unreliable estimate of change  
-3. initial level (or last level) may be driving change. How to account for? 
+The most basic two wave form of change is a difference score. However, many have said these are problematic. The issues are: 1. hard to separate measurement error from true change\
+2. unreliable estimate of change\
+3. initial level (or last level) may be driving change. How to account for?
 
-----
+------------------------------------------------------------------------
 
-- The alternative is a standard residual gain/change score where you regress time 2 onto time 1. This overcomes some of the issues raised about because we are being conservative about the error by "regressing to the mean" such that people with larger changes than average will have their change scores "shrunken" to the average, must like we do with MLMs. 
+-   The alternative is a standard residual gain/change score where you regress time 2 onto time 1. This overcomes some of the issues raised about because we are being conservative about the error by "regressing to the mean" such that people with larger changes than average will have their change scores "shrunken" to the average, must like we do with MLMs.
 
-- This also helps with accounting for starting values that may be responsible for the changes, as this is literally controlling for the initial level. 
+-   This also helps with accounting for starting values that may be responsible for the changes, as this is literally controlling for the initial level.
 
------
+------------------------------------------------------------------------
 
-The issues with residualized change models, however, are: 
+The issues with residualized change models, however, are:
 
-1. it isn't true change, as you are implying people change similarly 
+1.  it isn't true change, as you are implying people change similarly
 
-2. it does not account for unreliability of change in a principled way 
- 
+2.  it does not account for unreliability of change in a principled way
 
 ## Lords Paradox
 
-This has lead to what is known as Lord's paradox. Take the two approaches above, simplified to: 
+This has lead to what is known as Lord's paradox. Take the two approaches above, simplified to:
 
 `lm(t2-t1 ~ group)`
-  
+
 `lm(t2 ~ t1 + group)`
 
 ```{r, echo = FALSE}
@@ -312,7 +292,6 @@ df = data.frame(id=factor(1:N), group=factor(group, labels=c('Tx', 'Control')), 
 head(df)
 ```
 
-
 ## change score/gain score model
 
 ```{r}
@@ -327,9 +306,9 @@ summary(lm(diff ~ group, df))
 summary(lm(T2 ~ group + T1, df))
 ```
 
-------
+------------------------------------------------------------------------
 
-What is going on? We are asking different questions by not accounting for T1 in the former model. The change score model is accounting for the total effect (in mediation language) whereas the residualized change score model is only interested in the direct effect. 
+What is going on? We are asking different questions by not accounting for T1 in the former model. The change score model is accounting for the total effect (in mediation language) whereas the residualized change score model is only interested in the direct effect.
 
 ```{r}
 #| code-fold: true
@@ -344,8 +323,7 @@ lord <- sem(mod, data=df)
 summary(lord)
 ```
 
-
-------
+------------------------------------------------------------------------
 
 What is not immediately obvious is that the change score can be conceptualized as a series of regressions. Starting with the residualized change score model
 
@@ -355,30 +333,25 @@ If we assume that the relationship (b) between T1 and T2 is 1. We can re-write a
 
 `T2 = 1*T1 + e`
 
-Then we can subtract T1 fro each side of the model, leaving: 
+Then we can subtract T1 fro each side of the model, leaving:
 
 `T2 - T1 = e`
 
-In other words, a change score is equivalent to assuming a perfect regression association (correlation) between timepoints. 
+In other words, a change score is equivalent to assuming a perfect regression association (correlation) between timepoints.
 
-------
+------------------------------------------------------------------------
 
 Here, the residual will be equal to the average change and the variance of that will be the variance in the change. This can be thought of as akin to the mean and variance of our latent slope variable.
 
 Lets visualize each of these models via path models
 
-
 ## Residualized change model
 
 ![](res.change.png)
 
+Our latent residual can be conceptualized as what is left over from T2 after accounting for T1 (based on the average association between T1 and T2). We now have a measure of error/change that is not correlated to T1.
 
-
-
-Our latent residual can be conceptualized as what is left over from T2 after accounting for T1 (based on the average association between T1 and T2). We now have a measure of error/change that is not correlated to T1. 
-
-
-------
+------------------------------------------------------------------------
 
 ```{r}
 res.change <- '
@@ -393,8 +366,7 @@ summary(res.change)
 summary(lm(T2~T1, df))
 ```
 
-
---------
+------------------------------------------------------------------------
 
 ```{r}
 res.change.m <- '
@@ -405,32 +377,33 @@ summary(res.change.m)
 
 ```
 
-## residual sd from the regression output is equal to the SEM variance
-```{r}
+## residual sd from the regression 
 
+```{r}
+#standard error of the estimate from linear model
 0.1565^2
 ```
 
-Note that this isn't telling us anything about the difference score or even the means of the numbers per se. 
+Is equal to the SEM t2 variance. SEM is just regression. 
+
+---------
+
+Note that this model isn't telling us anything about the difference score or even the means of the numbers per se. .845 and .097 are any means or differences.
 ```{r}
 library(psych)
 describe(df)
 ```
 
-This is why I am not a fan of the residualzed change score. It doesn't get at change the way we typically think of it. Previously our MLMs provide a way to think about what change means, and SEMs will do the same.  
+This is why I am not a fan of the residualzed change score. It doesn't get at change the way we typically think of it. Previously our MLMs provide a way to think about what change means, and SEMs will do the same.
 
-##  Latent change score
-Looping back to concerns about difference scores and residualized change scores, we can address these using SEM. The problems raised above 
+## Latent change score
+Using SEM we can have:
 
-- It isn't true change, as you are implying people change similarly
-- Change is likely associated with T1
-- Hard to separate measurement error from true change
+1)  Examine absolute differences 
 
-go away when: 
+2)  Able to separate (account for) initial levels from change 
 
-1) Examine absolute differences   
-2) Able to separate (account for) initial levels from change.   
-3) Measuring change latently, and thus error free.
+3)  Measuring change latently, and thus error free.
 
 Number 2 is accomplished above in the residualized change models. However, what is not accomplished is getting terms similar to the slope component of a growth curve ie absolute change. Nor does it account for measurement error
 
@@ -447,6 +420,8 @@ head(df.long)
 ```
 
 
+---------------------------
+
 ```{r}
 #| code-fold: true
 library(lme4)
@@ -454,42 +429,52 @@ mlm.1 <- lmer(value ~  time + (1  | id ), data = df.long)
 summary(mlm.1)
 ```
 
---------
+------------------------------------------------------------------------
 
-Time equals the absolute difference!! Intercept is the value at T1. I can recreate the mean values with this output. And I can see how people differ at T1. 
+Time equals the absolute difference!! Intercept is the value at T1. I can recreate the mean values with this output. And I can see how people differ at T1.
 
-However, this does not tell you differences in how people change. That is, everyone is assumed to change similarly ie fixed slope. 
+However, this does not tell you differences in how people change. That is, everyone is assumed to change similarly ie fixed slope.
+
+
+--------------
 
 ```{r,eval = FALSE}
 library(lme4)
 mlm.2 <- lmer(value ~  time + (1 + time  | id ), data = df.long)
 ```
-output: 
-Error: number of observations (=400) <= number of random effects (=400) for term (1 + time | id); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable
+
+output: Error: number of observations (=400) \<= number of random effects (=400) for term (1 + time \| id); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable
 
 <sad trombone noise>
 
--------
+------------------------------------------------------------------------
 
-We can either do two things: go with Bayes or go with SEM. SEM is actully more flexible here so lets explore this option. 
+We can either do two things: go with Bayes or go with SEM. SEM is actully more flexible here so lets explore this option.
 
-Knowing what we know about recreating difference scores via constraints, we can also make a latent change score by modifying the same residual path model. This time assuming the association between t1 and t2 are the same. 
+Knowing what we know about recreating difference scores via constraints, we can also make a latent change score by modifying the same residual path model. This time assuming the association between t1 and t2 are the same.
 
-----
 
+--------------
+
+Remember this is our residual change model
+
+![](res.change.png)
+
+And remember that we can recreate a difference score if we set 
+`T2 = 1*T1 + e`
+
+`T2 - T1 = e`
+
+
+------------------------------------------------------------------------
 
 ![](latent.change.png)
 
+Now we can interpret the residual as change, as it is explicitly what is left over from T2 after accoutering for T1. This is starting to look like what we for a growth model.
 
-Now we can interpret the residual as change, as it is explicitly what is left over from T2 after accoutering for T1. This is starting to look like what we for a growth model. 
+------------------------------------------------------------------------
 
------
-
-We have: 
-1. Mean and variance of the slope(change), akin to our random and fixed effects in MLM
-2. Covariance between intercept and slope. 
-
-To test whether or not our slope is significant we can compare that with a model where slope is constrained to be zero. Same for testing the slope variance. 
+We have: 1. Mean and variance of the slope(change), akin to our random and fixed effects in MLM 2. Covariance between intercept and slope.
 
 
 ```{r}
@@ -526,22 +511,112 @@ summary(latent.change)
 
 ```
 
-
------
+------------------------------------------------------------------------
 
 ```{r}
 describe(df)
 ```
 
-Change now has an intercept and a variance -- just like in growth curves! 
-
+Change now has an intercept and a variance -- just like in growth curves!
 
 ## Residualized latent change score
 
-Note that we haven't yet removed the variance from the T1 (control for T1). There is a negative assocaition between where people start and how much they change. 
-
-This may or may not be something you want to do. It is mostly helpful if change has occurred prior to T1 and you are looking at the impact of some variable on change. If you are doing an intervention that takes place after T1 then maybe stick to latent change model. If you are measuring a developmental process across time and want to make sure that initial levels aren't influencing change then you may want to do this. If you are doing that but think that initial levels are related to the change process then maybe you would be over controlling, wiping away what may be important. ¯\_(ツ)_/¯
+Note that we haven't yet removed the variance from the T1 (control for T1). 
 
 
 ![](res.lat.change.png)
+
+
+-------
+
+This may or may not be something you want to do. It is mostly helpful if change has occurred prior to T1 and you are looking at the impact of some variable on change. If you are doing an intervention that takes place after T1 then maybe stick to latent change model. If you are measuring a developmental process across time and want to make sure that initial levels aren't influencing change then you may want to do this. If you are doing that but think that initial levels are related to the change process then maybe you would be over controlling, wiping away what may be important. ¯\_(ツ)\_/¯
+
+
+-------
+
+```{r}
+#| code-fold: true
+m.1 <- '
+  #define difference score
+  T2 ~ 1*T1
+  
+  # define the latent change variable
+  change =~ 1*T2
+  
+  #estimate means
+  change ~ 1
+  T1 ~ 1
+  
+  #Constrains mean of T2 to 0
+  T2 ~0*1
+
+  #estimate variance of change
+  change ~~ change
+
+  #estimate variance of T1 intercept
+  T1 ~~ T1
+  
+  #constrain variance of T2 to 0
+  T2 ~~ 0*T2
+
+  #intercept slope covariance
+  change ~~ T1
+  
+  ## use group as a predictor
+  change ~ group
+'
+
+fit.1 <- sem(m.1, data=df)
+summary(fit.1)
+
+```
+
+## expanding to more than 2 timepoints
+
+## Cross-lagged panel model
+some cons:
+1. Arbitrary starting point can change association
+2. Time between lags can influence results because changes may not be aligned with assessment
+3. Different constructs may change at different rates
+4. Theoretically, the model suggest that one point in time influences change in some other construct. Why would Tuesday at 2 be so important, why not Thursday at 4?
+5. does not seperate within and betwene person processes
+
+## RI-CLPM
+
+Helps some of the cons, not all. 
+
+## LGCM-SR
+
+Helps with some of the cons of RI-CLPM, but not all
+
+## Latent change (difference) model
+
+Takes our two wave change model and expands it
+
+![](latent.latent.png)
+
+
+---------
+
+
+![](F5.large.jpg)
+
+
+
+
+## A unifying framework
+
+All of these two wave and cross lagged models are monsters in a number of ways. 1. They are huge and complicated messes.2. They combine different aspects of other models. Much like Frakenstein, they are built by parts of other models. 
+
+Because they all can be built from one another the models can be thought of as subsets of one another. The differences are typically theoretical in nature. See this paper for an overview: 
+
+https://pdfs.semanticscholar.org/fbf1/167a9ada8b416267ea75a258f8f2881f6654.pdf
+
+
+
+
+
+
+
+
 

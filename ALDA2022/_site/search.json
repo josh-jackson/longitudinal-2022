@@ -1572,20 +1572,69 @@
     "href": "multi-6.html#latent-change-score",
     "title": "multivariate",
     "section": "Latent change score",
-    "text": "Latent change score\nLooping back to concerns about difference scores and residualized change scores, we can address these using SEM. The problems raised above\n\nIt isn’t true change, as you are implying people change similarly\nChange is likely associated with T1\nHard to separate measurement error from true change\n\ngo away when:\n\nExamine absolute differences\n\nAble to separate (account for) initial levels from change.\n\nMeasuring change latently, and thus error free.\n\nNumber 2 is accomplished above in the residualized change models. However, what is not accomplished is getting terms similar to the slope component of a growth curve ie absolute change. Nor does it account for measurement error"
+    "text": "Latent change score\nUsing SEM we can have:\n\nExamine absolute differences\nAble to separate (account for) initial levels from change\nMeasuring change latently, and thus error free.\n\nNumber 2 is accomplished above in the residualized change models. However, what is not accomplished is getting terms similar to the slope component of a growth curve ie absolute change. Nor does it account for measurement error"
   },
   {
     "objectID": "multi-6.html#lets-compare-this-with-our-old-trusty-mlm-friend",
     "href": "multi-6.html#lets-compare-this-with-our-old-trusty-mlm-friend",
     "title": "multivariate",
     "section": "Lets compare this with our old trusty mlm friend",
-    "text": "Lets compare this with our old trusty mlm friend\n\n\nCode\ndf.long <- df %>% \n  pivot_longer(cols=T1:T2, names_to = c(\"drop\",\"time\"),names_pattern = \"([A-Za-z]+)(\\\\d+)\", values_to = \"value\") %>% \n  select(-drop) %>% \n  mutate(time = as.numeric(time)) %>% \n  mutate(time = time -1)\nhead(df.long)\n\n\n# A tibble: 6 × 5\n  id    group    diff  time   value\n  <fct> <fct>   <dbl> <dbl>   <dbl>\n1 1     Tx     0.230      0 -0.302 \n2 1     Tx     0.230      1 -0.0722\n3 2     Tx     0.0281     0  0.0694\n4 2     Tx     0.0281     1  0.0974\n5 3     Tx    -0.144      0  0.271 \n6 3     Tx    -0.144      1  0.127 \n\n\n\n\nCode\nlibrary(lme4)\nmlm.1 <- lmer(value ~  time + (1  | id ), data = df.long)\nsummary(mlm.1)\n\n\nLinear mixed model fit by REML ['lmerMod']\nFormula: value ~ time + (1 | id)\n   Data: df.long\n\nREML criterion at convergence: 118.1\n\nScaled residuals: \n     Min       1Q   Median       3Q      Max \n-1.99283 -0.47843 -0.02817  0.51432  2.38752 \n\nRandom effects:\n Groups   Name        Variance Std.Dev.\n id       (Intercept) 0.19014  0.436   \n Residual             0.01489  0.122   \nNumber of obs: 400, groups:  id, 200\n\nFixed effects:\n            Estimate Std. Error t value\n(Intercept)  0.36056    0.03202  11.261\ntime         0.04099    0.01220   3.359\n\nCorrelation of Fixed Effects:\n     (Intr)\ntime -0.191"
+    "text": "Lets compare this with our old trusty mlm friend\n\n\nCode\ndf.long <- df %>% \n  pivot_longer(cols=T1:T2, names_to = c(\"drop\",\"time\"),names_pattern = \"([A-Za-z]+)(\\\\d+)\", values_to = \"value\") %>% \n  select(-drop) %>% \n  mutate(time = as.numeric(time)) %>% \n  mutate(time = time -1)\nhead(df.long)\n\n\n# A tibble: 6 × 5\n  id    group    diff  time   value\n  <fct> <fct>   <dbl> <dbl>   <dbl>\n1 1     Tx     0.230      0 -0.302 \n2 1     Tx     0.230      1 -0.0722\n3 2     Tx     0.0281     0  0.0694\n4 2     Tx     0.0281     1  0.0974\n5 3     Tx    -0.144      0  0.271 \n6 3     Tx    -0.144      1  0.127"
   },
   {
     "objectID": "multi-6.html#residualized-latent-change-score",
     "href": "multi-6.html#residualized-latent-change-score",
     "title": "multivariate",
     "section": "Residualized latent change score",
-    "text": "Residualized latent change score\nNote that we haven’t yet removed the variance from the T1 (control for T1). There is a negative assocaition between where people start and how much they change.\nThis may or may not be something you want to do. It is mostly helpful if change has occurred prior to T1 and you are looking at the impact of some variable on change. If you are doing an intervention that takes place after T1 then maybe stick to latent change model. If you are measuring a developmental process across time and want to make sure that initial levels aren’t influencing change then you may want to do this. If you are doing that but think that initial levels are related to the change process then maybe you would be over controlling, wiping away what may be important. ¯_(ツ)_/¯"
+    "text": "Residualized latent change score\nNote that we haven’t yet removed the variance from the T1 (control for T1)."
+  },
+  {
+    "objectID": "multi-6.html#residual-sd-from-the-regression",
+    "href": "multi-6.html#residual-sd-from-the-regression",
+    "title": "multivariate",
+    "section": "residual sd from the regression",
+    "text": "residual sd from the regression\n\n#standard error of the estimate from linear model\n0.1565^2\n\n[1] 0.02449225\n\n\nIs equal to the SEM t2 variance. SEM is just regression."
+  },
+  {
+    "objectID": "multi-6.html#expanding-to-more-than-2-timepoints",
+    "href": "multi-6.html#expanding-to-more-than-2-timepoints",
+    "title": "multivariate",
+    "section": "expanding to more than 2 timepoints",
+    "text": "expanding to more than 2 timepoints"
+  },
+  {
+    "objectID": "multi-6.html#cross-lagged-panel-model",
+    "href": "multi-6.html#cross-lagged-panel-model",
+    "title": "multivariate",
+    "section": "Cross-lagged panel model",
+    "text": "Cross-lagged panel model\nsome cons: 1. Arbitrary starting point can change association 2. Time between lags can influence results because changes may not be aligned with assessment 3. Different constructs may change at different rates 4. Theoretically, the model suggest that one point in time influences change in some other construct. Why would Tuesday at 2 be so important, why not Thursday at 4? 5. does not seperate within and betwene person processes"
+  },
+  {
+    "objectID": "multi-6.html#ri-clpm",
+    "href": "multi-6.html#ri-clpm",
+    "title": "multivariate",
+    "section": "RI-CLPM",
+    "text": "RI-CLPM\nHelps some of the cons, not all."
+  },
+  {
+    "objectID": "multi-6.html#lgcm-sr",
+    "href": "multi-6.html#lgcm-sr",
+    "title": "multivariate",
+    "section": "LGCM-SR",
+    "text": "LGCM-SR\nHelps with some of the cons of RI-CLPM, but not all"
+  },
+  {
+    "objectID": "multi-6.html#latent-change-difference-model",
+    "href": "multi-6.html#latent-change-difference-model",
+    "title": "multivariate",
+    "section": "Latent change (difference) model",
+    "text": "Latent change (difference) model\nTakes our two wave change model and expands it"
+  },
+  {
+    "objectID": "multi-6.html#a-unifying-framework",
+    "href": "multi-6.html#a-unifying-framework",
+    "title": "multivariate",
+    "section": "A unifying framework",
+    "text": "A unifying framework\nAll of these two wave and cross lagged models are monsters in a number of ways. 1. They are huge and complicated messes.2. They combine different aspects of other models. Much like Frakenstein, they are built by parts of other models.\nBecause they all can be built from one another the models can be thought of as subsets of one another. The differences are typically theoretical in nature. See this paper for an overview:\nhttps://pdfs.semanticscholar.org/fbf1/167a9ada8b416267ea75a258f8f2881f6654.pdf"
   }
 ]
